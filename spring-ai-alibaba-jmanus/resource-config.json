@@ -1,0 +1,27 @@
+{
+  "resources": {
+    "includes": [
+      {"pattern": "\\QMETA-INF/spring.factories\\E"},
+      {"pattern": "\\QMETA-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports\\E"},
+      {"pattern": "\\QMETA-INF/spring/org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration.imports\\E"},
+      {"pattern": "\\Qapplication.yml\\E"},
+      {"pattern": "\\Qapplication.yaml\\E"},
+      {"pattern": "\\Qapplication.properties\\E"},
+      {"pattern": "\\Qapplication-*.yml\\E"},
+      {"pattern": "\\Qapplication-*.yaml\\E"},
+      {"pattern": "\\Qapplication-*.properties\\E"},
+      {"pattern": "\\Qlog4j2.xml\\E"},
+      {"pattern": "\\Qlogback-spring.xml\\E"},
+      {"pattern": "\\Qlogback.xml\\E"},
+      {"pattern": "\\Qstatic/.*\\E"},
+      {"pattern": "\\Qtemplates/.*\\E"},
+      {"pattern": "\\Qpublic/.*\\E"},
+      {"pattern": "\\Q.properties\\E"},
+      {"pattern": "\\Q.xml\\E"},
+      {"pattern": "\\Q.json\\E"},
+      {"pattern": "\\Q.yml\\E"},
+      {"pattern": "\\Q.yaml\\E"}
+    ]
+  },
+  "bundles": []
+}

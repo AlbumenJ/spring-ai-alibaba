@@ -1,0 +1,343 @@
+[
+    {
+        "name": "java.lang.String",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "java.lang.Object",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "java.util.ArrayList",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "java.util.HashMap",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.h2.Driver",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.h2.Driver",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.postgresql.Driver",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.mysql.cj.jdbc.Driver",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.config.ManusProperties",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.config.IConfigService",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.config.ConfigService",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.aop.framework.CglibAopProxy",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.aop.framework.CglibAopProxy$SerializableNoOp",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.Dispatcher",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.MethodInterceptor",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.Enhancer",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.boot.context.properties.ConfigurationPropertiesBean",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.dynamic.agent.service.DynamicAgentLoader",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.dynamic.agent.service.AgentServiceImpl",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.planning.PlanningFactory",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.alibaba.cloud.ai.example.manus.llm.LlmService",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.Enhancer",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.MethodProxy",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.Callback",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "org.springframework.cglib.proxy.Factory",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "allDeclaredFields": true
+    },
+  {
+    "name": "com.microsoft.playwright.impl.DriverJar",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.impl.Message",
+    "unsafeAllocated": true,
+    "fields": [
+      { "name": "id" },
+      { "name": "guid" },
+      { "name": "method" },
+      { "name": "params" },
+      { "name": "result" },
+      { "name": "error" }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.Browser$NewContextOptions",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.options.ViewportSize",
+    "unsafeAllocated": true,
+    "fields": [
+      { "name": "width" },
+      { "name": "height" }
+    ],
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["int", "int"] }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.options.HttpHeader",
+    "unsafeAllocated": true,
+    "fields": [
+      { "name": "name" },
+      { "name": "value" }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.options.Timing",
+    "unsafeAllocated": true,
+    "fields": [
+      { "name": "startTime" },
+      { "name": "domainLookupStart" },
+      { "name": "domainLookupEnd" },
+      { "name": "connectStart" },
+      { "name": "secureConnectionStart" },
+      { "name": "connectEnd" },
+      { "name": "requestStart" },
+      { "name": "responseStart" },
+      { "name": "responseEnd" }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.impl.SerializedArgument",
+    "fields": [
+      { "name": "value" },
+      { "name": "handles" }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.impl.SerializedValue",
+    "fields": [
+      { "name": "n" },
+      { "name": "b" },
+      { "name": "s" },
+      { "name": "v" },
+      { "name": "d" },
+      { "name": "r" },
+      { "name": "a" },
+      { "name": "o" },
+      { "name": "h" }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.impl.SerializedValue$O",
+    "fields": [
+      { "name": "k" },
+      { "name": "v" }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.ElementHandle$ScreenshotOptions",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.Locator$ElementHandleOptions",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  },
+  {
+    "name": "com.microsoft.playwright.Frame$WaitForSelectorOptions",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ]
+  }
+]
