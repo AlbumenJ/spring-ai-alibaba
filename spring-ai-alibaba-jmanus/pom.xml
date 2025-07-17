@@ -442,7 +442,6 @@
                                 <buildArg>-H:IncludeResources=static/.*</buildArg>
                                 <buildArg>-H:IncludeResources=driver/.*</buildArg>
                                 <buildArg>-H:IncludeResources=templates/.*</buildArg>
-                                <buildArg>-H:IncludeResources=.*</buildArg>
                                 <buildArg>--initialize-at-build-time=org.slf4j.LoggerFactory,org.slf4j.impl.StaticLoggerBinder</buildArg>
                                 <buildArg>--initialize-at-run-time=io.netty</buildArg>
                                 <buildArg>-H:DynamicProxyConfigurationFiles=proxy-config.json</buildArg>

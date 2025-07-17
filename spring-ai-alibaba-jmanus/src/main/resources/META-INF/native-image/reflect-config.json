@@ -231,113 +231,616 @@
         "allPublicFields": true,
         "allDeclaredMethods": true,
         "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },{
+        "name": "com.microsoft.playwright.impl.Message",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
         "allDeclaredFields": true
     },
-  {
-    "name": "com.microsoft.playwright.impl.DriverJar",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.impl.Message",
-    "unsafeAllocated": true,
-    "fields": [
-      { "name": "id" },
-      { "name": "guid" },
-      { "name": "method" },
-      { "name": "params" },
-      { "name": "result" },
-      { "name": "error" }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.Browser$NewContextOptions",
-    "methods": [
-      { "name": "<init>", "parameterTypes": [] }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.options.ViewportSize",
-    "unsafeAllocated": true,
-    "fields": [
-      { "name": "width" },
-      { "name": "height" }
-    ],
-    "methods": [
-      { "name": "<init>", "parameterTypes": ["int", "int"] }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.options.HttpHeader",
-    "unsafeAllocated": true,
-    "fields": [
-      { "name": "name" },
-      { "name": "value" }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.options.Timing",
-    "unsafeAllocated": true,
-    "fields": [
-      { "name": "startTime" },
-      { "name": "domainLookupStart" },
-      { "name": "domainLookupEnd" },
-      { "name": "connectStart" },
-      { "name": "secureConnectionStart" },
-      { "name": "connectEnd" },
-      { "name": "requestStart" },
-      { "name": "responseStart" },
-      { "name": "responseEnd" }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.impl.SerializedArgument",
-    "fields": [
-      { "name": "value" },
-      { "name": "handles" }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.impl.SerializedValue",
-    "fields": [
-      { "name": "n" },
-      { "name": "b" },
-      { "name": "s" },
-      { "name": "v" },
-      { "name": "d" },
-      { "name": "r" },
-      { "name": "a" },
-      { "name": "o" },
-      { "name": "h" }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.impl.SerializedValue$O",
-    "fields": [
-      { "name": "k" },
-      { "name": "v" }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.ElementHandle$ScreenshotOptions",
-    "methods": [
-      { "name": "<init>", "parameterTypes": [] }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.Locator$ElementHandleOptions",
-    "methods": [
-      { "name": "<init>", "parameterTypes": [] }
-    ]
-  },
-  {
-    "name": "com.microsoft.playwright.Frame$WaitForSelectorOptions",
-    "methods": [
-      { "name": "<init>", "parameterTypes": [] }
-    ]
-  }
+    {
+        "name": "com.microsoft.playwright.impl.SerializedArgument",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.impl.SerializedValue",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.impl.SerializedValue$O",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Browser$CloseOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Browser$NewContextOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Browser$NewPageOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Browser$StartTracingOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.impl.driver.jar.DriverJar",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$CheckOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$ClickOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$DblclickOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$FillOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$HoverOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$InputValueOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$PressOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$ScreenshotOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$ScrollIntoViewIfNeededOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$SelectTextOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$SetCheckedOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$SetInputFilesOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$TapOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$TypeOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$UncheckOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$WaitForElementStateOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.ElementHandle$WaitForSelectorOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.options.HttpHeader",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.options.Timing",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.options.ViewportSize",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$AddScriptTagOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$AddStyleTagOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$CheckOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$ClickOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$DblclickOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$DispatchEventOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$FillOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$FocusOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$GetAttributeOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$GetByRoleOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$GetByTextOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$HoverOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$InnerHTMLOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$InnerTextOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$InputValueOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$IsVisibleOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$LocatorOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$PressOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$SelectOptionOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$SetContentOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$SetInputFilesOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$TapOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$TextContentOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$TypeOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$UncheckOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$UncheckOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$WaitForFunctionOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$WaitForLoadStateOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$WaitForSelectorOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$WaitForURLOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.Frame$NavigateOptions",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    },
+    {
+        "name": "com.microsoft.playwright.impl.PlaywrightImpl",
+        "allPublicMethods": true,
+        "allPublicConstructors": true,
+        "allPublicFields": true,
+        "allDeclaredMethods": true,
+        "allDeclaredConstructors": true,
+        "unsafeAllocated": true,
+        "allDeclaredFields": true
+    }
 ]
