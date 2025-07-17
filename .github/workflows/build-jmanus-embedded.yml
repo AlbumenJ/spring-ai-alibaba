@@ -17,13 +17,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            platform: macos-arm
-            artifact_name: jmanus-macos-x64
+          - os: macos-13
+            platform: macos-x64
+            artifact_name: jmanus-embedded-jdk-macos-x64
             arch_param: macos-x64
           - os: macos-latest
             platform: macos-arm
-            artifact_name: jmanus-macos-arm
+            artifact_name: jmanus-embedded-jdk-macos-arm
             arch_param: macos-aarch64
 
     steps:
