@@ -128,8 +128,7 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
-        working-directory: spring-ai-alibaba-jmanus
         with:
           name: ${{ matrix.artifact_name }}
-          path: dist/${{ matrix.platform }}/
+          path: spring-ai-alibaba-jmanus/dist/${{ matrix.platform }}/
           retention-days: 30
