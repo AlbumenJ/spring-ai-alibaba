@@ -113,6 +113,16 @@ jobs:
         if: runner.os != 'Windows'
         working-directory: spring-ai-alibaba-jmanus
 
+      - name: Create DMG package (macOS only)
+        run: |
+          chmod +x script/create_dmg.sh
+          script/create_dmg.sh \
+            --platform "${{ matrix.platform }}" \
+            --executable "${{ matrix.native_executable }}" \
+            --version "${{ github.event.inputs.build_version || '3.0.0-SNAPSHOT' }}"
+        if: runner.os == 'macOS'
+        working-directory: spring-ai-alibaba-jmanus
+
       - name: Create distribution directory (Windows)
         run: |
           New-Item -ItemType Directory -Force -Path "dist/${{ matrix.platform }}"
