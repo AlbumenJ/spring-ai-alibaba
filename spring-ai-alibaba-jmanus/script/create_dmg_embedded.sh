@@ -11,16 +11,36 @@ cleanup_on_exit() {
     if [ $exit_code -ne 0 ]; then
         echo "Script interrupted, cleaning up..."
         
-        # Unmount any DMG mounts
-        hdiutil info | grep -E "(JManus.*Installer|temp.*JManus)" | awk '{print $1}' | while read -r device; do
+        # More comprehensive cleanup for Intel Macs
+        echo "Performing comprehensive cleanup..."
+        
+        # Get all disk image info
+        local dmg_info=$(hdiutil info 2>/dev/null || true)
+        
+        # Unmount any JManus related mounts
+        echo "$dmg_info" | grep -E "(JManus|temp.*JManus)" | awk '{print $1}' | while read -r device; do
             if [ -n "$device" ]; then
                 echo "Force unmounting $device"
                 hdiutil detach "$device" -force 2>/dev/null || true
             fi
         done
         
+        # Clean up project directory DMG files
+        echo "$dmg_info" | grep -E "$PROJECT_ROOT" | awk '{print $1}' | while read -r device; do
+            if [ -n "$device" ]; then
+                echo "Force unmounting project DMG: $device"
+                hdiutil detach "$device" -force 2>/dev/null || true
+            fi
+        done
+        
         # Remove temporary files
         rm -f "$PROJECT_ROOT/dist/temp-"*".dmg" 2>/dev/null || true
+        rm -f "$PROJECT_ROOT/dist/"*".dmg.sparseimage" 2>/dev/null || true
+        rm -f "$PROJECT_ROOT/dist/"*".tmp" 2>/dev/null || true
+        
+        # Force sync
+        sync
+        sleep 2
     fi
 }
 
@@ -37,28 +57,6 @@ VOLUME_NAME="JManus Installer"
 # Get script directory and project root early
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-
-# Cleanup function for script interruption
-cleanup_on_exit() {
-    local exit_code=$?
-    if [ $exit_code -ne 0 ]; then
-        echo "Script interrupted, cleaning up..."
-        
-        # Unmount any DMG mounts
-        hdiutil info | grep -E "(JManus.*Installer|temp.*JManus)" | awk '{print $1}' | while read -r device; do
-            if [ -n "$device" ]; then
-                echo "Force unmounting $device"
-                hdiutil detach "$device" -force 2>/dev/null || true
-            fi
-        done
-        
-        # Remove temporary files
-        rm -f "$PROJECT_ROOT/dist/temp-"*".dmg" 2>/dev/null || true
-    fi
-}
-
-# Set up cleanup on script exit
-trap cleanup_on_exit EXIT
 
 # Parse arguments
 PLATFORM=""
@@ -208,45 +206,96 @@ rm -f "$DMG_PATH" "$TEMP_DMG_PATH"
 unmount_existing_dmgs() {
     echo "Checking for existing DMG mounts..."
     
-    # Check for mounts by volume name
-    local existing_mounts=$(hdiutil info | grep -E "/Volumes/.*JManus.*Installer" | awk '{print $1}' || true)
-    if [ -n "$existing_mounts" ]; then
-        echo "Found existing JManus DMG mounts, unmounting..."
-        echo "$existing_mounts" | while read -r device; do
+    # First, get all disk images info
+    local dmg_info=$(hdiutil info 2>/dev/null || true)
+    
+    # Check for any JManus related mounts by volume name
+    echo "$dmg_info" | grep -E "/Volumes/.*JManus" | while read -r line; do
+        local device=$(echo "$line" | awk '{print $1}')
+        if [ -n "$device" ]; then
+            echo "Unmounting JManus volume: $device"
+            hdiutil detach "$device" -force 2>/dev/null || true
+        fi
+    done
+    
+    # Check for any temp DMG files that might be mounted
+    echo "$dmg_info" | grep -E "temp.*JManus.*Installer" | while read -r line; do
+        local device=$(echo "$line" | awk '{print $1}')
+        if [ -n "$device" ]; then
+            echo "Unmounting temp DMG: $device"
+            hdiutil detach "$device" -force 2>/dev/null || true
+        fi
+    done
+    
+    # Check for any DMG files from our project directory that might be mounted
+    echo "$dmg_info" | grep -E "$PROJECT_ROOT" | while read -r line; do
+        local device=$(echo "$line" | awk '{print $1}')
+        if [ -n "$device" ]; then
+            echo "Unmounting project DMG: $device"
+            hdiutil detach "$device" -force 2>/dev/null || true
+        fi
+    done
+    
+    # Additional cleanup - unmount any disk images that might be related
+    local mounted_volumes=$(mount | grep -E "JManus|temp.*dmg" | awk '{print $1}' || true)
+    if [ -n "$mounted_volumes" ]; then
+        echo "Found additional mounted volumes to clean up..."
+        echo "$mounted_volumes" | while read -r device; do
             if [ -n "$device" ]; then
-                echo "Unmounting $device"
+                echo "Unmounting volume: $device"
                 hdiutil detach "$device" -force 2>/dev/null || true
             fi
         done
     fi
     
-    # Also check for temp DMG mounts
-    local temp_mounts=$(hdiutil info | grep -E "temp.*JManus.*Installer" | awk '{print $1}' || true)
-    if [ -n "$temp_mounts" ]; then
-        echo "Found existing temp DMG mounts, unmounting..."
-        echo "$temp_mounts" | while read -r device; do
-            if [ -n "$device" ]; then
-                echo "Unmounting temp $device"
-                hdiutil detach "$device" -force 2>/dev/null || true
-            fi
-        done
-    fi
+    # Wait longer for system to clean up on older macOS versions
+    echo "Waiting for system cleanup..."
+    sleep 5
     
-    # Wait a moment for system to clean up
-    sleep 3
+    # Force sync to ensure all disk operations are complete
+    sync
 }
 
 # Unmount any existing DMG mounts
 unmount_existing_dmgs
 
-# Create temporary DMG
+# Additional cleanup for Intel Macs - remove any leftover files
+echo "Cleaning up any leftover DMG files..."
+rm -f "$PROJECT_ROOT/dist/"*".dmg.sparseimage" 2>/dev/null || true
+rm -f "$PROJECT_ROOT/dist/"*".tmp" 2>/dev/null || true
+
+# Create temporary DMG with additional error handling
 echo "Creating temporary DMG..."
-hdiutil create -srcfolder "$DMG_STAGING_DIR" \
-    -volname "$VOLUME_NAME" \
-    -fs HFS+ \
-    -format UDRW \
-    -size "${SIZE_MB}m" \
-    "$TEMP_DMG_PATH"
+
+# Try to create the DMG with retry logic
+for create_attempt in 1 2 3; do
+    echo "DMG creation attempt $create_attempt..."
+    
+    if [ $create_attempt -gt 1 ]; then
+        echo "Retrying DMG creation after cleanup..."
+        unmount_existing_dmgs
+        rm -f "$TEMP_DMG_PATH" 2>/dev/null || true
+        sleep 3
+    fi
+    
+    if hdiutil create -srcfolder "$DMG_STAGING_DIR" \
+        -volname "$VOLUME_NAME" \
+        -fs HFS+ \
+        -format UDRW \
+        -size "${SIZE_MB}m" \
+        "$TEMP_DMG_PATH" 2>/dev/null; then
+        echo "DMG creation successful on attempt $create_attempt"
+        break
+    else
+        echo "DMG creation failed on attempt $create_attempt"
+        if [ $create_attempt -eq 3 ]; then
+            echo "Failed to create DMG after 3 attempts"
+            exit 1
+        fi
+        echo "Waiting before retry..."
+        sleep 5
+    fi
+done
 
 # Verify DMG was created successfully
 if [ ! -f "$TEMP_DMG_PATH" ]; then
