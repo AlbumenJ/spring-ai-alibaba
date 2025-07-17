@@ -13,7 +13,7 @@ jobs:
   build:
     name: Build on ${{ matrix.platform }}
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       matrix:
         include:
@@ -65,11 +65,11 @@ jobs:
 
       - name: Build project and run tests
         run: mvn clean compile test-compile
-        working-directory: .
+        working-directory: spring-ai-alibaba-jmanus
 
       - name: Build native executable
         run: mvn clean -Pnative native:compile
-        working-directory: .
+        working-directory: spring-ai-alibaba-jmanus
         env:
           MAVEN_OPTS: "-Xmx4g"
 
@@ -85,7 +85,7 @@ jobs:
             exit 1
           fi
         if: runner.os != 'Windows'
-        working-directory: .
+        working-directory: spring-ai-alibaba-jmanus
 
       - name: Verify native executable (Windows)
         run: |
@@ -99,7 +99,7 @@ jobs:
           }
         if: runner.os == 'Windows'
         shell: powershell
-        working-directory: .
+        working-directory: spring-ai-alibaba-jmanus
 
       - name: Create distribution directory
         run: |
@@ -111,7 +111,7 @@ jobs:
           echo "Platform: ${{ matrix.platform }}" >> dist/${{ matrix.platform }}/BUILD_INFO.txt
           echo "Commit: ${{ github.sha }}" >> dist/${{ matrix.platform }}/BUILD_INFO.txt
         if: runner.os != 'Windows'
-        working-directory: .
+        working-directory: spring-ai-alibaba-jmanus
 
       - name: Create distribution directory (Windows)
         run: |
@@ -124,74 +124,12 @@ jobs:
           "Commit: ${{ github.sha }}" | Out-File -FilePath "dist/${{ matrix.platform }}/BUILD_INFO.txt" -Append -Encoding UTF8
         if: runner.os == 'Windows'
         shell: powershell
-        working-directory: .
+        working-directory: spring-ai-alibaba-jmanus
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
+        working-directory: spring-ai-alibaba-jmanus
         with:
           name: ${{ matrix.artifact_name }}
           path: dist/${{ matrix.platform }}/
           retention-days: 30
-
-  create-release-summary:
-    name: Create Build Summary
-    runs-on: ubuntu-latest
-    needs: build
-    if: always()
-    
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts/
-
-      - name: Create build summary
-        run: |
-          echo "# JManus Cross-Platform Build Summary" > BUILD_SUMMARY.md
-          echo "" >> BUILD_SUMMARY.md
-          echo "**Build Date:** $(date)" >> BUILD_SUMMARY.md
-          echo "**Version:** ${{ github.event.inputs.build_version || '3.0.0-SNAPSHOT' }}" >> BUILD_SUMMARY.md
-          echo "**Commit:** ${{ github.sha }}" >> BUILD_SUMMARY.md
-          echo "**Workflow:** ${{ github.run_id }}" >> BUILD_SUMMARY.md
-          echo "" >> BUILD_SUMMARY.md
-          echo "## Build Results" >> BUILD_SUMMARY.md
-          echo "" >> BUILD_SUMMARY.md
-          
-          for platform in windows-x64 macos-x86 macos-arm; do
-            if [ -d "artifacts/jmanus-$platform" ]; then
-              echo "### ✅ $platform" >> BUILD_SUMMARY.md
-              echo "- **Status:** Success" >> BUILD_SUMMARY.md
-              if [ -f "artifacts/jmanus-$platform/BUILD_INFO.txt" ]; then
-                echo "- **Build Info:**" >> BUILD_SUMMARY.md
-                sed 's/^/  - /' "artifacts/jmanus-$platform/BUILD_INFO.txt" >> BUILD_SUMMARY.md
-              fi
-              echo "" >> BUILD_SUMMARY.md
-            else
-              echo "### ❌ $platform" >> BUILD_SUMMARY.md
-              echo "- **Status:** Failed" >> BUILD_SUMMARY.md
-              echo "" >> BUILD_SUMMARY.md
-            fi
-          done
-          
-          echo "## Artifacts" >> BUILD_SUMMARY.md
-          echo "" >> BUILD_SUMMARY.md
-          echo "The following artifacts are available for download:" >> BUILD_SUMMARY.md
-          echo "" >> BUILD_SUMMARY.md
-          find artifacts/ -type f -name "spring-ai-alibaba-jmanus*" | while read file; do
-            filename=$(basename "$file")
-            platform=$(echo "$file" | cut -d'/' -f2 | sed 's/jmanus-//')
-            size=$(du -h "$file" | cut -f1)
-            echo "- **$platform**: \`$filename\` ($size)" >> BUILD_SUMMARY.md
-          done
-
-      - name: Upload build summary
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-summary
-          path: BUILD_SUMMARY.md
-          retention-days: 30
-
-      - name: Display summary in job
-        run: |
-          echo "Build Summary:"
-          cat BUILD_SUMMARY.md
