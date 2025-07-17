@@ -122,6 +122,7 @@
     <logger name="org.springframework.beans" level="WARN"/>
     <logger name="com.baomidou.mybatisplus" level="INFO"/>
     <logger name="org.apache.ibatis.io" level="INFO"/>
+    <logger name="com.alibaba.cloud.ai.example.manus" level="DEBUG"/>
 
     <!-- Block logs from specific classes -->
     <logger name="org.docx4j.convert.in.xhtml.XHTMLImporterImp" level="OFF" additivity="false"/>
