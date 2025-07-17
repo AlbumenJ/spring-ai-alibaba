@@ -5,12 +5,60 @@
 
 set -e
 
+# Cleanup function for script interruption
+cleanup_on_exit() {
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        echo "Script interrupted, cleaning up..."
+        
+        # Unmount any DMG mounts
+        hdiutil info | grep -E "(JManus.*Installer|temp.*JManus)" | awk '{print $1}' | while read -r device; do
+            if [ -n "$device" ]; then
+                echo "Force unmounting $device"
+                hdiutil detach "$device" -force 2>/dev/null || true
+            fi
+        done
+        
+        # Remove temporary files
+        rm -f "$PROJECT_ROOT/dist/temp-"*".dmg" 2>/dev/null || true
+    fi
+}
+
+# Set up cleanup on script exit
+trap cleanup_on_exit EXIT
+
 # Configuration
 APP_NAME="JManus"
 APP_BUNDLE_NAME="JManus.app"
 DMG_NAME="JManus-Installer"
 TEMP_DMG_NAME="temp-${DMG_NAME}"
 VOLUME_NAME="JManus Installer"
+
+# Get script directory and project root early
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Cleanup function for script interruption
+cleanup_on_exit() {
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        echo "Script interrupted, cleaning up..."
+        
+        # Unmount any DMG mounts
+        hdiutil info | grep -E "(JManus.*Installer|temp.*JManus)" | awk '{print $1}' | while read -r device; do
+            if [ -n "$device" ]; then
+                echo "Force unmounting $device"
+                hdiutil detach "$device" -force 2>/dev/null || true
+            fi
+        done
+        
+        # Remove temporary files
+        rm -f "$PROJECT_ROOT/dist/temp-"*".dmg" 2>/dev/null || true
+    fi
+}
+
+# Set up cleanup on script exit
+trap cleanup_on_exit EXIT
 
 # Parse arguments
 PLATFORM=""
@@ -42,9 +90,7 @@ fi
 echo "Creating DMG for platform: $PLATFORM"
 echo "Version: $VERSION"
 
-# Get script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+# Set distribution directory
 DIST_DIR="$PROJECT_ROOT/dist/$PLATFORM"
 
 # Check if distribution exists
@@ -145,27 +191,6 @@ mkdir -p "$DMG_STAGING_DIR/Documentation"
 cp "$DIST_DIR/docs"/*.md "$DMG_STAGING_DIR/Documentation/" 2>/dev/null || true
 cp "$DIST_DIR/BUILD_INFO.txt" "$DMG_STAGING_DIR/" 2>/dev/null || true
 
-# Create installation instructions
-cat > "$DMG_STAGING_DIR/INSTALL.txt" << EOF
-JManus Installation Instructions
-================================
-
-1. Drag the JManus.app to the Applications folder
-2. Open JManus from Applications or Launchpad
-3. When prompted, enter your DashScope API Key
-4. The application will start and be available at http://localhost:18080
-
-System Requirements:
-- macOS 10.15 or later
-- No additional Java installation required (JDK 21 is embedded)
-
-For more information, see the Documentation folder.
-
-Version: $VERSION
-Platform: $PLATFORM
-Build Date: $(date)
-EOF
-
 # Calculate DMG size (add 50MB buffer)
 SIZE_MB=$(du -sm "$DMG_STAGING_DIR" | cut -f1)
 SIZE_MB=$((SIZE_MB + 50))
@@ -179,26 +204,81 @@ echo "Creating DMG (${SIZE_MB}MB)..."
 # Remove existing DMG files
 rm -f "$DMG_PATH" "$TEMP_DMG_PATH"
 
-# Ensure no previous DMG mounts are left
-if [ -n "$(hdiutil info | grep -E "JManus.*Installer")" ]; then
-    echo "Unmounting any existing JManus DMG mounts..."
-    hdiutil info | grep -E "JManus.*Installer" | awk '{print $1}' | xargs -I {} hdiutil detach {} 2>/dev/null || true
-fi
+# Function to unmount any existing DMG mounts
+unmount_existing_dmgs() {
+    echo "Checking for existing DMG mounts..."
+    
+    # Check for mounts by volume name
+    local existing_mounts=$(hdiutil info | grep -E "/Volumes/.*JManus.*Installer" | awk '{print $1}' || true)
+    if [ -n "$existing_mounts" ]; then
+        echo "Found existing JManus DMG mounts, unmounting..."
+        echo "$existing_mounts" | while read -r device; do
+            if [ -n "$device" ]; then
+                echo "Unmounting $device"
+                hdiutil detach "$device" -force 2>/dev/null || true
+            fi
+        done
+    fi
+    
+    # Also check for temp DMG mounts
+    local temp_mounts=$(hdiutil info | grep -E "temp.*JManus.*Installer" | awk '{print $1}' || true)
+    if [ -n "$temp_mounts" ]; then
+        echo "Found existing temp DMG mounts, unmounting..."
+        echo "$temp_mounts" | while read -r device; do
+            if [ -n "$device" ]; then
+                echo "Unmounting temp $device"
+                hdiutil detach "$device" -force 2>/dev/null || true
+            fi
+        done
+    fi
+    
+    # Wait a moment for system to clean up
+    sleep 3
+}
 
-# Wait a moment for system to clean up
-sleep 2
+# Unmount any existing DMG mounts
+unmount_existing_dmgs
 
 # Create temporary DMG
+echo "Creating temporary DMG..."
 hdiutil create -srcfolder "$DMG_STAGING_DIR" \
     -volname "$VOLUME_NAME" \
     -fs HFS+ \
-    -fsargs "-c c=64,a=16,e=16" \
     -format UDRW \
     -size "${SIZE_MB}m" \
     "$TEMP_DMG_PATH"
 
+# Verify DMG was created successfully
+if [ ! -f "$TEMP_DMG_PATH" ]; then
+    echo "Error: Failed to create temporary DMG"
+    exit 1
+fi
+
+echo "Temporary DMG created successfully: $TEMP_DMG_PATH"
+
 # Mount the temporary DMG
-MOUNT_POINT=$(hdiutil attach -readwrite -noverify -noautoopen "$TEMP_DMG_PATH" | grep -E '^/dev/' | sed 1q | awk '{print $3}')
+echo "Mounting temporary DMG for configuration..."
+MOUNT_OUTPUT=$(hdiutil attach -readwrite -noverify -noautoopen "$TEMP_DMG_PATH" 2>&1)
+MOUNT_RESULT=$?
+
+if [ $MOUNT_RESULT -ne 0 ]; then
+    echo "Error: Failed to mount temporary DMG"
+    echo "Mount output: $MOUNT_OUTPUT"
+    rm -f "$TEMP_DMG_PATH"
+    exit 1
+fi
+
+MOUNT_POINT=$(echo "$MOUNT_OUTPUT" | grep -E '/Volumes/' | tail -1)
+MOUNT_DEVICE=$(echo "$MOUNT_OUTPUT" | grep -E '^/dev/disk[0-9]+s[0-9]+' | awk '{print $1}')
+
+if [ -z "$MOUNT_POINT" ] || [ -z "$MOUNT_DEVICE" ]; then
+    echo "Error: Could not determine mount point or device"
+    echo "Mount output: $MOUNT_OUTPUT"
+    rm -f "$TEMP_DMG_PATH"
+    exit 1
+fi
+
+echo "DMG mounted at: $MOUNT_POINT (device: $MOUNT_DEVICE)"
 
 # Set DMG window properties and background
 if [ -n "$MOUNT_POINT" ]; then
@@ -219,9 +299,6 @@ if [ -n "$MOUNT_POINT" ]; then
                 set icon size of viewOptions to 72
                 set position of item "JManus.app" of container window to {150, 120}
                 set position of item "Applications" of container window to {350, 120}
-                if exists item "INSTALL.txt" then
-                    set position of item "INSTALL.txt" of container window to {250, 220}
-                end if
                 if exists item "Documentation" then
                     set position of item "Documentation" of container window to {400, 220}
                 end if
@@ -235,25 +312,60 @@ if [ -n "$MOUNT_POINT" ]; then
     # Give the system time to write the .DS_Store file
     sleep 3
     
-    # Unmount
-    hdiutil detach "$MOUNT_POINT"
+    # Safely unmount with retry
+    echo "Unmounting temporary DMG..."
+    for i in 1 2 3; do
+        if hdiutil detach "$MOUNT_DEVICE" 2>/dev/null; then
+            echo "Successfully unmounted on attempt $i"
+            break
+        else
+            echo "Unmount attempt $i failed, retrying..."
+            sleep 2
+            if [ $i -eq 3 ]; then
+                echo "Force unmounting..."
+                hdiutil detach "$MOUNT_DEVICE" -force || true
+            fi
+        fi
+    done
+else
+    echo "Warning: Mount point not available, skipping DMG appearance configuration"
 fi
 
 # Convert to compressed read-only DMG
 echo "Compressing DMG..."
 
-# Add retry logic for hdiutil convert
+# Function to cleanup on conversion failure
+cleanup_on_failure() {
+    echo "Cleaning up after conversion failure..."
+    
+    # Unmount any mounts that might still be active
+    unmount_existing_dmgs
+    
+    # Remove temp DMG file
+    rm -f "$TEMP_DMG_PATH"
+}
+
+# Add retry logic for hdiutil convert with proper cleanup
 for attempt in 1 2 3; do
+    echo "DMG compression attempt $attempt..."
+    
+    # Ensure clean state before each attempt
+    if [ $attempt -gt 1 ]; then
+        cleanup_on_failure
+        sleep 5
+    fi
+    
     if hdiutil convert "$TEMP_DMG_PATH" \
         -format UDZO \
         -imagekey zlib-level=9 \
-        -o "$DMG_PATH"; then
+        -o "$DMG_PATH" 2>/dev/null; then
         echo "DMG compression successful on attempt $attempt"
         break
     else
         echo "DMG compression failed on attempt $attempt"
         if [ $attempt -eq 3 ]; then
             echo "Failed to compress DMG after 3 attempts"
+            cleanup_on_failure
             exit 1
         fi
         echo "Waiting 5 seconds before retry..."
@@ -272,12 +384,20 @@ if [ -f "$DMG_PATH" ]; then
     
     # Test mount the DMG to verify it works
     echo "Verifying DMG..."
-    TEST_MOUNT=$(hdiutil attach -readonly -noverify -noautoopen "$DMG_PATH" | grep -E '^/dev/' | sed 1q | awk '{print $3}')
-    if [ -n "$TEST_MOUNT" ]; then
-        echo "DMG verification successful"
-        hdiutil detach "$TEST_MOUNT" >/dev/null
+    TEST_MOUNT_OUTPUT=$(hdiutil attach -readonly -noverify -noautoopen "$DMG_PATH" 2>&1)
+    TEST_MOUNT_RESULT=$?
+    
+    if [ $TEST_MOUNT_RESULT -eq 0 ]; then
+        TEST_MOUNT_DEVICE=$(echo "$TEST_MOUNT_OUTPUT" | grep -E '^/dev/disk[0-9]+s[0-9]+' | awk '{print $1}')
+        if [ -n "$TEST_MOUNT_DEVICE" ]; then
+            echo "DMG verification successful"
+            hdiutil detach "$TEST_MOUNT_DEVICE" >/dev/null 2>&1
+        else
+            echo "Warning: Could not determine test mount device"
+        fi
     else
         echo "Warning: DMG verification failed"
+        echo "Verification output: $TEST_MOUNT_OUTPUT"
     fi
 else
     echo "Error: Failed to create DMG"
