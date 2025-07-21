@@ -14,24 +14,6 @@
 
 # Multi-stage build for better layer caching and smaller final image
 ARG BUILD_VERSION=3.0.0-SNAPSHOT
-
-# Build stage
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
-
-WORKDIR /app
-
-# Copy pom.xml first for better Docker layer caching
-COPY pom.xml .
-
-# Download dependencies
-RUN mvn dependency:go-offline -B
-
-# Copy source code
-COPY src ./src
-
-# Build the application
-RUN mvn clean package -DskipTests -Drevision=${BUILD_VERSION}
-
 # Runtime stage - use multi-arch base image
 FROM eclipse-temurin:17-jre-noble
 
@@ -107,7 +89,7 @@ RUN apt-get update && \
 RUN npm install -g playwright
 
 # Copy JAR file from builder stage
-COPY --from=builder /app/target/spring-ai-alibaba-jmanus-*.jar app.jar
+COPY target/spring-ai-alibaba-jmanus-3.0.0-SNAPSHOT.jar app.jar
 
 # Install Playwright browsers using Java Playwright
 RUN java -jar app.jar playwright-init
