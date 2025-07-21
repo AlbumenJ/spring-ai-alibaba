@@ -45,6 +45,7 @@ jobs:
       - name: Build UI
         run: |
           chmod +x build-ui.sh
+          npm install -g pnpm
           ./build-ui.sh
         working-directory: spring-ai-alibaba-jmanus
 
