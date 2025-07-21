@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'spring-ai-alibaba-jmanus/ui-vue3/package-lock.json'
+          cache-dependency-path: 'spring-ai-alibaba-jmanus/ui-vue3/package.json'
 
       - name: Build UI
         run: |
