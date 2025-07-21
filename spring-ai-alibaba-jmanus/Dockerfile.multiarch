@@ -33,7 +33,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests -Drevision=${BUILD_VERSION}
 
 # Runtime stage - use multi-arch base image
-FROM eclipse-temurin:17-jre-ubuntu
+FROM eclipse-temurin:17-jre-noble
 
 # Add build arguments for platform detection
 ARG TARGETPLATFORM
