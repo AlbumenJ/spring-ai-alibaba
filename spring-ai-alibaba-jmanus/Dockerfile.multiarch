@@ -15,7 +15,7 @@
 # Multi-stage build for better layer caching and smaller final image
 ARG BUILD_VERSION=3.0.0-SNAPSHOT
 # Runtime stage - use multi-arch base image
-FROM eclipse-temurin:17-jre-noble
+FROM eclipse-temurin:17-jdk-noble
 
 # Add build arguments for platform detection
 ARG TARGETPLATFORM
@@ -97,7 +97,7 @@ RUN java -jar app.jar playwright-init
 # Extract JAR file for faster startup
 RUN mkdir -p /app/extracted && \
     cd /app/extracted && \
-    /opt/java/openjdk/bin/jar -xf /app/app.jar && \
+    jar -xf /app/app.jar && \
     rm /app/app.jar
 
 # Verify browser installation and set permissions
