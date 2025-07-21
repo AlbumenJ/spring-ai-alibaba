@@ -97,7 +97,7 @@ RUN java -jar app.jar playwright-init
 # Extract JAR file for faster startup
 RUN mkdir -p /app/extracted && \
     cd /app/extracted && \
-    jar -xf /app/app.jar && \
+    /opt/java/openjdk/bin/jar -xf /app/app.jar && \
     rm /app/app.jar
 
 # Verify browser installation and set permissions
