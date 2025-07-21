@@ -62,7 +62,7 @@ RUN apt-get update && \
     libxrandr2 \
     libgbm1 \
     libxss1 \
-    libasound2 \
+    libasound2t64 \
     libatspi2.0-0 \
     libgtk-3-0 \
     libgdk-pixbuf2.0-0 \
