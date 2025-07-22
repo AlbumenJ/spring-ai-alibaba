@@ -29,7 +29,6 @@ env:
 
 jobs:
   build-and-push:
-    if: (github.repository == 'alibaba/spring-ai-alibaba')
     name: Build and Push Images
     runs-on: ubuntu-latest
 
