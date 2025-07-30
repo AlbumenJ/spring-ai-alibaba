@@ -37,7 +37,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * MCP服务主类（重构后） 负责协调各个组件，提供统一的业务接口
+ * MCP service main class (refactored) responsible for coordinating components and
+ * providing unified business interface
  */
 @Component
 public class McpService implements IMcpService {
@@ -61,10 +62,10 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 批量保存MCP服务器配置
-	 * @param configJson MCP配置JSON字符串
-	 * @return 配置实体列表
-	 * @throws IOException IO异常
+	 * Batch save MCP server configurations
+	 * @param configJson MCP configuration JSON string
+	 * @return Configuration entity list
+	 * @throws IOException IO exception
 	 */
 	@Override
 	public List<McpConfigEntity> saveMcpServers(String configJson) throws IOException {
@@ -72,7 +73,7 @@ public class McpService implements IMcpService {
 
 		JsonNode jsonNode = objectMapper.readTree(configJson);
 
-		// 检查是否包含mcpServers字段
+		// Check if contains mcpServers field
 		if (!jsonNode.has("mcpServers")) {
 			throw new IllegalArgumentException("Missing 'mcpServers' field in JSON configuration");
 		}
@@ -82,20 +83,20 @@ public class McpService implements IMcpService {
 			throw new IllegalArgumentException("'mcpServers' must be an object");
 		}
 
-		// 直接解析为Map<String, McpServerConfig>
+		// Parse directly as Map<String, McpServerConfig>
 		Map<String, McpServerConfig> mcpServers = objectMapper.convertValue(mcpServersNode,
 				new TypeReference<Map<String, McpServerConfig>>() {
 				});
 
-		// 遍历每个MCP服务器配置
+		// Iterate through each MCP server configuration
 		for (Map.Entry<String, McpServerConfig> entry : mcpServers.entrySet()) {
 			String serverName = entry.getKey();
 			McpServerConfig serverConfig = entry.getValue();
 
-			// 验证服务器配置
+			// Validate server configuration
 			configValidator.validateServerConfig(serverConfig, serverName);
 
-			// 获取连接类型
+			// Get connection type
 			McpConfigType connectionType = serverConfig.getConnectionType();
 			logger.info("Using connection type for server '{}': {}", serverName, connectionType);
 

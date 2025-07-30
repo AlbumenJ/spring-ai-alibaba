@@ -25,28 +25,28 @@ import com.alibaba.cloud.ai.example.manus.dynamic.mcp.model.vo.McpServiceEntity;
 import com.alibaba.cloud.ai.example.manus.dynamic.mcp.model.vo.McpServerRequestVO;
 
 /**
- * MCP服务接口（重构后） 定义了MCP服务的核心业务方法
+ * MCP service interface (refactored) defining core business methods for MCP services
  */
 public interface IMcpService {
 
 	/**
-	 * 批量保存MCP服务器配置
-	 * @param configJson MCP配置JSON字符串
-	 * @return 配置实体列表
-	 * @throws IOException IO异常
+	 * Batch save MCP server configurations
+	 * @param configJson MCP configuration JSON string
+	 * @return Configuration entity list
+	 * @throws IOException IO exception
 	 */
 	List<McpConfigEntity> saveMcpServers(String configJson) throws IOException;
 
 	/**
-	 * 保存单个MCP服务器配置
-	 * @param requestVO MCP服务器表单请求
-	 * @return 配置实体
-	 * @throws IOException IO异常
+	 * Save single MCP server configuration
+	 * @param requestVO MCP server form request
+	 * @return Configuration entity
+	 * @throws IOException IO exception
 	 */
 	McpConfigEntity saveMcpServer(McpServerRequestVO requestVO) throws IOException;
 
 	/**
-	 * 删除MCP服务器
+	 * Delete MCP server
 	 * @param id MCP服务器ID
 	 */
 	void removeMcpServer(long id);
