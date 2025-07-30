@@ -51,7 +51,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 负责执行 MapReduce 模式计划的执行器 支持并行执行 Map 阶段和串行执行 Reduce 阶段
+ * Executor responsible for executing MapReduce mode plans, supporting parallel execution of Map phase and serial execution of Reduce phase
  */
 public class MapReducePlanExecutor extends AbstractPlanExecutor {
 
@@ -59,15 +59,15 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 
 	private static final Logger logger = LoggerFactory.getLogger(MapReducePlanExecutor.class);
 
-	// ==================== 配置常量 ====================
+	// ==================== Configuration Constants ====================
 
 	/**
-	 * Reduce阶段批次处理的默认最大字符数限制 用于控制每个批次处理的Map任务结果总字符数，避免上下文过长
+	 * Default maximum character limit for Reduce phase batch processing, used to control total character count of Map task results per batch, avoiding overly long context
 	 */
 	private static final int DEFAULT_REDUCE_BATCH_MAX_CHARACTERS = 2500;
 
 	/**
-	 * Map任务执行的最大重试次数 当任务执行失败或未完成时的重试机制
+	 * Maximum retry count for Map task execution, retry mechanism when task execution fails or is incomplete
 	 */
 	private static final int MAX_TASK_RETRY_COUNT = 3;
 
