@@ -302,7 +302,7 @@ public class DynamicAgent extends ReActAgent {
 
 			log.info(String.format("🔧 Tool %s's executing result: %s", getName(), lastToolCallResult));
 
-			// 处理特殊工具类型逻辑 - 只检查第一个工具
+			// Handle special tool type logic - only check the first tool
 			ToolCall firstToolCall = toolCalls.get(0);
 			String firstToolName = firstToolCall.name();
 			ToolCallBiFunctionDef<?> toolInstance = getToolCallBackContext(firstToolName).getFunctionInstance();
@@ -322,7 +322,7 @@ public class DynamicAgent extends ReActAgent {
 					log.info("TerminableTool can terminate for planId: {}", getCurrentPlanId());
 					userInputService.removeFormInputTool(getCurrentPlanId());
 
-					// 记录成功完成的动作结果
+					// Record successfully completed action result
 					recordActionResult(actToolInfoList, lastToolCallResult, ExecutionStatus.FINISHED, null, false);
 
 					return new AgentExecResult(lastToolCallResult, AgentState.COMPLETED);
@@ -332,7 +332,7 @@ public class DynamicAgent extends ReActAgent {
 				}
 			}
 
-			// 记录成功的动作结果
+			// Record successful action result
 			recordActionResult(actToolInfoList, lastToolCallResult, ExecutionStatus.RUNNING, null, false);
 
 			return new AgentExecResult(lastToolCallResult, AgentState.IN_PROGRESS);
@@ -341,7 +341,7 @@ public class DynamicAgent extends ReActAgent {
 			log.error(e.getMessage());
 			log.info("Exception occurred", e);
 
-			// 记录失败的动作结果
+			// Record failed action result
 			List<ToolCall> toolCalls = streamResult.getEffectiveToolCalls();
 			if (toolCalls != null && !toolCalls.isEmpty()) {
 				actToolInfoList = createActToolInfoList(toolCalls);
@@ -371,7 +371,7 @@ public class DynamicAgent extends ReActAgent {
 			String curToolResp = toolResponse.responseData();
 			log.info("🔧 Tool {}'s executing result: {}", getName(), curToolResp);
 
-			// 找到对应的 ActToolInfo 并设置结果
+			// Find corresponding ActToolInfo and set result
 			for (ThinkActRecord.ActToolInfo actToolInfo : actToolInfoList) {
 				if (actToolInfo.getId().equals(toolResponse.id())) {
 					actToolInfo.setResult(curToolResp);
@@ -418,7 +418,7 @@ public class DynamicAgent extends ReActAgent {
 				processUserInputToMemory(userMessage);
 				userInputService.removeFormInputTool(getCurrentPlanId());
 
-				// 记录输入超时的动作结果
+				// Record input timeout action result
 				recordActionResult(actToolInfoList, "Input timeout occurred", ExecutionStatus.RUNNING,
 						"Input timeout occurred for FormInputTool", false);
 

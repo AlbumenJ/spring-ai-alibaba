@@ -81,12 +81,12 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	private static final long BASE_RETRY_WAIT_MILLIS = 1000;
 
 	/**
-	 * 任务字符数计算失败时的默认字符数 当无法读取任务输出文件时的回退值，避免计算错误
+	 * Default character count when task character count calculation fails, fallback value when unable to read task output file, avoiding calculation errors
 	 */
 	private static final int DEFAULT_TASK_CHARACTER_COUNT = 100;
 
 	/**
-	 * Map任务执行的默认线程池线程数 当配置未设置时使用此默认值
+	 * Default thread pool thread count for Map task execution, used when configuration is not set
 	 */
 	private static final int DEFAULT_MAP_TASK_THREAD_POOL_SIZE = 1;
 

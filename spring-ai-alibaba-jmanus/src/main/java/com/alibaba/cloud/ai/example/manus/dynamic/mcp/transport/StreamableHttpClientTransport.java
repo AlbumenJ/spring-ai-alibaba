@@ -50,24 +50,24 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 
 	private final ObjectMapper objectMapper;
 
-	// 假设 fullUrl 已经是配置文件里的完整URL
-	// 代码中不再拼接 baseUrl/streamEndpoint/query，只用 fullUrl
-	// 其它相关拼接逻辑请注释或删除
+	// Assume fullUrl is already the complete URL in configuration file
+	// No longer concatenate baseUrl/streamEndpoint/query in code, only use fullUrl
+	// Please comment or delete other related concatenation logic
 	private final String fullUrl;
 
 	private final AtomicBoolean connected = new AtomicBoolean(false);
 
 	private volatile Function<Mono<McpSchema.JSONRPCMessage>, Mono<McpSchema.JSONRPCMessage>> requestHandler;
 
-	// 用于双向通信的流
+	// Stream for bidirectional communication
 	private final Sinks.Many<String> outgoingMessages = Sinks.many().multicast().onBackpressureBuffer();
 
 	private final Sinks.Many<String> incomingMessages = Sinks.many().multicast().onBackpressureBuffer();
 
-	// 用于跟踪请求-响应映射
+	// For tracking request-response mapping
 	private final Map<String, Sinks.One<String>> pendingRequests = new ConcurrentHashMap<>();
 
-	// 添加Session ID支持
+	// Add Session ID support
 	private volatile String sessionId = null;
 
 	private final Object sessionIdLock = new Object();
@@ -87,13 +87,13 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 		logger.info("=== WebClient built, default Accept header: application/json, text/event-stream ===");
 
 		this.objectMapper = objectMapper;
-		logger.info("=== ObjectMapper 已设置 ===");
+		logger.info("=== ObjectMapper configured ===");
 
 		this.fullUrl = streamEndpoint;
-		logger.info("=== 完整URL已设置: {} ===", this.fullUrl);
+		logger.info("=== Complete URL configured: {} ===", this.fullUrl);
 
-		logger.info("=== StreamableHttpClientTransport 初始化完成 ===");
-		logger.info("=== 最终配置: fullUrl={} ===", this.fullUrl);
+		logger.info("=== StreamableHttpClientTransport initialization completed ===");
+		logger.info("=== Final configuration: fullUrl={} ===", this.fullUrl);
 	}
 
 	/**
@@ -107,16 +107,16 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 
 	@Override
 	public Mono<Void> connect(Function<Mono<McpSchema.JSONRPCMessage>, Mono<McpSchema.JSONRPCMessage>> requestHandler) {
-		logger.info("=== 开始连接 StreamableHttpClientTransport ===");
-		logger.info("=== 目标URL: {} ===", fullUrl);
-		logger.info("=== 当前连接状态: {} ===", connected.get() ? "已连接" : "未连接");
+		logger.info("=== Starting StreamableHttpClientTransport connection ===");
+		logger.info("=== Target URL: {} ===", fullUrl);
+		logger.info("=== Current connection status: {} ===", connected.get() ? "Connected" : "Disconnected");
 
 		if (connected.get()) {
-			logger.error("=== 传输已连接，无法重复连接 ===");
+			logger.error("=== Transport already connected, cannot connect again ===");
 			return Mono.error(new IllegalStateException("Transport is already connected"));
 		}
 
-		logger.info("=== 设置请求处理器 ===");
+		logger.info("=== Setting request handler ===");
 		this.requestHandler = requestHandler;
 
 		logger.info("=== 启动输出消息处理循环 ===");
