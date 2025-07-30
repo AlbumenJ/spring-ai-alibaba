@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MapReduce执行节点
+ * MapReduce execution node
  */
 public class MapReduceNode extends AbstractExecutionNode {
 
@@ -62,8 +62,8 @@ public class MapReduceNode extends AbstractExecutionNode {
 	}
 
 	/**
-	 * 获取节点类型的字符串表示，用于 Jackson 序列化/反序列化
-	 * @return 类型字符串
+	 * Get string representation of node type for Jackson serialization/deserialization
+	 * @return Type string
 	 */
 	@JsonProperty("type")
 	public String getTypeString() {
@@ -71,12 +71,12 @@ public class MapReduceNode extends AbstractExecutionNode {
 	}
 
 	/**
-	 * 设置节点类型，用于 Jackson 反序列化，实际不执行任何操作
-	 * @param typeString 类型字符串
+	 * Set node type for Jackson deserialization, actually performs no operation
+	 * @param typeString Type string
 	 */
 	@JsonProperty("type")
 	public void setTypeString(String typeString) {
-		// 反序列化时忽略此字段，类型已在构造函数中设置
+		// Ignore this field during deserialization, type is already set in constructor
 	}
 
 	public List<ExecutionStep> getDataPreparedSteps() {
@@ -196,8 +196,8 @@ public class MapReduceNode extends AbstractExecutionNode {
 	}
 
 	/**
-	 * 获取所有步骤（Data Prepared + Map + Reduce + Post Process）
-	 * @return 所有步骤的列表
+	 * Get all steps (Data Prepared + Map + Reduce + Post Process)
+	 * @return List of all steps
 	 */
 	@JsonIgnore
 	public List<ExecutionStep> getAllSteps() {
@@ -218,8 +218,8 @@ public class MapReduceNode extends AbstractExecutionNode {
 	}
 
 	/**
-	 * 获取节点的字符串表示
-	 * @return 节点字符串
+	 * Get string representation of the node
+	 * @return Node string
 	 */
 	@JsonIgnore
 	public String getNodeInStr() {

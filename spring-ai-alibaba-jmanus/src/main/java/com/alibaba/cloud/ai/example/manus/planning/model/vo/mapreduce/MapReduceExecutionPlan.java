@@ -24,17 +24,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MapReduce模式的执行计划
+ * MapReduce mode execution plan
  */
 public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 
-	private List<ExecutionNode> steps; // 存储 SequentialNode 或 MapReduceNode
+	private List<ExecutionNode> steps; // Store SequentialNode or MapReduceNode
 
 	@JsonIgnore
 	private long createdTime;
 
 	/**
-	 * 计划类型，用于 Jackson 多态反序列化
+	 * Plan type for Jackson polymorphic deserialization
 	 */
 	private String planType = "advanced";
 
@@ -59,16 +59,16 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 获取步骤节点列表（更语义化的方法名）
-	 * @return 步骤节点列表
+	 * Get step node list (more semantic method name)
+	 * @return Step node list
 	 */
 	public List<ExecutionNode> getSteps() {
 		return steps;
 	}
 
 	/**
-	 * 设置步骤节点列表（更语义化的方法名）
-	 * @param steps 步骤节点列表
+	 * Set step node list (more semantic method name)
+	 * @param steps Step node list
 	 */
 	public void setSteps(List<ExecutionNode> steps) {
 		this.steps = steps;
@@ -82,7 +82,7 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 		this.createdTime = createdTime;
 	}
 
-	// AbstractExecutionPlan 抽象方法的实现
+	// Implementation of AbstractExecutionPlan abstract method
 
 	@Override
 	protected void clearSteps() {
@@ -90,8 +90,8 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 添加顺序执行节点
-	 * @param node 顺序执行节点
+	 * Add sequential execution node
+	 * @param node Sequential execution node
 	 */
 	public void addSequentialNode(SequentialNode node) {
 		steps.add(node);
