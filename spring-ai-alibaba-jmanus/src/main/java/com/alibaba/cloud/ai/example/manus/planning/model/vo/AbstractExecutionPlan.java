@@ -19,7 +19,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * 执行计划抽象基类 包含所有执行计划类型的共同属性和基本实现
+ * Abstract execution plan base class containing common properties and basic implementations for all execution plan types
  */
 public abstract class AbstractExecutionPlan implements PlanInterface {
 
@@ -28,18 +28,18 @@ public abstract class AbstractExecutionPlan implements PlanInterface {
 	protected String rootPlanId;
 
 	/**
-	 * 计划标题
+	 * Plan title
 	 */
 	protected String title;
 
 	/**
-	 * 规划思考过程
+	 * Planning thinking process
 	 */
 	@JsonIgnore
 	protected String planningThinking;
 
 	/**
-	 * 执行参数
+	 * Execution parameters
 	 */
 	@JsonIgnore
 	protected String executionParams;
@@ -47,7 +47,7 @@ public abstract class AbstractExecutionPlan implements PlanInterface {
 	private String userRequest;
 
 	/**
-	 * 默认构造函数
+	 * Default constructor
 	 */
 	public AbstractExecutionPlan() {
 		this.executionParams = "";
