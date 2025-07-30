@@ -42,7 +42,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * 动态任务调度器 负责管理所有动态定时任务的生命周期
+ * Dynamic task scheduler responsible for managing the lifecycle of all dynamic scheduled
+ * tasks
  */
 @Component
 public class DynamicCronTaskScheduler {
@@ -66,7 +67,7 @@ public class DynamicCronTaskScheduler {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	// 存储正在运行的任务
+	// Store running tasks
 	private final Map<Long, ScheduledFuture<?>> scheduledTasks = new ConcurrentHashMap<>();
 
 	@Autowired
@@ -76,19 +77,19 @@ public class DynamicCronTaskScheduler {
 	}
 
 	/**
-	 * 执行定时任务
-	 * @param cronEntity 任务实体
+	 * Execute scheduled task
+	 * @param cronEntity Task entity
 	 */
 	private void executeTask(CronEntity cronEntity) {
 		try {
-			// 更新任务执行时间
+			// Update task execution time
 			cronEntity.setLastExecutedTime(LocalDateTime.now());
 			cronRepository.save(cronEntity);
 
 			String planTemplateId = cronEntity.getPlanTemplateId();
 
 			if (planTemplateId != null && !planTemplateId.trim().isEmpty()) {
-				// 如果存在计划模板ID，则按计划模板执行
+				// If plan template ID exists, execute according to plan template
 				executePlanTemplate(planTemplateId);
 			}
 			else {
@@ -96,17 +97,17 @@ public class DynamicCronTaskScheduler {
 			}
 		}
 		catch (Exception e) {
-			log.error("任务执行失败: {} - {}", cronEntity.getCronName(), e.getMessage());
+			log.error("Task execution failed: {} - {}", cronEntity.getCronName(), e.getMessage());
 		}
 	}
 
 	/**
-	 * 生成计划并执行
-	 * @param cronEntity 任务实体
+	 * Generate plan and execute
+	 * @param cronEntity Task entity
 	 */
 	private void executePlan(CronEntity cronEntity) {
 		String planDesc = cronEntity.getPlanDesc();
-		log.info("执行定时任务: {} - {}", cronEntity.getCronName(), planDesc);
+		log.info("Executing scheduled task: {} - {}", cronEntity.getCronName(), planDesc);
 
 		ExecutionContext context = new ExecutionContext();
 		context.setUserRequest(planDesc);
