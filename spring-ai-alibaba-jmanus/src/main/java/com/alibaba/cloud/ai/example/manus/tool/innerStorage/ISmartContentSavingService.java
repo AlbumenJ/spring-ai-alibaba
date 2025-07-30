@@ -18,7 +18,7 @@ package com.alibaba.cloud.ai.example.manus.tool.innerStorage;
 import com.alibaba.cloud.ai.example.manus.config.ManusProperties;
 
 /**
- * 智能内容保存服务接口，用于MapReduce流程中存储中间数据
+ * Smart content saving service interface，用于MapReduce流程中存储中间数据
  */
 public interface ISmartContentSavingService {
 

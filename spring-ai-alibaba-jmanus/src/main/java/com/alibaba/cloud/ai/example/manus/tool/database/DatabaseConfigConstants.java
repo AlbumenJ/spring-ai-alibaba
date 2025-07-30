@@ -17,11 +17,11 @@
 package com.alibaba.cloud.ai.example.manus.tool.database;
 
 /**
- * 数据库配置常量
+ * Database configuration constants
  */
 public class DatabaseConfigConstants {
 
-	// 配置前缀
+	// Configuration prefix
 	public static final String CONFIG_PREFIX = "database_use.datasource.";
 
 	// 配置属性名

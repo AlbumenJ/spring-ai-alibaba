@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.api.OpenAiApi;
 
 /**
- * 内部存储内容获取工具，专门用于智能内容提取和结构化输出 支持AI智能分析和数据提取功能
+ * Internal storage content retrieval tool，专门用于智能内容提取和结构化输出 支持AI智能分析和数据提取功能
  */
 public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageContentTool.InnerStorageContentInput> {
 

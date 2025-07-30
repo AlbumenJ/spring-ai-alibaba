@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.api.OpenAiApi;
 
 /**
- * 文件合并工具，用于将单个文件合并到指定的目标文件夹中 每次调用合并一个文件到目标文件夹
+ * File merge tool，用于将单个文件合并到指定的目标文件夹中 每次调用合并一个文件到目标文件夹
  */
 public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput> {
 

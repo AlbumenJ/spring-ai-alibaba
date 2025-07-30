@@ -16,7 +16,7 @@
 package com.alibaba.cloud.ai.example.manus.tool.database;
 
 /**
- * 数据库工具请求对象，用于封装数据库操作请求参数
+ * Database tool request object，用于封装数据库操作请求参数
  *
  * <p>
  * 该对象包含执行数据库操作所需的所有参数，支持多种数据库操作类型， 包括SQL执行、表信息查询、索引查询等。
