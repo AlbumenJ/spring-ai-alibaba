@@ -84,7 +84,7 @@ public class DynamicAgent extends ReActAgent {
 
 	private Prompt userPrompt;
 
-	// 存储当前创建的ThinkActRecord ID，用于后续的action记录
+	// Store currently created ThinkActRecord ID for subsequent action recording
 	private Long currentThinkActRecordId;
 
 	private final ToolCallingManager toolCallingManager;
@@ -138,7 +138,7 @@ public class DynamicAgent extends ReActAgent {
 			log.error(String.format("🚨 Oops! The %s's thinking process hit a snag: %s", getName(), e.getMessage()), e);
 			log.info("Exception occurred", e);
 
-			// 记录思考失败
+			// Record thinking failure
 			PlanExecutionRecorder.PlanExecutionParams params = new PlanExecutionRecorder.PlanExecutionParams();
 			params.setCurrentPlanId(getCurrentPlanId());
 			params.setRootPlanId(getRootPlanId());
@@ -215,7 +215,7 @@ public class DynamicAgent extends ReActAgent {
 				log.info(String.format("🧰 Tools being prepared: %s",
 						toolCalls.stream().map(ToolCall::name).collect(Collectors.toList())));
 
-				// 记录成功的思考和动作准备
+				// Record successful thinking and action preparation
 				String toolName = toolCalls.get(0).name();
 				String toolParameters = toolCalls.get(0).arguments();
 				PlanExecutionRecorder.PlanExecutionParams params = new PlanExecutionRecorder.PlanExecutionParams();
@@ -238,7 +238,7 @@ public class DynamicAgent extends ReActAgent {
 			log.warn("Attempt {}: No tools selected. Retrying...", attempt);
 		}
 
-		// 记录思考失败（没有选择工具）
+		// Record thinking failure (no tool selected)
 		PlanExecutionRecorder.PlanExecutionParams params = new PlanExecutionRecorder.PlanExecutionParams();
 		params.setCurrentPlanId(getCurrentPlanId());
 		params.setRootPlanId(getRootPlanId());
@@ -279,7 +279,7 @@ public class DynamicAgent extends ReActAgent {
 		try {
 			List<ToolCall> toolCalls = streamResult.getEffectiveToolCalls();
 
-			// 创建 ActToolInfo 列表
+			// Create ActToolInfo list
 			actToolInfoList = createActToolInfoList(toolCalls);
 
 			// 执行工具调用
