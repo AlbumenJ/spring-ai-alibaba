@@ -22,16 +22,16 @@ import com.alibaba.cloud.ai.example.manus.planning.model.po.PlanTemplate;
 import org.springframework.http.ResponseEntity;
 
 /**
- * 计划模板服务接口，提供计划模板相关的业务逻辑
+ * Plan template service interface providing business logic related to plan templates
  */
 public interface IPlanTemplateService {
 
 	/**
-	 * 保存计划模板
-	 * @param planTemplateId 模板ID
-	 * @param title 标题
-	 * @param userRequest 用户请求
-	 * @param planJson 计划JSON
+	 * Save plan template
+	 * @param planTemplateId Template ID
+	 * @param title Title
+	 * @param userRequest User request
+	 * @param planJson Plan JSON
 	 */
 	void savePlanTemplate(String planTemplateId, String title, String userRequest, String planJson);
 
