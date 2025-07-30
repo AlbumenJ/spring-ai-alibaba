@@ -22,7 +22,7 @@
 // import org.springframework.ai.openai.api.OpenAiApi.FunctionTool;
 
 // /**
-// * 计划工具工厂类
+// * Planning tool factory class
 // */
 // public class PlanningToolFactory {
 
@@ -32,9 +32,9 @@
 // MapReducePlanningTool();
 
 // /**
-// * 根据计划类型获取相应的计划工具
-// * @param planType 计划类型
-// * @return 对应的计划工具
+// * Get corresponding planning tool based on plan type
+// * @param planType Plan type
+// * @return Corresponding planning tool
 // */
 // public static Object getPlanningTool(PlanType planType) {
 // return switch (planType) {
@@ -44,7 +44,7 @@
 // }
 
 // /**
-// * 根据计划类型获取相应的功能工具定义
+// * Get corresponding function tool definition based on plan type
 // * @param planType 计划类型
 // * @return 对应的功能工具定义
 // */

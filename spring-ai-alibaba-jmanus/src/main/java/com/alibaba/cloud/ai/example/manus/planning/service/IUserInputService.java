@@ -21,21 +21,21 @@ import com.alibaba.cloud.ai.example.manus.planning.model.vo.UserInputWaitState;
 import com.alibaba.cloud.ai.example.manus.tool.FormInputTool;
 
 /**
- * 用户输入服务接口，管理用户输入相关功能
+ * User input service interface managing user input related functions
  */
 public interface IUserInputService {
 
 	/**
-	 * 存储表单输入工具
-	 * @param planId 计划ID
-	 * @param tool 表单输入工具
+	 * Store form input tool
+	 * @param planId Plan ID
+	 * @param tool Form input tool
 	 */
 	void storeFormInputTool(String planId, FormInputTool tool);
 
 	/**
-	 * 获取表单输入工具
-	 * @param planId 计划ID
-	 * @return 表单输入工具
+	 * Get form input tool
+	 * @param planId Plan ID
+	 * @return Form input tool
 	 */
 	FormInputTool getFormInputTool(String planId);
 

@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 
 /**
- * 数据库配置解析工具类
+ * Database configuration parsing utility class
  */
 public class DatabaseConfigParser {
 
