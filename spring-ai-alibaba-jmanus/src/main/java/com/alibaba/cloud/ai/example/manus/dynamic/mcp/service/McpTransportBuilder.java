@@ -37,7 +37,7 @@ import io.modelcontextprotocol.client.transport.WebFluxSseClientTransport;
 import io.modelcontextprotocol.spec.McpClientTransport;
 
 /**
- * MCP传输构建器
+ * MCP transport builder
  */
 @Component
 public class McpTransportBuilder {
@@ -58,16 +58,16 @@ public class McpTransportBuilder {
 	}
 
 	/**
-	 * 构建MCP传输
-	 * @param configType 配置类型
-	 * @param serverConfig 服务器配置
-	 * @param serverName 服务器名称
-	 * @return MCP客户端传输
-	 * @throws IOException 构建失败时抛出异常
+	 * Build MCP transport
+	 * @param configType Configuration type
+	 * @param serverConfig Server configuration
+	 * @param serverName Server name
+	 * @return MCP client transport
+	 * @throws IOException Thrown when build fails
 	 */
 	public McpClientTransport buildTransport(McpConfigType configType, McpServerConfig serverConfig, String serverName)
 			throws IOException {
-		// 验证服务器配置
+		// Validate server configuration
 		configValidator.validateServerConfig(serverConfig, serverName);
 
 		switch (configType) {
@@ -87,8 +87,8 @@ public class McpTransportBuilder {
 	}
 
 	/**
-	 * 构建SSE传输
-	 * @param serverConfig 服务器配置
+	 * Build SSE transport
+	 * @param serverConfig Server configuration
 	 * @param serverName 服务器名称
 	 * @return SSE传输
 	 * @throws IOException 构建失败时抛出异常

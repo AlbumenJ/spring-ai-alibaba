@@ -29,7 +29,7 @@ import com.alibaba.cloud.ai.example.manus.dynamic.mcp.model.po.McpConfigStatus;
 import com.alibaba.cloud.ai.example.manus.dynamic.mcp.model.vo.McpServerConfig;
 
 /**
- * MCP配置验证器
+ * MCP configuration validator
  */
 @Component
 public class McpConfigValidator {
@@ -43,24 +43,24 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证MCP配置实体
-	 * @param mcpConfigEntity MCP配置实体
-	 * @throws IOException 验证失败时抛出异常
+	 * Validate MCP configuration entity
+	 * @param mcpConfigEntity MCP configuration entity
+	 * @throws IOException Thrown when validation fails
 	 */
 	public void validateMcpConfigEntity(McpConfigEntity mcpConfigEntity) throws IOException {
 		String serverName = mcpConfigEntity.getMcpServerName();
 
-		// 验证服务器名称
+		// Validate server name
 		if (serverName == null || serverName.trim().isEmpty()) {
 			throw new IOException("Server name is required");
 		}
 
-		// 验证连接类型
+		// Validate connection type
 		if (mcpConfigEntity.getConnectionType() == null) {
 			throw new IOException("Connection type is required for server: " + serverName);
 		}
 
-		// 验证连接配置
+		// Validate connection configuration
 		if (mcpConfigEntity.getConnectionConfig() == null || mcpConfigEntity.getConnectionConfig().trim().isEmpty()) {
 			throw new IOException("Connection config is required for server: " + serverName);
 		}
@@ -69,10 +69,10 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证服务器配置
-	 * @param serverConfig 服务器配置
-	 * @param serverName 服务器名称
-	 * @throws IOException 验证失败时抛出异常
+	 * Validate server configuration
+	 * @param serverConfig Server configuration
+	 * @param serverName Server name
+	 * @throws IOException Thrown when validation fails
 	 */
 	public void validateServerConfig(McpServerConfig serverConfig, String serverName) throws IOException {
 		if (serverConfig == null) {

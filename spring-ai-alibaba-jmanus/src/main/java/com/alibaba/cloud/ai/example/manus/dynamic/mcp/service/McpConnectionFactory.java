@@ -35,7 +35,7 @@ import io.modelcontextprotocol.spec.McpClientTransport;
 import io.modelcontextprotocol.spec.McpSchema;
 
 /**
- * MCP连接工厂
+ * MCP connection factory
  */
 @Component
 public class McpConnectionFactory {
@@ -59,31 +59,31 @@ public class McpConnectionFactory {
 	}
 
 	/**
-	 * 创建MCP连接
-	 * @param mcpConfigEntity MCP配置实体
-	 * @return MCP服务实体
-	 * @throws IOException 创建失败时抛出异常
+	 * Create MCP connection
+	 * @param mcpConfigEntity MCP configuration entity
+	 * @return MCP service entity
+	 * @throws IOException Thrown when creation fails
 	 */
 	public McpServiceEntity createConnection(McpConfigEntity mcpConfigEntity) throws IOException {
 		String serverName = mcpConfigEntity.getMcpServerName();
 
-		// 验证配置实体
+		// Validate configuration entity
 		configValidator.validateMcpConfigEntity(mcpConfigEntity);
 
-		// 检查是否启用
+		// Check if enabled
 		if (!configValidator.isEnabled(mcpConfigEntity)) {
 			logger.info("Skipping disabled MCP server: {}", serverName);
 			return null;
 		}
 
-		// 解析服务器配置
+		// Parse server configuration
 		McpServerConfig serverConfig = parseServerConfig(mcpConfigEntity.getConnectionConfig(), serverName);
 
-		// 构建传输
+		// Build transport
 		McpClientTransport transport = transportBuilder.buildTransport(mcpConfigEntity.getConnectionType(),
 				serverConfig, serverName);
 
-		// 配置MCP传输
+		// Configure MCP transport
 		return configureMcpTransport(serverName, transport);
 	}
 
