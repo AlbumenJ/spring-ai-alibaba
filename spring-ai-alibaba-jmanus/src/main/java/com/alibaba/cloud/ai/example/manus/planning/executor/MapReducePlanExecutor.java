@@ -51,7 +51,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Executor responsible for executing MapReduce mode plans, supporting parallel execution of Map phase and serial execution of Reduce phase
+ * Executor responsible for executing MapReduce mode plans, supporting parallel execution
+ * of Map phase and serial execution of Reduce phase
  */
 public class MapReducePlanExecutor extends AbstractPlanExecutor {
 
@@ -62,17 +63,20 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	// ==================== Configuration Constants ====================
 
 	/**
-	 * Default maximum character limit for Reduce phase batch processing, used to control total character count of Map task results per batch, avoiding overly long context
+	 * Default maximum character limit for Reduce phase batch processing, used to control
+	 * total character count of Map task results per batch, avoiding overly long context
 	 */
 	private static final int DEFAULT_REDUCE_BATCH_MAX_CHARACTERS = 2500;
 
 	/**
-	 * Maximum retry count for Map task execution, retry mechanism when task execution fails or is incomplete
+	 * Maximum retry count for Map task execution, retry mechanism when task execution
+	 * fails or is incomplete
 	 */
 	private static final int MAX_TASK_RETRY_COUNT = 3;
 
 	/**
-	 * 重试等待的基础时间间隔（毫秒） 实际等待时间 = BASE_RETRY_WAIT_MILLIS * 当前重试次数
+	 * Base time interval for retry waiting (milliseconds), actual wait time =
+	 * BASE_RETRY_WAIT_MILLIS * current retry count
 	 */
 	private static final long BASE_RETRY_WAIT_MILLIS = 1000;
 

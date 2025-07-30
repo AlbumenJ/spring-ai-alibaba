@@ -69,10 +69,10 @@ public class PlanTemplateController {
 	private ObjectMapper objectMapper;
 
 	/**
-	 * 将计划对象序列化为JSON字符串
-	 * @param plan 计划对象
-	 * @return 格式化的JSON字符串（带缩进和换行）
-	 * @throws Exception 序列化失败时抛出异常
+	 * Serialize plan object to JSON string
+	 * @param plan Plan object
+	 * @return Formatted JSON string (with indentation and line breaks)
+	 * @throws Exception Thrown when serialization fails
 	 */
 	private String planToJson(PlanInterface plan) throws Exception {
 		return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(plan);

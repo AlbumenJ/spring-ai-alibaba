@@ -78,7 +78,7 @@ public class ManusController {
 	public ResponseEntity<Map<String, Object>> executeQuery(@RequestBody Map<String, String> request) {
 		String query = request.get("query");
 		if (query == null || query.trim().isEmpty()) {
-			return ResponseEntity.badRequest().body(Map.of("error", "查询内容不能为空"));
+			return ResponseEntity.badRequest().body(Map.of("error", "Query content cannot be empty"));
 		}
 		ExecutionContext context = new ExecutionContext();
 		context.setUserRequest(query);
@@ -106,7 +106,7 @@ public class ManusController {
 		Map<String, Object> response = new HashMap<>();
 		response.put("planId", planId);
 		response.put("status", "processing");
-		response.put("message", "任务已提交，正在处理中");
+		response.put("message", "Task submitted, processing");
 
 		return ResponseEntity.ok(response);
 	}
@@ -163,7 +163,7 @@ public class ManusController {
 
 		try {
 			planExecutionRecorder.removeExecutionRecord(planId);
-			return ResponseEntity.ok(Map.of("message", "执行记录已成功删除", "planId", planId));
+			return ResponseEntity.ok(Map.of("message", "Execution record successfully deleted", "planId", planId));
 		}
 		catch (Exception e) {
 			return ResponseEntity.internalServerError()
