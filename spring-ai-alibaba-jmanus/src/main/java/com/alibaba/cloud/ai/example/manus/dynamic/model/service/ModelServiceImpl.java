@@ -152,65 +152,66 @@ public class ModelServiceImpl implements ModelService {
 
 	@Override
 	public ValidationResult validateConfig(String baseUrl, String apiKey) {
-		log.info("开始验证模型配置 - Base URL: {}, API Key: {}", baseUrl, maskApiKey(apiKey));
+		log.info("Starting model configuration validation - Base URL: {}, API Key: {}", baseUrl, maskApiKey(apiKey));
 
 		ValidationResult result = new ValidationResult();
 
 		try {
-			// 1. 验证Base URL格式
-			log.debug("验证Base URL格式: {}", baseUrl);
+			// 1. Validate Base URL format
+			log.debug("Validating Base URL format: {}", baseUrl);
 			if (!isValidBaseUrl(baseUrl)) {
-				log.warn("Base URL格式验证失败: {}", baseUrl);
+				log.warn("Base URL format validation failed: {}", baseUrl);
 				result.setValid(false);
-				result.setMessage("Base URL格式不正确");
+				result.setMessage("Base URL format is incorrect");
 				return result;
 			}
-			log.debug("Base URL格式验证通过");
+			log.debug("Base URL format validation passed");
 
-			// 2. 验证API Key格式
-			log.debug("验证API Key格式");
+			// 2. Validate API Key format
+			log.debug("Validating API Key format");
 			if (!isValidApiKey(apiKey)) {
-				log.warn("API Key格式验证失败");
+				log.warn("API Key format validation failed");
 				result.setValid(false);
-				result.setMessage("API Key格式不正确");
+				result.setMessage("API Key format is incorrect");
 				return result;
 			}
-			log.debug("API Key格式验证通过");
+			log.debug("API Key format validation passed");
 
-			// 3. 调用第三方API验证
-			log.info("开始调用第三方API验证配置");
+			// 3. Call third-party API for validation
+			log.info("Starting third-party API validation");
 			List<AvailableModel> models = callThirdPartyApi(baseUrl, apiKey);
 
 			result.setValid(true);
-			result.setMessage("验证成功");
+			result.setMessage("Validation successful");
 			result.setAvailableModels(models);
 
-			log.info("第三方API验证成功，获取到 {} 个可用模型", models.size());
+			log.info("Third-party API validation successful, obtained {} available models", models.size());
 
 		}
 		catch (AuthenticationException e) {
-			log.error("API Key认证失败: {}", e.getMessage());
+			log.error("API Key authentication failed: {}", e.getMessage());
 			result.setValid(false);
-			result.setMessage("API Key无效或已过期");
+			result.setMessage("API Key is invalid or expired");
 		}
 		catch (NetworkException e) {
-			log.error("网络连接验证失败: {}", e.getMessage());
+			log.error("Network connection validation failed: {}", e.getMessage());
 			result.setValid(false);
-			result.setMessage("网络连接失败，请检查Base URL");
+			result.setMessage("Network connection failed, please check Base URL");
 		}
 		catch (RateLimitException e) {
-			log.error("请求频率限制: {}", e.getMessage());
+			log.error("Request rate limit: {}", e.getMessage());
 			result.setValid(false);
-			result.setMessage("请求频率过高，请稍后重试");
+			result.setMessage("Request rate too high, please try again later");
 		}
 		catch (Exception e) {
-			log.error("验证过程中发生未知异常: {}", e.getMessage(), e);
+			log.error("Unknown exception occurred during validation: {}", e.getMessage(), e);
 			result.setValid(false);
-			result.setMessage("验证失败: " + e.getMessage());
+			result.setMessage("Validation failed: " + e.getMessage());
 		}
 
-		log.info("模型配置验证完成 - {}", result.isValid() ? "成功" : "失败");
-		log.info("模型配置验证结果 - 有效: {}, 消息: {}", result.isValid(), result.getMessage());
+		log.info("Model configuration validation completed - {}", result.isValid() ? "Success" : "Failed");
+		log.info("Model configuration validation result - Valid: {}, Message: {}", result.isValid(),
+				result.getMessage());
 
 		return result;
 	}
@@ -219,18 +220,19 @@ public class ModelServiceImpl implements ModelService {
 		try {
 			URL url = new URL(baseUrl);
 			boolean isValid = "http".equals(url.getProtocol()) || "https".equals(url.getProtocol());
-			log.debug("Base URL验证结果: {} - 协议: {}, 主机: {}", isValid, url.getProtocol(), url.getHost());
+			log.debug("Base URL validation result: {} - Protocol: {}, Host: {}", isValid, url.getProtocol(),
+					url.getHost());
 			return isValid;
 		}
 		catch (MalformedURLException e) {
-			log.debug("Base URL格式无效: {} - 错误: {}", baseUrl, e.getMessage());
+			log.debug("Base URL format invalid: {} - Error: {}", baseUrl, e.getMessage());
 			return false;
 		}
 	}
 
 	private boolean isValidApiKey(String apiKey) {
 		boolean isValid = apiKey != null && !apiKey.trim().isEmpty() && apiKey.length() >= 10;
-		log.debug("API Key验证结果: {} - 长度: {}", isValid, apiKey != null ? apiKey.length() : 0);
+		log.debug("API Key validation result: {} - Length: {}", isValid, apiKey != null ? apiKey.length() : 0);
 		return isValid;
 	}
 
@@ -242,16 +244,17 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	private List<AvailableModel> callThirdPartyApi(String baseUrl, String apiKey) {
-		log.debug("开始调用第三方API - URL: {}", baseUrl);
+		log.debug("Starting third-party API call - URL: {}", baseUrl);
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		// 设置请求头
+		// Set request headers
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + apiKey);
 		headers.set("Content-Type", "application/json");
 
-		log.debug("设置请求头 - Content-Type: application/json, Authorization: Bearer {}", maskApiKey(apiKey));
+		log.debug("Setting request headers - Content-Type: application/json, Authorization: Bearer {}",
+				maskApiKey(apiKey));
 
 		// 构建请求URL
 		String requestUrl = baseUrl + "/v1/models";
