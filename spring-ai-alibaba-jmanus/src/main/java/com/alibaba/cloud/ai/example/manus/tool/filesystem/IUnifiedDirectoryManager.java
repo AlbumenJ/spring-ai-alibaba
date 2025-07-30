@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import com.alibaba.cloud.ai.example.manus.config.ManusProperties;
 
 /**
- * 统一目录管理器接口，为所有工具的文件系统操作提供集中的目录管理
+ * Unified directory manager interface，为所有工具的文件系统操作提供集中的目录管理
  */
 public interface IUnifiedDirectoryManager {
 

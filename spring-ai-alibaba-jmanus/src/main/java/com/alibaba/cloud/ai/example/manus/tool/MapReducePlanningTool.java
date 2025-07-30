@@ -261,7 +261,7 @@ public class MapReducePlanningTool
 			}
 		}
 
-		// 处理Reduce步骤
+		// Process Reduce steps
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> reduceSteps = (List<Map<String, Object>>) stepNode.get("reduceSteps");
 		if (reduceSteps != null) {
@@ -271,7 +271,7 @@ public class MapReducePlanningTool
 			}
 		}
 
-		// 处理后处理步骤
+		// Process post-processing steps
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> postProcessSteps = (List<Map<String, Object>>) stepNode.get("postProcessSteps");
 		if (postProcessSteps != null) {
@@ -285,9 +285,9 @@ public class MapReducePlanningTool
 	}
 
 	/**
-	 * 从Map创建ExecutionStep
-	 * @param stepMap 步骤Map
-	 * @return 创建的ExecutionStep实例
+	 * Create ExecutionStep from Map
+	 * @param stepMap Step Map
+	 * @return Created ExecutionStep instance
 	 */
 	private ExecutionStep createExecutionStepFromMap(Map<String, Object> stepMap) {
 		String stepRequirement = (String) stepMap.get("stepRequirement");

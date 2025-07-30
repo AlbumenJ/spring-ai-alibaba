@@ -366,7 +366,8 @@ public class PlanTemplateService implements IPlanTemplateService {
 			context.setNeedSummary(true); // We need to generate a summary
 
 			try {
-				// Use Jackson to deserialize JSON to PlanInterface object (supports polymorphism)
+				// Use Jackson to deserialize JSON to PlanInterface object (supports
+				// polymorphism)
 				PlanInterface plan = objectMapper.readValue(planJson, PlanInterface.class);
 
 				// Set new plan ID, overriding ID in JSON

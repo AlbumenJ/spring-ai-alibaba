@@ -21,7 +21,7 @@ import com.alibaba.cloud.ai.example.manus.config.ManusProperties;
 import com.alibaba.cloud.ai.example.manus.tool.innerStorage.SmartContentSavingService;
 
 /**
- * 文本文件服务接口，提供文件操作管理功能
+ * Text file service interface，提供文件操作管理功能
  */
 public interface ITextFileService {
 

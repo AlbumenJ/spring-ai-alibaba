@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * MapReduce工具共享状态管理器接口，用于管理不同Agent实例之间的共享状态信息
+ * MapReduce tool shared state manager interface，用于管理不同Agent实例之间的共享状态信息
  */
 public interface IMapReduceSharedStateManager {
 

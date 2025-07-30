@@ -282,18 +282,18 @@ public class DynamicAgent extends ReActAgent {
 			// Create ActToolInfo list
 			actToolInfoList = createActToolInfoList(toolCalls);
 
-			// 执行工具调用
+			// Execute tool calls
 			toolExecutionResult = toolCallingManager.executeToolCalls(userPrompt, response);
 			processMemory(toolExecutionResult);
 
-			// 获取工具响应消息
+			// Get tool response messages
 			ToolResponseMessage toolResponseMessage = (ToolResponseMessage) toolExecutionResult.conversationHistory()
 				.get(toolExecutionResult.conversationHistory().size() - 1);
 
-			// 设置每个工具的执行结果
+			// Set execution result for each tool
 			setActToolInfoResults(actToolInfoList, toolResponseMessage.getResponses());
 
-			// 获取最后一个工具的执行结果
+			// Get execution result of the last tool
 			if (!toolResponseMessage.getResponses().isEmpty()) {
 				lastToolCallResult = toolResponseMessage.getResponses()
 					.get(toolResponseMessage.getResponses().size() - 1)

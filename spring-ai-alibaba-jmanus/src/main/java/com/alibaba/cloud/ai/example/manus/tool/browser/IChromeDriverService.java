@@ -20,7 +20,7 @@ import com.alibaba.cloud.ai.example.manus.tool.innerStorage.SmartContentSavingSe
 import com.alibaba.cloud.ai.example.manus.tool.filesystem.UnifiedDirectoryManager;
 
 /**
- * Chrome驱动服务接口，提供浏览器驱动管理功能
+ * Chrome driver service interface，提供浏览器驱动管理功能
  */
 public interface IChromeDriverService {
 

@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * MapReduce工具共享状态管理器 用于管理不同Agent实例之间的共享状态信息，确保MapReduce流程的一致性
+ * MapReduce tool shared state manager 用于管理不同Agent实例之间的共享状态信息，确保MapReduce流程的一致性
  */
 @Component
 public class MapReduceSharedStateManager implements IMapReduceSharedStateManager {
