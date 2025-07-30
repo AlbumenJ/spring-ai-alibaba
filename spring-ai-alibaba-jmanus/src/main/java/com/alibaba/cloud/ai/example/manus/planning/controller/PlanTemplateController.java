@@ -100,7 +100,7 @@ public class PlanTemplateController {
 			// Escape curly braces in JSON to prevent String.format from misinterpreting
 			// them as placeholders
 			String escapedJson = existingJson.replace("{", "\\{").replace("}", "\\}");
-			enhancedQuery = String.format("参照过去的执行计划 %s 。以及用户的新的query：%s。构建一个新的执行计划。", escapedJson, query);
+			enhancedQuery = String.format("Refer to the past execution plan %s and the user's new query: %s. Build a new execution plan.", escapedJson, query);
 		}
 		else {
 			enhancedQuery = query;
