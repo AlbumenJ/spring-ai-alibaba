@@ -80,11 +80,11 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 	 */
 	public StreamableHttpClientTransport(WebClient.Builder webClientBuilder, ObjectMapper objectMapper,
 			String streamEndpoint) {
-		logger.info("=== 开始初始化 StreamableHttpClientTransport ===");
-		logger.info("=== 传入的 streamEndpoint: {} ===", streamEndpoint);
+		logger.info("=== Starting StreamableHttpClientTransport initialization ===");
+		logger.info("=== Passed streamEndpoint: {} ===", streamEndpoint);
 
 		this.webClient = webClientBuilder.defaultHeader("Accept", "application/json, text/event-stream").build();
-		logger.info("=== WebClient 已构建，默认 Accept 头: application/json, text/event-stream ===");
+		logger.info("=== WebClient built, default Accept header: application/json, text/event-stream ===");
 
 		this.objectMapper = objectMapper;
 		logger.info("=== ObjectMapper 已设置 ===");
