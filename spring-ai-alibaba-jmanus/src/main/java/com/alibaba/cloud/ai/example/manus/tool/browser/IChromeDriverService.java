@@ -71,14 +71,14 @@ public interface IChromeDriverService {
 	IManusProperties getManusProperties();
 
 	/**
-	 * 获取内部存储服务
-	 * @return 内部存储服务
+	 * Get internal storage service
+	 * @return Internal storage service
 	 */
 	SmartContentSavingService getInnerStorageService();
 
 	/**
-	 * 获取统一目录管理器
-	 * @return 统一目录管理器
+	 * Get unified directory manager
+	 * @return Unified directory manager
 	 */
 	UnifiedDirectoryManager getUnifiedDirectoryManager();
 

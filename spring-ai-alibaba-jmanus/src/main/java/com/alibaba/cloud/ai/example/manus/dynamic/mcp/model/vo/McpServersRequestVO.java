@@ -104,8 +104,8 @@ public class McpServersRequestVO {
 	}
 
 	/**
-	 * 获取服务器配置数量
-	 * @return 服务器数量
+	 * Get server configuration count
+	 * @return Server count
 	 */
 	public int getServerCount() {
 		if (!isValidJson()) {
@@ -123,8 +123,8 @@ public class McpServersRequestVO {
 	}
 
 	/**
-	 * 获取服务器名称列表
-	 * @return 服务器名称数组
+	 * Get server name list
+	 * @return Server name array
 	 */
 	public String[] getServerNames() {
 		if (!isValidJson()) {
@@ -149,8 +149,9 @@ public class McpServersRequestVO {
 	}
 
 	/**
-	 * 标准化JSON格式 如果输入的是短格式JSON，自动转换为完整格式
-	 * @return 标准化后的JSON字符串
+	 * Normalize JSON format. If input is short format JSON, automatically convert to
+	 * complete format
+	 * @return Normalized JSON string
 	 */
 	public String getNormalizedConfigJson() {
 		if (configJson == null || configJson.trim().isEmpty()) {
@@ -160,12 +161,12 @@ public class McpServersRequestVO {
 		try {
 			JsonNode jsonNode = objectMapper.readTree(configJson);
 
-			// 如果已经包含mcpServers字段，直接返回
+			// If already contains mcpServers field, return directly
 			if (jsonNode.has("mcpServers")) {
 				return configJson;
 			}
 
-			// 如果是短格式JSON，转换为完整格式
+			// If it's short format JSON, convert to complete format
 			StringBuilder fullJsonBuilder = new StringBuilder();
 			fullJsonBuilder.append("{\n  \"mcpServers\": ");
 			fullJsonBuilder.append(configJson);
@@ -174,14 +175,14 @@ public class McpServersRequestVO {
 			return fullJsonBuilder.toString();
 		}
 		catch (Exception e) {
-			// 如果解析失败，返回原始JSON
+			// If parsing fails, return original JSON
 			return configJson;
 		}
 	}
 
 	/**
-	 * 验证请求数据是否有效
-	 * @return true表示有效，false表示无效
+	 * Validate if request data is valid
+	 * @return true if valid, false if invalid
 	 */
 	public boolean isValid() {
 		return isValidJson();

@@ -267,18 +267,18 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 根据ID查找MCP配置
-	 * @param id MCP配置ID
-	 * @return 可选的MCP配置实体
+	 * Find MCP configuration by ID
+	 * @param id MCP configuration ID
+	 * @return Optional MCP configuration entity
 	 */
 	public Optional<McpConfigEntity> findById(Long id) {
 		return mcpConfigRepository.findById(id);
 	}
 
 	/**
-	 * 获取MCP服务实体列表
-	 * @param planId 计划ID
-	 * @return MCP服务实体列表
+	 * Get MCP service entity list
+	 * @param planId Plan ID
+	 * @return MCP service entity list
 	 */
 	@Override
 	public List<McpServiceEntity> getFunctionCallbacks(String planId) {
@@ -286,8 +286,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 关闭指定计划的MCP服务
-	 * @param planId 计划ID
+	 * Close MCP service for specified plan
+	 * @param planId Plan ID
 	 */
 	@Override
 	public void close(String planId) {

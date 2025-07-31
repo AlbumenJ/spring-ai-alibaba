@@ -119,7 +119,8 @@ public class DatabaseRequest {
 
 	/**
 	 * Set text parameter
-	 * @param text Text parameter for specifying table names, comments or other filter conditions
+	 * @param text Text parameter for specifying table names, comments or other filter
+	 * conditions
 	 */
 	public void setText(String text) {
 		this.text = text;

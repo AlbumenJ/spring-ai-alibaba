@@ -260,7 +260,7 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 
 	@Override
 	public void cleanup(String planId) {
-		// 文件合并工具不需要执行清理操作
+		// File merge tool does not need to perform cleanup operations
 		log.info("FileMergeTool cleanup for plan: {}", planId);
 	}
 

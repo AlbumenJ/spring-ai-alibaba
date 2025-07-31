@@ -280,10 +280,10 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 
 			// Basic parameter validation
 			if (action == null) {
-				return new ToolExecuteResult("错误：action参数是必需的");
+				return new ToolExecuteResult("Error: action parameter is required");
 			}
 			if (filePath == null) {
-				return new ToolExecuteResult("错误：file_path参数是必需的");
+				return new ToolExecuteResult("Error: file_path parameter is required");
 			}
 
 			return switch (action) {
@@ -292,7 +292,8 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 					String targetText = (String) toolInputMap.get("target_text");
 
 					if (sourceText == null || targetText == null) {
-						yield new ToolExecuteResult("错误：replace操作需要source_text和target_text参数");
+						yield new ToolExecuteResult(
+								"Error: replace operation requires source_text and target_text parameters");
 					}
 
 					yield replaceText(planId, filePath, sourceText, targetText);
@@ -302,7 +303,8 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 					Integer endLine = (Integer) toolInputMap.get("end_line");
 
 					if (startLine == null || endLine == null) {
-						yield new ToolExecuteResult("错误：get_text操作需要start_line和end_line参数");
+						yield new ToolExecuteResult(
+								"Error: get_text operation requires start_line and end_line parameters");
 					}
 
 					yield getTextByLines(planId, filePath, startLine, endLine);
@@ -312,7 +314,7 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 					String appendContent = (String) toolInputMap.get("content");
 
 					if (appendContent == null) {
-						yield new ToolExecuteResult("错误：append操作需要content参数");
+						yield new ToolExecuteResult("Error: append operation requires content parameter");
 					}
 
 					yield appendToFile(planId, filePath, appendContent);
@@ -320,8 +322,8 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 				case "count_words" -> countWords(planId, filePath);
 				default -> {
 					textFileService.updateFileState(planId, filePath, "Error: Unknown action");
-					yield new ToolExecuteResult(
-							"未知操作: " + action + "。支持的操作: replace, get_text, get_all_text, append, count_words");
+					yield new ToolExecuteResult("Unknown operation: " + action
+							+ ". Supported operations: replace, get_text, get_all_text, append, count_words");
 				}
 			};
 		}
@@ -329,12 +331,12 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			String planId = this.currentPlanId;
 			textFileService.updateFileState(planId, textFileService.getCurrentFilePath(planId),
 					"Error: " + e.getMessage());
-			return new ToolExecuteResult("工具执行失败: " + e.getMessage());
+			return new ToolExecuteResult("Tool execution failed: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 执行文本文件操作，接受强类型输入对象
+	 * Execute text file operations, accept strongly typed input object
 	 */
 	@Override
 	public ToolExecuteResult run(TextFileInput input) {
@@ -346,10 +348,10 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 
 			// Basic parameter validation
 			if (action == null) {
-				return new ToolExecuteResult("错误：action参数是必需的");
+				return new ToolExecuteResult("Error: action parameter is required");
 			}
 			if (filePath == null) {
-				return new ToolExecuteResult("错误：file_path参数是必需的");
+				return new ToolExecuteResult("Error: file_path parameter is required");
 			}
 
 			return switch (action) {

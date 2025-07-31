@@ -199,7 +199,7 @@ public class McpServerRequestVO {
 					}
 					break;
 				default:
-					errors.add("不支持的连接类型: " + connectionTypeUpper);
+					errors.add("Unsupported connection type: " + connectionTypeUpper);
 					break;
 			}
 		}
@@ -208,9 +208,9 @@ public class McpServerRequestVO {
 	}
 
 	/**
-	 * 验证URL格式是否有效
-	 * @param url 服务器URL
-	 * @return 是否为有效URL格式
+	 * Validate if URL format is valid
+	 * @param url Server URL
+	 * @return Whether it's a valid URL format
 	 */
 	private boolean isValidUrlFormat(String url) {
 		if (url == null || url.trim().isEmpty()) {
@@ -227,9 +227,9 @@ public class McpServerRequestVO {
 	}
 
 	/**
-	 * 判断URL是否为SSE连接（与McpServerConfig保持一致）
-	 * @param url 服务器URL
-	 * @return 是否为SSE URL
+	 * Determine if URL is SSE connection (consistent with McpServerConfig)
+	 * @param url Server URL
+	 * @return Whether it's SSE URL
 	 */
 	private boolean isSSEUrl(String url) {
 		if (url == null || url.isEmpty()) {
@@ -240,31 +240,31 @@ public class McpServerRequestVO {
 			java.net.URL parsedUrl = new java.net.URL(url);
 			String path = parsedUrl.getPath();
 
-			// 检查路径是否包含sse
+			// Check if path contains sse
 			boolean pathContainsSse = path != null && path.toLowerCase().contains("sse");
 
 			return pathContainsSse;
 		}
 		catch (java.net.MalformedURLException e) {
-			// 如果URL格式无效，返回false
+			// If URL format is invalid, return false
 			return false;
 		}
 	}
 
 	/**
-	 * 构建单个服务器的JSON配置
-	 * @return JSON字符串
+	 * Build JSON configuration for single server
+	 * @return JSON string
 	 */
 	public String buildConfigJson() {
 		StringBuilder jsonBuilder = new StringBuilder();
 		jsonBuilder.append("{");
 
-		// 添加command（如果存在）
+		// Add command (if exists)
 		if (command != null && !command.trim().isEmpty()) {
 			jsonBuilder.append("\"command\":\"").append(command).append("\"");
 		}
 
-		// 添加url（如果存在）
+		// Add url (if exists)
 		if (url != null && !url.trim().isEmpty()) {
 			if (jsonBuilder.length() > 1) {
 				jsonBuilder.append(",");
@@ -272,7 +272,7 @@ public class McpServerRequestVO {
 			jsonBuilder.append("\"url\":\"").append(url).append("\"");
 		}
 
-		// 添加args（如果存在）
+		// Add args (if exists)
 		if (args != null && !args.isEmpty()) {
 			if (jsonBuilder.length() > 1) {
 				jsonBuilder.append(",");
@@ -287,7 +287,7 @@ public class McpServerRequestVO {
 			jsonBuilder.append("]");
 		}
 
-		// 添加env（如果存在）
+		// Add env (if exists)
 		if (env != null && !env.isEmpty()) {
 			if (jsonBuilder.length() > 1) {
 				jsonBuilder.append(",");

@@ -96,17 +96,17 @@ public interface IUnifiedDirectoryManager {
 	ManusProperties getManusProperties();
 
 	/**
-	 * 清理子任务目录
-	 * @param rootPlanId 根计划ID
-	 * @param subTaskId 子任务ID
-	 * @throws IOException IO异常
+	 * Clean up subtask directory
+	 * @param rootPlanId Root plan ID
+	 * @param subTaskId Subtask ID
+	 * @throws IOException IO exception
 	 */
 	void cleanupSubTaskDirectory(String rootPlanId, String subTaskId) throws IOException;
 
 	/**
-	 * 清理根计划目录
-	 * @param rootPlanId 根计划ID
-	 * @throws IOException IO异常
+	 * Clean up root plan directory
+	 * @param rootPlanId Root plan ID
+	 * @throws IOException IO exception
 	 */
 	void cleanupRootPlanDirectory(String rootPlanId) throws IOException;
 

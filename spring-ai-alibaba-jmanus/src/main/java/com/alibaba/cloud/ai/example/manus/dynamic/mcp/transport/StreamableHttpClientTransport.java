@@ -245,33 +245,33 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 		logger.info("=== Request body: {} ===", jsonMessage);
 		logger.info("=== Request body length: {} bytes ===", jsonMessage.getBytes().length);
 
-		// 构建WebClient请求
+		// Build WebClient request
 		WebClient.RequestBodySpec requestSpec = webClient.post()
 			.uri(fullUrl)
 			.contentType(MediaType.APPLICATION_JSON)
 			.header("Accept", acceptHeader);
 
-		// 如果有Session ID，添加到请求头
+		// If there is Session ID, add to request header
 		if (sessionId != null) {
 			requestSpec.header("MCP-Session-ID", sessionId);
-			logger.info("=== 添加Session ID到请求头: {} ===", sessionId);
+			logger.info("=== Adding Session ID to request header: {} ===", sessionId);
 		}
 		else {
-			logger.info("=== 当前没有Session ID，跳过Session ID头 ===");
+			logger.info("=== No Session ID currently, skipping Session ID header ===");
 		}
 
 		return requestSpec.bodyValue(jsonMessage).exchangeToMono(clientResponse -> {
-			logger.info("=== 收到HTTP响应 ===");
-			logger.info("=== 响应状态: {} ===", clientResponse.statusCode());
-			logger.info("=== 响应头: {} ===", clientResponse.headers().asHttpHeaders());
+			logger.info("=== Received HTTP response ===");
+			logger.info("=== Response status: {} ===", clientResponse.statusCode());
+			logger.info("=== Response headers: {} ===", clientResponse.headers().asHttpHeaders());
 
 			// 从响应头中提取Session ID
 			extractSessionIdFromHeaders(clientResponse.headers().asHttpHeaders());
 
 			if (clientResponse.statusCode().is2xxSuccessful()) {
-				logger.info("=== HTTP请求成功 ===");
+				logger.info("=== HTTP request successful ===");
 				return clientResponse.bodyToMono(String.class).doOnNext(response -> {
-					logger.info("=== 响应体: {} ===", response);
+					logger.info("=== Response body: {} ===", response);
 					logger.info("=== 响应体长度: {} 字节 ===", response != null ? response.getBytes().length : 0);
 				});
 			}

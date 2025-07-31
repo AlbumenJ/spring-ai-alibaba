@@ -389,28 +389,28 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 
 		}
 		catch (IOException e) {
-			log.error("获取文件夹内容失败", e);
-			return new ToolExecuteResult("获取文件夹内容失败: " + e.getMessage());
+			log.error("Failed to get folder content", e);
+			return new ToolExecuteResult("Failed to get folder content: " + e.getMessage());
 		}
 		catch (Exception e) {
-			log.error("SummaryWorkflow 执行失败", e);
-			return new ToolExecuteResult("内容处理失败: " + e.getMessage());
+			log.error("SummaryWorkflow execution failed", e);
+			return new ToolExecuteResult("Content processing failed: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 获取当前的 think-act 记录ID
-	 * @return 当前 think-act 记录ID，如果没有则返回 null
+	 * Get current think-act record ID
+	 * @return Current think-act record ID, return null if none
 	 */
 	private Long getCurrentThinkActRecordId() {
 		try {
 			Long thinkActRecordId = planExecutionRecorder.getCurrentThinkActRecordId(currentPlanId, rootPlanId);
 			if (thinkActRecordId != null) {
-				log.info("当前 think-act 记录ID: {}", thinkActRecordId);
+				log.info("Current think-act record ID: {}", thinkActRecordId);
 				return thinkActRecordId;
 			}
 			else {
-				log.warn("当前没有 think-act 记录ID");
+				log.warn("No current think-act record ID");
 			}
 		}
 		catch (Exception e) {
@@ -424,28 +424,30 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 	public String getCurrentToolStateString() {
 		try {
 			StringBuilder sb = new StringBuilder();
-			sb.append("InnerStorageContent 当前状态:\n");
-			sb.append("- 存储根目录: ").append(directoryManager.getRootPlanDirectory(rootPlanId)).append("\n");
+			sb.append("InnerStorageContent current status:\n");
+			sb.append("- Storage root directory: ")
+				.append(directoryManager.getRootPlanDirectory(rootPlanId))
+				.append("\n");
 			Path planDir = directoryManager.getRootPlanDirectory(rootPlanId);
 			List<Path> files = Files.exists(planDir) ? Files.list(planDir).filter(Files::isRegularFile).toList()
 					: List.of();
 			if (files.isEmpty()) {
-				sb.append("- 内部文件: 无\n");
+				sb.append("- Internal files: None\n");
 			}
 			else {
-				sb.append("- 内部文件 (").append(files.size()).append("个)\n");
+				sb.append("- Internal files (").append(files.size()).append(" files)\n");
 			}
 			return sb.toString();
 		}
 		catch (Exception e) {
-			log.error("获取工具状态失败", e);
-			return "InnerStorageContent 状态获取失败: " + e.getMessage();
+			log.error("Failed to get tool status", e);
+			return "InnerStorageContent status retrieval failed: " + e.getMessage();
 		}
 	}
 
 	@Override
 	public void cleanup(String planId) {
-		// 内容获取工具不需要执行清理操作
+		// Content retrieval tool does not need to perform cleanup operations
 		log.info("InnerStorageContentTool cleanup for plan: {}", planId);
 	}
 
