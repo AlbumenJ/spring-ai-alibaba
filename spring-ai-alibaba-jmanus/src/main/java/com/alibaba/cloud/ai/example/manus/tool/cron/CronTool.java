@@ -167,7 +167,7 @@ public class CronTool extends AbstractBaseTool<CronTool.CronToolInput> {
 	@Override
 	public String getCurrentToolStateString() {
 		return String.format("""
-				写入定时任务状态： %s
+				Write scheduled task status: %s
 				""", "yes");
 	}
 

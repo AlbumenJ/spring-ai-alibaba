@@ -341,7 +341,7 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			}
 
 			if (responseId != null && pendingRequests.containsKey(responseId)) {
-				// 这是对某个请求的响应
+				// This is a response to some request
 				logger.info("=== Found response waiter for request {} ===", responseId);
 				Sinks.One<String> responseSink = pendingRequests.remove(responseId);
 				responseSink.tryEmitValue(jsonContent);
@@ -367,7 +367,7 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			else {
 				logger.info("=== This is server-initiated message or unknown response: {} ===", jsonContent);
 				logger.info("=== Currently pending request IDs: {} ===", pendingRequests.keySet());
-				// 对于服务端主动消息，也通过 requestHandler 处理
+				// For server-initiated messages, also process through requestHandler
 				if (requestHandler != null && messageObj != null) {
 					try {
 						requestHandler.apply(Mono.just(messageObj)).subscribe();
@@ -385,14 +385,14 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 		}
 		catch (Exception e) {
 			logger.error("=== Failed to process input message: {} ===", e.getMessage(), e);
-			logger.error("=== 失败的原始响应: {} ===", responseJson);
+			logger.error("=== Failed raw response: {} ===", responseJson);
 		}
 	}
 
 	/**
-	 * 解析响应格式，支持SSE和JSON格式
-	 * @param rawResponse 原始响应内容
-	 * @return 解析后的JSON内容，如果解析失败返回null
+	 * Parse response format, supports SSE and JSON formats
+	 * @param rawResponse Raw response content
+	 * @return Parsed JSON content, return null if parsing fails
 	 */
 	private String parseResponseFormat(String rawResponse) {
 		logger.info("=== 开始解析响应格式 ===");
