@@ -101,10 +101,10 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 					**Data Format Requirements (when has_value=true):**
 					You must provide data in the following fixed format, each line containing: [%s]
 
-					示例格式：
+					Example format:
 					[
-					  ["%s示例1", "%s示例1"],
-					  ["%s示例2", "%s示例2"]
+					  ["%s Example 1", "%s Example 1"],
+					  ["%s Example 2", "%s Example 2"]
 					]
 					""", columnsFormat, terminateColumns.get(0),
 					terminateColumns.size() > 1 ? terminateColumns.get(1) : "data", terminateColumns.get(0),
@@ -303,12 +303,12 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 			List<Object> row = data.get(i);
 			if (row.size() != expectedColumnCount) {
 				String error = String.format("""
-						数据结构不一致！
-						期望的列数: %d
-						实际第%d行的列数: %d
+						Data structure inconsistent!
+						Expected column count: %d
+						Actual column count for row %d: %d
 
-						**要求的数据结构：**
-						每行数据必须包含：[%s]
+						**Required data structure:**
+						Each row must contain: [%s]
 
 						Example format:
 						[
@@ -316,8 +316,8 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 						  ["%s Example2", "%s Example2"]
 						]
 						""", expectedColumnCount, i + 1, row.size(), String.join(", ", terminateColumns),
-						terminateColumns.get(0), terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据",
-						terminateColumns.get(0), terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据");
+						terminateColumns.get(0), terminateColumns.size() > 1 ? terminateColumns.get(1) : "data",
+						terminateColumns.get(0), terminateColumns.size() > 1 ? terminateColumns.get(1) : "data");
 				return new ToolExecuteResult(error);
 			}
 		}
@@ -402,7 +402,7 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 				sharedStateManager.setLastOperationResult(currentPlanId, resultStr);
 			}
 
-			// 设置终止状态
+			// Set termination status
 			this.isTerminated = true;
 			this.lastTerminationMessage = "Append operation completed successfully";
 			this.terminationTimestamp = java.time.LocalDateTime.now().toString();
@@ -413,7 +413,7 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 		}
 		catch (IOException e) {
 			log.error("Failed to append to file", e);
-			// 即使失败也设置终止状态
+			// Set termination status even if failed
 			this.isTerminated = true;
 			this.lastTerminationMessage = "Append operation failed: " + e.getMessage();
 			this.terminationTimestamp = java.time.LocalDateTime.now().toString();
@@ -483,31 +483,32 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 
 	@Override
 	public boolean canTerminate() {
-		// 检查是否已经执行了append操作，如果执行了则可以终止
+		// Check if append operation has been executed, if so then can terminate
 		return isTerminated;
 	}
 
 	/**
-	 * 获取终止状态信息，包含原有状态和终止相关状态
+	 * Get termination status information, including original status and
+	 * termination-related status
 	 */
 	@Override
 	public String getCurrentToolStateString() {
 		StringBuilder sb = new StringBuilder();
 
-		// 原有的共享状态信息
+		// Original shared state information
 		if (sharedStateManager != null && currentPlanId != null) {
 			sb.append(sharedStateManager.getCurrentToolStateString(currentPlanId));
 			sb.append("\n\n");
 		}
 
-		// 简化的终止状态信息
+		// Simplified termination status information
 		sb.append(String.format("ReduceOperationTool: %s", isTerminated ? "🛑 Terminated" : "⚡ Active"));
 
 		return sb.toString();
 	}
 
 	/**
-	 * 检查工具是否已经终止
+	 * Check if tool has already terminated
 	 */
 	public boolean isTerminated() {
 		return isTerminated;

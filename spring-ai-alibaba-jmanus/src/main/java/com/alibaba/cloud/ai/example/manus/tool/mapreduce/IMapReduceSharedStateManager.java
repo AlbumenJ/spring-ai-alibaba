@@ -96,48 +96,48 @@ public interface IMapReduceSharedStateManager {
 	Map<String, MapReduceSharedStateManager.TaskStatus> getAllMapTaskStatuses(String planId);
 
 	/**
-	 * 设置最后操作结果
-	 * @param planId 计划ID
-	 * @param result 操作结果
+	 * Set last operation result
+	 * @param planId Plan ID
+	 * @param result Operation result
 	 */
 	void setLastOperationResult(String planId, String result);
 
 	/**
-	 * 获取最后操作结果
-	 * @param planId 计划ID
-	 * @return 最后操作结果
+	 * Get last operation result
+	 * @param planId Plan ID
+	 * @return Last operation result
 	 */
 	String getLastOperationResult(String planId);
 
 	/**
-	 * 设置最后处理的文件
-	 * @param planId 计划ID
-	 * @param filePath 文件路径
+	 * Set last processed file
+	 * @param planId Plan ID
+	 * @param filePath File path
 	 */
 	void setLastProcessedFile(String planId, String filePath);
 
 	/**
-	 * 获取最后处理的文件
-	 * @param planId 计划ID
-	 * @return 最后处理的文件路径
+	 * Get last processed file
+	 * @param planId Plan ID
+	 * @return Last processed file path
 	 */
 	String getLastProcessedFile(String planId);
 
 	/**
-	 * 获取当前工具状态字符串
-	 * @param planId 计划ID
-	 * @return 当前工具状态字符串
+	 * Get current tool status string
+	 * @param planId Plan ID
+	 * @return Current tool status string
 	 */
 	String getCurrentToolStateString(String planId);
 
 	/**
-	 * 获取所有计划概览
-	 * @return 所有计划概览字符串
+	 * Get all plan overview
+	 * @return All plan overview string
 	 */
 	String getAllPlansOverview();
 
 	/**
-	 * 清理所有计划状态
+	 * Clean up all plan states
 	 */
 	void cleanupAllPlanStates();
 
