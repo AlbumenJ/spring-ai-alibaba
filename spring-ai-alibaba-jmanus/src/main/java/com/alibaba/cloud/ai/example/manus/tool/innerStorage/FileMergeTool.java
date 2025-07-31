@@ -30,14 +30,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.api.OpenAiApi;
 
 /**
- * File merge tool，用于将单个文件合并到指定的目标文件夹中 每次调用合并一个文件到目标文件夹
+ * File merge tool for merging single files into specified target folders, merging one file per call
  */
 public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput> {
 
 	private static final Logger log = LoggerFactory.getLogger(FileMergeTool.class);
 
 	/**
-	 * 文件合并输入类
+	 * File merge input class
 	 */
 	public static class FileMergeInput {
 
@@ -157,7 +157,7 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 		}
 		catch (Exception e) {
 			log.error("FileMergeTool执行失败", e);
-			return new ToolExecuteResult("工具执行失败: " + e.getMessage());
+			return new ToolExecuteResult("Tool execution failed: " + e.getMessage());
 		}
 	}
 
