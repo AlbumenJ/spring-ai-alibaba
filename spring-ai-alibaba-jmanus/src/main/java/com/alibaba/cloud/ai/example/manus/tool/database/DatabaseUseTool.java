@@ -196,7 +196,7 @@ public class DatabaseUseTool extends AbstractBaseTool<DatabaseRequest> {
 		if (planId != null) {
 			log.info("Cleaning up database resources for plan: {}", planId);
 			try {
-				// 关闭所有数据源的连接
+				// Close all data source connections
 				dataSourceService.closeAllConnections();
 				log.info("Successfully cleaned up database connections for plan: {}", planId);
 			}
@@ -209,10 +209,10 @@ public class DatabaseUseTool extends AbstractBaseTool<DatabaseRequest> {
 	@Override
 	public String getCurrentToolStateString() {
 		try {
-			// 获取所有数据源信息
+			// Get all data source information
 			Map<String, String> datasourceInfo = dataSourceService.getAllDatasourceInfo();
 
-			// 构建数据源状态信息
+			// Build data source status information
 			StringBuilder stateBuilder = new StringBuilder();
 			stateBuilder.append("\n=== Database Tool Current State ===\n");
 
@@ -227,7 +227,7 @@ public class DatabaseUseTool extends AbstractBaseTool<DatabaseRequest> {
 					stateBuilder.append(String.format("  - %s (%s)\n", datasourceName, datasourceType));
 				}
 
-				// 获取默认数据源信息
+				// Get default data source information
 				try {
 					String defaultType = dataSourceService.getDataSourceType();
 					stateBuilder.append(String.format("\nDefault datasource type: %s\n", defaultType));
@@ -236,7 +236,7 @@ public class DatabaseUseTool extends AbstractBaseTool<DatabaseRequest> {
 					stateBuilder.append("\nDefault datasource: Not available\n");
 				}
 
-				// 测试连接状态
+				// Test connection status
 				stateBuilder.append("\nConnection status:\n");
 				for (String datasourceName : datasourceInfo.keySet()) {
 					try {

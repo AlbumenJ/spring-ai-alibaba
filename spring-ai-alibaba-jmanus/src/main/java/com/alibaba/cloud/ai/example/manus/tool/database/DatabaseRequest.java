@@ -19,7 +19,7 @@ package com.alibaba.cloud.ai.example.manus.tool.database;
  * Database tool request object for encapsulating database operation request parameters
  *
  * <p>
- * 该对象包含执行数据库操作所需的所有参数，支持多种数据库操作类型， 包括SQL执行、表信息查询、索引查询等。
+ * This object contains all parameters required for database operations, supporting multiple database operation types, including SQL execution, table information queries, index queries, etc.
  * </p>
  *
  * @author Spring AI Alibaba Team
@@ -28,45 +28,45 @@ package com.alibaba.cloud.ai.example.manus.tool.database;
 public class DatabaseRequest {
 
 	/**
-	 * 数据库操作类型
+	 * Database operation type
 	 *
 	 * <p>
-	 * 支持的操作类型包括：
+	 * Supported operation types include:
 	 * </p>
 	 * <ul>
-	 * <li>{@code execute_sql} - 执行SQL查询</li>
-	 * <li>{@code get_table_name} - 获取表名列表</li>
-	 * <li>{@code get_table_meta} - 获取表元数据信息</li>
-	 * <li>{@code get_table_index} - 获取表索引信息</li>
-	 * <li>{@code get_datasource_info} - 获取数据源信息</li>
+	 * <li>{@code execute_sql} - Execute SQL queries</li>
+	 * <li>{@code get_table_name} - Get table name list</li>
+	 * <li>{@code get_table_meta} - Get table metadata information</li>
+	 * <li>{@code get_table_index} - Get table index information</li>
+	 * <li>{@code get_datasource_info} - Get data source information</li>
 	 * </ul>
 	 */
 	private String action;
 
 	/**
-	 * SQL查询语句
+	 * SQL query statement
 	 *
 	 * <p>
-	 * 当操作类型为 {@code execute_sql} 时使用此字段。 包含要执行的SQL查询语句。
+	 * Used when operation type is {@code execute_sql}. Contains the SQL query statement to execute.
 	 * </p>
 	 */
 	private String query;
 
 	/**
-	 * 文本参数
+	 * Text parameter
 	 *
 	 * <p>
-	 * 用于指定表名、注释或其他文本信息。 当操作类型为 {@code get_table_name}、{@code get_table_meta}、
-	 * {@code get_table_index} 时使用此字段进行过滤。
+	 * Used to specify table names, comments or other text information. Used for filtering when operation type is {@code get_table_name}, {@code get_table_meta},
+	 * {@code get_table_index}.
 	 * </p>
 	 */
 	private String text;
 
 	/**
-	 * 数据源名称
+	 * Data source name
 	 *
 	 * <p>
-	 * 指定要使用的数据源名称。如果为空或未指定，则使用默认数据源。 支持多数据源环境下的数据源切换。
+	 * Specifies the data source name to use. If empty or not specified, the default data source will be used. Supports data source switching in multi-data source environments.
 	 * </p>
 	 */
 	private String datasourceName;

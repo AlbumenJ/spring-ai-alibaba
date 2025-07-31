@@ -64,29 +64,29 @@ public interface IMcpService {
 	List<McpConfigEntity> getMcpServers();
 
 	/**
-	 * 根据ID查找MCP配置
-	 * @param id MCP配置ID
-	 * @return 可选的MCP配置实体
+	 * Find MCP configuration by ID
+	 * @param id MCP configuration ID
+	 * @return Optional MCP configuration entity
 	 */
 	Optional<McpConfigEntity> findById(Long id);
 
 	/**
-	 * 获取MCP服务实体列表
-	 * @param planId 计划ID
-	 * @return MCP服务实体列表
+	 * Get MCP service entity list
+	 * @param planId Plan ID
+	 * @return MCP service entity list
 	 */
 	List<McpServiceEntity> getFunctionCallbacks(String planId);
 
 	/**
-	 * 关闭指定计划的MCP服务
-	 * @param planId 计划ID
+	 * Close MCP services for specified plan
+	 * @param planId Plan ID
 	 */
 	void close(String planId);
 
 	/**
-	 * 更新MCP服务器状态
-	 * @param id MCP服务器ID
-	 * @param status 目标状态
+	 * Update MCP server status
+	 * @param id MCP server ID
+	 * @param status Target status
 	 * @return true if updated successfully, false otherwise
 	 */
 	boolean updateMcpServerStatus(Long id, McpConfigStatus status);

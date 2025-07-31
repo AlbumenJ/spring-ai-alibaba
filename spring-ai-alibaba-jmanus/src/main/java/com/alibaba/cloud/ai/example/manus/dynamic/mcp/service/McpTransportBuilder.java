@@ -144,13 +144,13 @@ public class McpTransportBuilder {
 
 		ServerParameters.Builder builder = ServerParameters.builder(command);
 
-		// 添加参数
+		// Add parameters
 		if (args != null && !args.isEmpty()) {
 			builder.args(args);
 			logger.debug("Added {} arguments for server: {}", args.size(), serverName);
 		}
 
-		// 添加环境变量
+		// Add environment variables
 		if (env != null && !env.isEmpty()) {
 			builder.env(env);
 			logger.debug("Added {} environment variables for server: {}", env.size(), serverName);
@@ -161,11 +161,11 @@ public class McpTransportBuilder {
 	}
 
 	/**
-	 * 构建STREAMING传输
-	 * @param serverConfig 服务器配置
-	 * @param serverName 服务器名称
-	 * @return STREAMING传输
-	 * @throws IOException 构建失败时抛出异常
+	 * Build STREAMING transport
+	 * @param serverConfig Server configuration
+	 * @param serverName Server name
+	 * @return STREAMING transport
+	 * @throws IOException Thrown when build fails
 	 */
 	private McpClientTransport buildStreamingTransport(McpServerConfig serverConfig, String serverName)
 			throws IOException {
@@ -179,9 +179,9 @@ public class McpTransportBuilder {
 	}
 
 	/**
-	 * 创建WebClient构建器（带baseUrl）
-	 * @param baseUrl 基础URL
-	 * @return WebClient构建器
+	 * Create WebClient builder (with baseUrl)
+	 * @param baseUrl Base URL
+	 * @return WebClient builder
 	 */
 	private WebClient.Builder createWebClientBuilder(String baseUrl) {
 		return WebClient.builder()
@@ -192,8 +192,8 @@ public class McpTransportBuilder {
 	}
 
 	/**
-	 * 创建WebClient构建器（不带baseUrl）
-	 * @return WebClient构建器
+	 * Create WebClient builder (without baseUrl)
+	 * @return WebClient builder
 	 */
 	private WebClient.Builder createWebClientBuilder() {
 		return WebClient.builder()

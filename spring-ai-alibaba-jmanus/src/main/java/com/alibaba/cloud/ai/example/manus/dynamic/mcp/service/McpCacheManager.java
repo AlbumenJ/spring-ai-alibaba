@@ -178,8 +178,8 @@ public class McpCacheManager {
 	}
 
 	/**
-	 * 刷新缓存
-	 * @param planId 计划ID
+	 * Refresh cache
+	 * @param planId Plan ID
 	 */
 	public void refreshCache(String planId) {
 		toolCallbackMapCache.refresh(planId != null ? planId : "DEFAULT");
@@ -187,8 +187,8 @@ public class McpCacheManager {
 	}
 
 	/**
-	 * 获取缓存统计信息
-	 * @return 缓存统计信息
+	 * Get cache statistics
+	 * @return Cache statistics
 	 */
 	public String getCacheStats() {
 		return toolCallbackMapCache.stats().toString();

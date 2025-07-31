@@ -170,16 +170,16 @@ public class DataSourceService {
 	}
 
 	/**
-	 * 关闭所有数据源连接
+	 * Close all data source connections
 	 */
 	public void closeAllConnections() {
 		log.info("Closing all datasource connections");
-		// DriverManagerDataSource 会自动管理连接，这里主要是记录日志
-		// 如果需要强制关闭连接池，可以在这里添加逻辑
+		// DriverManagerDataSource automatically manages connections, mainly for logging here
+		// If need to force close connection pool, can add logic here
 	}
 
 	/**
-	 * 获取所有数据源信息（名称和类型）
+	 * Get all data source information (name and type)
 	 */
 	public Map<String, String> getAllDatasourceInfo() {
 		return new ConcurrentHashMap<>(dataSourceTypeMap);

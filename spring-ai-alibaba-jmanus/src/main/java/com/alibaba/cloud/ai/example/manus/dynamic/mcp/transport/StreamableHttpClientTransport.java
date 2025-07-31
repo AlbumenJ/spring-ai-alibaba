@@ -174,54 +174,55 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			jsonRpc.put("jsonrpc", "2.0");
 			final String[] messageIdHolder = { null };
 
-			logger.info("=== 开始序列化消息字段 ===");
+			logger.info("=== Starting to serialize message fields ===");
 			for (String field : new String[] { "id", "method", "params", "result", "error" }) {
 				try {
 					Method m = message.getClass().getMethod(field);
 					Object v = m.invoke(message);
 					if (v != null) {
 						jsonRpc.put(field, v);
-						logger.info("=== 字段 {}: {} ===", field, v);
+						logger.info("=== Field {}: {} ===", field, v);
 						if ("id".equals(field)) {
 							messageIdHolder[0] = String.valueOf(v);
-							logger.info("=== 消息ID: {} ===", messageIdHolder[0]);
+							logger.info("=== Message ID: {} ===", messageIdHolder[0]);
 						}
 					}
 					else {
-						logger.debug("=== 字段 {}: null ===", field);
+						logger.debug("=== Field {}: null ===", field);
 					}
 				}
 				catch (NoSuchMethodException ignore) {
-					logger.debug("=== 字段 {} 不存在 ===", field);
+					logger.debug("=== Field {} does not exist ===", field);
 				}
 			}
 
 			String jsonMessage = objectMapper.writeValueAsString(jsonRpc);
-			logger.info("=== 序列化后的JSON消息: {} ===", jsonMessage);
-			logger.info("=== JSON消息长度: {} 字节 ===", jsonMessage.getBytes().length);
+			logger.info("=== Serialized JSON message: {} ===", jsonMessage);
+			logger.info("=== JSON message length: {} bytes ===", jsonMessage.getBytes().length);
 
-			// 如果是请求消息（有ID），创建响应等待器
+			// If it's a request message (with ID), create response waiter
 			Mono<Void> result = Mono.empty();
 			final String messageId = messageIdHolder[0];
 			if (messageId != null) {
-				logger.info("=== 创建请求响应等待器，消息ID: {} ===", messageId);
+				logger.info("=== Creating request response waiter, message ID: {} ===", messageId);
 				Sinks.One<String> responseSink = Sinks.one();
 				pendingRequests.put(messageId, responseSink);
-				logger.info("=== 当前等待中的请求数量: {} ===", pendingRequests.size());
+				logger.info("=== Current number of pending requests: {} ===", pendingRequests.size());
 
-				// 等待响应（但不阻塞sendMessage的返回）
+				// Wait for response (but don't block sendMessage return)
 				result = responseSink.asMono()
-					.doOnNext(response -> logger.info("=== 收到请求 {} 的响应: {} ===", messageId, response))
+					.doOnNext(response -> logger.info("=== Received response for request {}: {} ===", messageId,
+							response))
 					.then();
 			}
 			else {
-				logger.info("=== 这是通知消息（无ID），不需要等待响应 ===");
+				logger.info("=== This is a notification message (no ID), no need to wait for response ===");
 			}
 
-			// 将消息发送到输出流
-			logger.info("=== 推送消息到输出流 ===");
+			// Send message to output stream
+			logger.info("=== Pushing message to output stream ===");
 			outgoingMessages.tryEmitNext(jsonMessage);
-			logger.info("=== 消息已推送到输出流 ===");
+			logger.info("=== Message pushed to output stream ===");
 
 			return result;
 		}

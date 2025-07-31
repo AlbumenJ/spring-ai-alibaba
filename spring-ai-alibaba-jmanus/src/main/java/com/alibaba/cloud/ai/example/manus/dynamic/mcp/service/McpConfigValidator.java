@@ -159,10 +159,10 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证服务器名称是否已存在
-	 * @param serverName 服务器名称
-	 * @param existingServer 已存在的服务器
-	 * @throws IOException 如果服务器名称已存在
+	 * Validate if server name already exists
+	 * @param serverName Server name
+	 * @param existingServer Existing server
+	 * @throws IOException If server name already exists
 	 */
 	public void validateServerNameNotExists(String serverName, Object existingServer) throws IOException {
 		if (existingServer != null) {
@@ -171,10 +171,10 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证服务器是否存在
-	 * @param serverName 服务器名称
-	 * @param existingServer 已存在的服务器
-	 * @throws IOException 如果服务器不存在
+	 * Validate if server exists
+	 * @param serverName Server name
+	 * @param existingServer Existing server
+	 * @throws IOException If server does not exist
 	 */
 	public void validateServerExists(String serverName, Object existingServer) throws IOException {
 		if (existingServer == null) {

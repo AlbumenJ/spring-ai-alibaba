@@ -147,23 +147,23 @@ public class DynamicCronTaskScheduler {
 				Map<String, Object> responseBody = response.getBody();
 				if (responseBody != null) {
 					String planId = (String) responseBody.get("planId");
-					log.info("计划模板执行成功，新计划ID: {}", planId);
+					log.info("Plan template execution successful, new plan ID: {}", planId);
 				}
 				else {
-					log.warn("计划模板执行成功，但响应体为空");
+					log.warn("Plan template execution successful, but response body is empty");
 				}
 			}
 			else {
-				log.error("计划模板执行失败，状态码: {}", response.getStatusCode());
+				log.error("Plan template execution failed, status code: {}", response.getStatusCode());
 			}
 		}
 		catch (Exception e) {
-			log.error("执行计划模板失败: {}", planTemplateId, e);
+			log.error("Failed to execute plan template: {}", planTemplateId, e);
 		}
 	}
 
 	/**
-	 * 添加定时任务
+	 * Add scheduled task
 	 */
 	public boolean addTask(CronEntity cronEntity) {
 		try {
@@ -179,17 +179,17 @@ public class DynamicCronTaskScheduler {
 					new CronTrigger(cronEntity.getCronTime()));
 
 			scheduledTasks.put(cronEntity.getId(), future);
-			log.info("添加定时任务: {} [{}]", cronEntity.getCronName(), cronEntity.getCronTime());
+			log.info("Adding scheduled task: {} [{}]", cronEntity.getCronName(), cronEntity.getCronTime());
 			return true;
 		}
 		catch (Exception e) {
-			log.error("添加任务失败: {} - {}", cronEntity.getCronName(), e.getMessage());
+			log.error("Failed to add task: {} - {}", cronEntity.getCronName(), e.getMessage());
 			return false;
 		}
 	}
 
 	/**
-	 * 移除定时任务
+	 * Remove scheduled task
 	 */
 	public boolean removeTask(Long taskId) {
 		try {

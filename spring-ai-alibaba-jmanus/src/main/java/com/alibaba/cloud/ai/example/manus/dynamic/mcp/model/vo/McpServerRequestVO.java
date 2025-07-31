@@ -46,27 +46,27 @@ public class McpServerRequestVO {
 	private String connectionType;
 
 	/**
-	 * 命令（STUDIO类型必需）
+	 * Command (required for STUDIO type)
 	 */
 	private String command;
 
 	/**
-	 * URL（SSE/STREAMING类型必需）
+	 * URL (required for SSE/STREAMING type)
 	 */
 	private String url;
 
 	/**
-	 * 参数列表（STUDIO类型可选）
+	 * Parameter list (optional for STUDIO type)
 	 */
 	private List<String> args;
 
 	/**
-	 * 环境变量（STUDIO类型可选）
+	 * Environment variables (optional for STUDIO type)
 	 */
 	private Map<String, String> env;
 
 	/**
-	 * 状态：ENABLE, DISABLE
+	 * Status: ENABLE, DISABLE
 	 */
 	private String status;
 
@@ -136,8 +136,8 @@ public class McpServerRequestVO {
 	}
 
 	/**
-	 * 判断是否为更新操作
-	 * @return true表示更新，false表示新增
+	 * Determine if it's an update operation
+	 * @return true for update, false for add
 	 */
 	public boolean isUpdate() {
 		return id != null;

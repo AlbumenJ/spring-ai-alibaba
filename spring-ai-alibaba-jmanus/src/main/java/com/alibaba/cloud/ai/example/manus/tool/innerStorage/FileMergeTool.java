@@ -88,8 +88,8 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 	private static final String TOOL_NAME = "file_merge_tool";
 
 	private static final String TOOL_DESCRIPTION = """
-			文件合并工具，用于将单个文件合并到指定的目标文件夹中。
-			每次调用合并一个文件到目标文件夹，支持文件名模糊匹配。
+			File merge tool for merging single files into specified target folders.
+			Each call merges one file to the target folder, supports fuzzy filename matching.
 			""";
 
 	private static final String PARAMETERS = """
@@ -99,15 +99,15 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 					"action": {
 						"type": "string",
 						"enum": ["merge_file"],
-						"description": "操作类型，目前支持 merge_file"
+						"description": "Operation type, currently supports merge_file"
 					},
 					"file_name": {
 						"type": "string",
-						"description": "要合并的文件名（支持模糊匹配）"
+						"description": "Filename to merge (supports fuzzy matching)"
 					},
 					"target_folder": {
 						"type": "string",
-						"description": "目标文件夹路径，文件将被复制到此文件夹中"
+						"description": "Target folder path where the file will be copied"
 					}
 				},
 				"required": ["action", "file_name", "target_folder"],
@@ -147,7 +147,7 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 	}
 
 	/**
-	 * 执行文件合并操作
+	 * Execute file merge operation
 	 */
 	@Override
 	public ToolExecuteResult run(FileMergeInput input) {
@@ -157,20 +157,20 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 			return mergeFile(input.getFileName(), input.getTargetFolder());
 		}
 		catch (Exception e) {
-			log.error("FileMergeTool执行失败", e);
+			log.error("FileMergeTool execution failed", e);
 			return new ToolExecuteResult("Tool execution failed: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 合并单个文件到指定文件夹
+	 * Merge single file to specified folder
 	 */
 	private ToolExecuteResult mergeFile(String fileName, String targetFolder) {
 		if (fileName == null || fileName.trim().isEmpty()) {
-			return new ToolExecuteResult("错误：file_name参数是必需的");
+			return new ToolExecuteResult("Error: file_name parameter is required");
 		}
 		if (targetFolder == null || targetFolder.trim().isEmpty()) {
-			return new ToolExecuteResult("错误：target_folder参数是必需的");
+			return new ToolExecuteResult("Error: target_folder parameter is required");
 		}
 
 		try {

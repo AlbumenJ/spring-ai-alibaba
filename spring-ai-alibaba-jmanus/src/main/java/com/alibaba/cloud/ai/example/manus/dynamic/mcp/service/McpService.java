@@ -155,32 +155,32 @@ public class McpService implements IMcpService {
 			throw new IllegalArgumentException(errorMessage);
 		}
 
-		// 构建服务器配置
+		// Build server configuration
 		McpServerConfig serverConfig = new McpServerConfig(objectMapper);
 		serverConfig.setCommand(requestVO.getCommand());
 		serverConfig.setUrl(requestVO.getUrl());
 		serverConfig.setArgs(requestVO.getArgs());
 		serverConfig.setEnv(requestVO.getEnv());
 
-		// 设置状态
+		// Set status
 		if (requestVO.getStatus() != null) {
 			serverConfig.setStatus(McpConfigStatus.valueOf(requestVO.getStatus()));
 		}
 
-		// 验证服务器配置
+		// Validate server configuration
 		configValidator.validateServerConfig(serverConfig, requestVO.getMcpServerName());
 
-		// 获取连接类型
+		// Get connection type
 		McpConfigType connectionType = serverConfig.getConnectionType();
 		logger.info("Using connection type for server '{}': {}", requestVO.getMcpServerName(), connectionType);
 
-		// 转换为JSON
+		// Convert to JSON
 		String configJson = serverConfig.toJson();
 
-		// 查找或创建实体
+		// Find or create entity
 		McpConfigEntity mcpConfigEntity;
 		if (requestVO.isUpdate()) {
-			// 更新模式
+			// Update mode
 			Optional<McpConfigEntity> existingEntity = mcpConfigRepository.findById(requestVO.getId());
 			if (existingEntity.isEmpty()) {
 				throw new IllegalArgumentException("MCP server not found with id: " + requestVO.getId());
@@ -188,24 +188,24 @@ public class McpService implements IMcpService {
 			mcpConfigEntity = existingEntity.get();
 		}
 		else {
-			// 新增模式 - 检查服务器名称是否已存在
+			// Add mode - check if server name already exists
 			McpConfigEntity existingServer = mcpConfigRepository.findByMcpServerName(requestVO.getMcpServerName());
 			configValidator.validateServerNameNotExists(requestVO.getMcpServerName(), existingServer);
 			mcpConfigEntity = new McpConfigEntity();
 		}
 
-		// 更新实体
+		// Update entity
 		mcpConfigEntity.setMcpServerName(requestVO.getMcpServerName());
 		mcpConfigEntity.setConnectionConfig(configJson);
 		mcpConfigEntity.setConnectionType(connectionType);
 		mcpConfigEntity.setStatus(serverConfig.getStatus());
 
-		// 保存到数据库
+		// Save to database
 		McpConfigEntity savedEntity = mcpConfigRepository.save(mcpConfigEntity);
 		logger.info("MCP server '{}' has been saved to database with connection type: {}", requestVO.getMcpServerName(),
 				connectionType);
 
-		// 清除缓存以重新加载服务
+		// Clear cache to reload services
 		cacheManager.invalidateAllCache();
 
 		return savedEntity;

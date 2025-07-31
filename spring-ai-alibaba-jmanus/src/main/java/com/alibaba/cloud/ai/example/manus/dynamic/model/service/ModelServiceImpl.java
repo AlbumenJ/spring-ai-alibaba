@@ -268,65 +268,66 @@ public class ModelServiceImpl implements ModelService {
 			ResponseEntity<Map> response = restTemplate.exchange(requestUrl, HttpMethod.GET, entity, Map.class);
 			long endTime = System.currentTimeMillis();
 
-			log.info("HTTP请求完成 - 状态码: {}, 耗时: {}ms", response.getStatusCodeValue(), endTime - startTime);
+			log.info("HTTP request completed - Status code: {}, Duration: {}ms", response.getStatusCodeValue(),
+					endTime - startTime);
 
-			// 解析响应
+			// Parse response
 			List<AvailableModel> models = parseModelsResponse(response.getBody());
-			log.info("成功解析响应，获取到 {} 个模型", models.size());
+			log.info("Successfully parsed response, obtained {} models", models.size());
 
 			return models;
 
 		}
 		catch (Exception e) {
-			log.error("API调用失败: {}", e.getMessage(), e);
-			throw new NetworkException("API调用失败: " + e.getMessage(), e);
+			log.error("API call failed: {}", e.getMessage(), e);
+			throw new NetworkException("API call failed: " + e.getMessage(), e);
 		}
 	}
 
 	private List<AvailableModel> parseModelsResponse(Map response) {
-		log.debug("开始解析API响应: {}", response);
+		log.debug("Starting to parse API response: {}", response);
 
 		List<AvailableModel> models = new ArrayList<>();
 
 		if (response == null) {
-			log.warn("响应为空");
+			log.warn("Response is empty");
 			return models;
 		}
 
-		// 尝试解析标准OpenAI格式: {"data": [...]}
+		// Try to parse standard OpenAI format: {"data": [...]}
 		Object data = response.get("data");
 		if (data instanceof List) {
 			List<Map> modelList = (List<Map>) data;
-			log.debug("找到响应数据，包含 {} 个模型", modelList.size());
+			log.debug("Found response data containing {} models", modelList.size());
 
 			for (int i = 0; i < modelList.size(); i++) {
 				Map modelData = modelList.get(i);
-				log.debug("解析第 {} 个模型数据: {}", i + 1, modelData);
+				log.debug("Parsing model data #{}: {}", i + 1, modelData);
 
 				String modelId = (String) modelData.get("id");
 				String modelName = (String) modelData.get("name");
 				String description = (String) modelData.get("description");
 
-				// 如果没有name字段，使用id作为显示名称
+				// If no name field, use id as display name
 				if (modelName == null) {
 					modelName = modelId;
 				}
 
-				// 如果没有description字段，使用默认描述
+				// If no description field, use default description
 				if (description == null) {
-					description = "模型ID: " + modelId;
+					description = "Model ID: " + modelId;
 				}
 
-				log.debug("解析模型 - ID: {}, 名称: {}, 描述: {}", modelId, modelName, description);
+				log.debug("Parsing model - ID: {}, Name: {}, Description: {}", modelId, modelName, description);
 
 				models.add(new AvailableModel(modelId, modelName, description));
 			}
 		}
 		else {
-			log.warn("响应格式不符合预期，data字段不是数组类型");
+			log.warn("Response format does not meet expectations, data field is not array type");
 		}
 
-		log.info("成功解析响应，获取到 {} 个可用模型", models.size());
+		log.info("Successfully parsed response, obtained {} available models", models.size());
 		return models;
 	}
 
