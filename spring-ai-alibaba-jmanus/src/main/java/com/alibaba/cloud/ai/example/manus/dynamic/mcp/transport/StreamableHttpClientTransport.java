@@ -272,20 +272,21 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 				logger.info("=== HTTP request successful ===");
 				return clientResponse.bodyToMono(String.class).doOnNext(response -> {
 					logger.info("=== Response body: {} ===", response);
-					logger.info("=== 响应体长度: {} 字节 ===", response != null ? response.getBytes().length : 0);
+					logger.info("=== Response body length: {} bytes ===",
+							response != null ? response.getBytes().length : 0);
 				});
 			}
 			else {
-				logger.error("=== HTTP请求失败，状态码: {} ===", clientResponse.statusCode());
+				logger.error("=== HTTP request failed, status code: {} ===", clientResponse.statusCode());
 				return clientResponse.bodyToMono(String.class).flatMap(errorBody -> {
-					logger.error("=== 错误响应体: {} ===", errorBody);
+					logger.error("=== Error response body: {} ===", errorBody);
 					return Mono.error(new org.springframework.web.reactive.function.client.WebClientResponseException(
 							clientResponse.statusCode().value(), clientResponse.statusCode().toString(),
 							clientResponse.headers().asHttpHeaders(), errorBody.getBytes(), null));
 				});
 			}
 		}).timeout(Duration.ofSeconds(30)).doOnError(error -> {
-			logger.error("=== HTTP请求失败 ===");
+			logger.error("=== HTTP request failed ===");
 			logger.error("=== 错误类型: {} ===", error.getClass().getSimpleName());
 			logger.error("=== 错误消息: {} ===", error.getMessage());
 

@@ -189,7 +189,7 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 		List<ExecutionStep> mapSteps = mrNode.getMapSteps();
 		// 2. Parallel execution of Map phase
 		if (CollectionUtil.isNotEmpty(mapSteps)) {
-			// 获取 MapReduceTool 的 ToolCallBackContext
+			// Get MapReduceTool's ToolCallBackContext
 			ToolCallBackContext toolCallBackContext = null;
 			if (executor != null) {
 				logger.debug("尝试获取 map_output_tool 的 ToolCallBackContext，当前executor: {}",
@@ -205,12 +205,12 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 			executor = executeMapPhase(mapSteps, context, toolCallBackContext);
 		}
 
-		// 3. 并行执行 Reduce 阶段（与Map阶段共享线程池）
+		// 3. Execute Reduce phase in parallel (sharing thread pool with Map phase)
 		if (CollectionUtil.isNotEmpty(mrNode.getReduceSteps())) {
 			executor = executeReducePhaseParallel(mrNode.getReduceSteps(), context, executor);
 		}
 
-		// 4. 串行执行 Post Process 阶段（后处理阶段）
+		// 4. Execute Post Process phase serially (post-processing phase)
 		if (CollectionUtil.isNotEmpty(mrNode.getPostProcessSteps())) {
 			executor = executePostProcessPhase(mrNode.getPostProcessSteps(), context, executor);
 		}

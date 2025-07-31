@@ -309,8 +309,8 @@ public class McpServerRequestVO {
 	}
 
 	/**
-	 * 构建完整的MCP配置JSON（包含mcpServers包装）
-	 * @return 完整的JSON字符串
+	 * Build complete MCP configuration JSON (including mcpServers wrapper)
+	 * @return Complete JSON string
 	 */
 	public String buildFullConfigJson() {
 		StringBuilder fullJsonBuilder = new StringBuilder();

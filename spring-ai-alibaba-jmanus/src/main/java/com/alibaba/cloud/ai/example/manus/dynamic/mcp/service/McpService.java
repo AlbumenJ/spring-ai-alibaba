@@ -295,8 +295,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 启用MCP服务器
-	 * @param id MCP服务器ID
+	 * Enable MCP server
+	 * @param id MCP server ID
 	 * @return true if enabled successfully, false otherwise
 	 */
 	public boolean enableMcpServer(Long id) {
@@ -304,8 +304,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 禁用MCP服务器
-	 * @param id MCP服务器ID
+	 * Disable MCP server
+	 * @param id MCP server ID
 	 * @return true if disabled successfully, false otherwise
 	 */
 	public boolean disableMcpServer(Long id) {
@@ -313,9 +313,9 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 更新MCP服务器状态
-	 * @param id MCP服务器ID
-	 * @param status 目标状态
+	 * Update MCP server status
+	 * @param id MCP server ID
+	 * @param status Target status
 	 * @return true if updated successfully, false otherwise
 	 */
 	@Override

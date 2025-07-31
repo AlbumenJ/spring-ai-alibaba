@@ -360,7 +360,8 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 					String targetText = input.getTargetText();
 
 					if (sourceText == null || targetText == null) {
-						yield new ToolExecuteResult("错误：replace操作需要source_text和target_text参数");
+						yield new ToolExecuteResult(
+								"Error: replace operation requires source_text and target_text parameters");
 					}
 
 					yield replaceText(planId, filePath, sourceText, targetText);
@@ -370,7 +371,8 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 					Integer endLine = input.getEndLine();
 
 					if (startLine == null || endLine == null) {
-						yield new ToolExecuteResult("错误：get_text操作需要start_line和end_line参数");
+						yield new ToolExecuteResult(
+								"Error: get_text operation requires start_line and end_line parameters");
 					}
 
 					yield getTextByLines(planId, filePath, startLine, endLine);
@@ -380,7 +382,7 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 					String appendContent = input.getContent();
 
 					if (appendContent == null) {
-						yield new ToolExecuteResult("错误：append操作需要content参数");
+						yield new ToolExecuteResult("Error: append operation requires content parameter");
 					}
 
 					yield appendToFile(planId, filePath, appendContent);
@@ -388,8 +390,8 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 				case "count_words" -> countWords(planId, filePath);
 				default -> {
 					textFileService.updateFileState(planId, filePath, "Error: Unknown action");
-					yield new ToolExecuteResult(
-							"未知操作: " + action + "。支持的操作: replace, get_text, get_all_text, append, count_words");
+					yield new ToolExecuteResult("Unknown operation: " + action
+							+ ". Supported operations: replace, get_text, get_all_text, append, count_words");
 				}
 			};
 		}
@@ -397,12 +399,12 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			String planId = this.currentPlanId;
 			textFileService.updateFileState(planId, textFileService.getCurrentFilePath(planId),
 					"Error: " + e.getMessage());
-			return new ToolExecuteResult("工具执行失败: " + e.getMessage());
+			return new ToolExecuteResult("Tool execution failed: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 确保文件被打开，如果不存在则创建
+	 * Ensure file is opened, create if it doesn't exist
 	 */
 	private ToolExecuteResult ensureFileOpen(String planId, String filePath) {
 		try {
@@ -470,16 +472,18 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 		try {
 			// Parameter validation
 			if (startLine < 1 || endLine < 1) {
-				return new ToolExecuteResult("错误：行号必须从1开始");
+				return new ToolExecuteResult("Error: Line numbers must start from 1");
 			}
 			if (startLine > endLine) {
-				return new ToolExecuteResult("错误：起始行号不能大于结束行号");
+				return new ToolExecuteResult("Error: Start line number cannot be greater than end line number");
 			}
 
 			// Check 500-line limit
 			int requestedLines = endLine - startLine + 1;
 			if (requestedLines > 500) {
-				return new ToolExecuteResult("错误：单次最多返回500行内容。请调整行号范围或分多次调用。当前请求行数：" + requestedLines);
+				return new ToolExecuteResult(
+						"Error: Maximum 500 lines per request. Please adjust line range or make multiple calls. Current requested lines: "
+								+ requestedLines);
 			}
 
 			// Automatically open file
@@ -493,12 +497,13 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 
 			if (lines.isEmpty()) {
 				textFileService.updateFileState(planId, filePath, "Success: File is empty");
-				return new ToolExecuteResult("文件为空");
+				return new ToolExecuteResult("File is empty");
 			}
 
 			// Validate line number range
 			if (startLine > lines.size()) {
-				return new ToolExecuteResult("错误：起始行号超出文件范围（文件共" + lines.size() + "行）");
+				return new ToolExecuteResult(
+						"Error: Start line number exceeds file range (file has " + lines.size() + " lines)");
 			}
 
 			// Adjust end line number (not exceeding total file lines)
