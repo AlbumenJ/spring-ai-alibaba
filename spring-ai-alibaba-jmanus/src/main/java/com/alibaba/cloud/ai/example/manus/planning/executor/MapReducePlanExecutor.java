@@ -81,16 +81,18 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	private static final long BASE_RETRY_WAIT_MILLIS = 1000;
 
 	/**
-	 * Default character count when task character count calculation fails, fallback value when unable to read task output file, avoiding calculation errors
+	 * Default character count when task character count calculation fails, fallback value
+	 * when unable to read task output file, avoiding calculation errors
 	 */
 	private static final int DEFAULT_TASK_CHARACTER_COUNT = 100;
 
 	/**
-	 * Default thread pool thread count for Map task execution, used when configuration is not set
+	 * Default thread pool thread count for Map task execution, used when configuration is
+	 * not set
 	 */
 	private static final int DEFAULT_MAP_TASK_THREAD_POOL_SIZE = 1;
 
-	// 线程池用于并行执行
+	// Thread pool for parallel execution
 	private final ExecutorService executorService;
 
 	public MapReducePlanExecutor(List<DynamicAgentEntity> agents, PlanExecutionRecorder recorder,
@@ -107,8 +109,9 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	}
 
 	/**
-	 * 执行整个 MapReduce 计划的所有步骤
-	 * @param context 执行上下文，包含用户请求和执行的过程信息
+	 * Execute all steps of the entire MapReduce plan
+	 * @param context Execution context containing user request and execution process
+	 * information
 	 */
 	@Override
 	public void executeAllSteps(ExecutionContext context) {
@@ -147,10 +150,10 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	}
 
 	/**
-	 * 执行顺序节点
+	 * Execute sequential node
 	 */
 	private BaseAgent executeSequentialNode(SequentialNode seqNode, ExecutionContext context, BaseAgent lastExecutor) {
-		logger.info("执行顺序节点，包含 {} 个步骤", seqNode.getStepCount());
+		logger.info("Executing sequential node with {} steps", seqNode.getStepCount());
 
 		BaseAgent executor = lastExecutor;
 		List<ExecutionStep> steps = seqNode.getSteps();
@@ -168,7 +171,7 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	}
 
 	/**
-	 * 执行 MapReduce 节点
+	 * Execute MapReduce node
 	 */
 	private BaseAgent executeMapReduceNode(MapReduceNode mrNode, ExecutionContext context, BaseAgent lastExecutor) {
 		logger.info("执行 MapReduce 节点，Data Prepared 步骤: {}, Map 步骤: {}, Reduce 步骤: {}, Post Process 步骤: {}",

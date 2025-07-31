@@ -58,7 +58,7 @@ public class McpServerConfig {
 	private Map<String, String> env;
 
 	@JsonProperty("status")
-	private McpConfigStatus status = McpConfigStatus.ENABLE; // 默认为启用状态
+	private McpConfigStatus status = McpConfigStatus.ENABLE; // Default to enabled status
 
 	public String getUrl() {
 		return url;
@@ -101,21 +101,21 @@ public class McpServerConfig {
 	}
 
 	/**
-	 * 获取连接类型 判断逻辑： 1. 如果有command字段 → STUDIO 2. 如果URL后缀是sse → SSE 3. 其他情况 → STREAMING
-	 * @return 连接类型
+	 * Get connection type. Logic: 1. If has command field → STUDIO 2. If URL suffix is sse → SSE 3. Other cases → STREAMING
+	 * @return Connection type
 	 */
 	public McpConfigType getConnectionType() {
-		// 1. 检查是否有command字段
+		// 1. Check if has command field
 		if (command != null && !command.isEmpty()) {
 			return McpConfigType.STUDIO;
 		}
 
-		// 2. 检查URL后缀是否为sse
+		// 2. Check if URL suffix is sse
 		if (url != null && !url.isEmpty() && isSSEUrl(url)) {
 			return McpConfigType.SSE;
 		}
 
-		// 3. 其他情况默认为STREAMING
+		// 3. Other cases default to STREAMING
 		return McpConfigType.STREAMING;
 	}
 

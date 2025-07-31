@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 批量MCP服务器导入请求VO（JSON方式） 用于批量导入MCP服务器配置
+ * Batch MCP server import request VO (JSON method) for batch importing MCP server configurations
  */
 public class McpServersRequestVO {
 
@@ -38,14 +38,14 @@ public class McpServersRequestVO {
 	}
 
 	/**
-	 * 完整的JSON配置 格式：{"mcpServers": {"server-name": {"command": "...", "args": [...],
+	 * Complete JSON configuration format: {"mcpServers": {"server-name": {"command": "...", "args": [...],
 	 * "env": {...}}}}
 	 */
 	@JsonProperty("configJson")
 	private String configJson;
 
 	/**
-	 * 是否覆盖现有配置
+	 * Whether to override existing configuration
 	 */
 	@JsonProperty("overwrite")
 	private boolean overwrite = false;
@@ -68,8 +68,8 @@ public class McpServersRequestVO {
 	}
 
 	/**
-	 * 验证JSON格式是否有效
-	 * @return true表示有效，false表示无效
+	 * Validate if JSON format is valid
+	 * @return true if valid, false if invalid
 	 */
 	public boolean isValidJson() {
 		if (configJson == null || configJson.trim().isEmpty()) {

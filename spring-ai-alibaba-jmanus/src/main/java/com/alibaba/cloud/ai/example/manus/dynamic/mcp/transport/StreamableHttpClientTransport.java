@@ -119,22 +119,22 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 		logger.info("=== Setting request handler ===");
 		this.requestHandler = requestHandler;
 
-		logger.info("=== 启动输出消息处理循环 ===");
-		// 启动输出消息处理循环
+		logger.info("=== Starting output message processing loop ===");
+		// Start output message processing loop
 		outgoingMessages.asFlux()
-			.doOnNext(message -> logger.info("=== 从输出流获取消息: {} ===", message))
+			.doOnNext(message -> logger.info("=== Message received from output stream: {} ===", message))
 			.flatMap(this::sendHttpRequest)
 			.doOnNext(response -> {
-				logger.info("=== 收到HTTP响应: {} ===", response);
-				// 将响应推送到输入流
+				logger.info("=== HTTP response received: {} ===", response);
+				// Push response to input stream
 				incomingMessages.tryEmitNext(response);
-				logger.info("=== 响应已推送到输入流 ===");
+				logger.info("=== Response pushed to input stream ===");
 			})
 			.doOnError(error -> {
-				logger.error("=== 输出流处理出错 ===");
-				logger.error("=== 错误类型: {} ===", error.getClass().getSimpleName());
-				logger.error("=== 错误消息: {} ===", error.getMessage());
-				logger.error("=== 错误堆栈: ===", error);
+				logger.error("=== Output stream processing error ===");
+				logger.error("=== Error type: {} ===", error.getClass().getSimpleName());
+				logger.error("=== Error message: {} ===", error.getMessage());
+				logger.error("=== Error stack trace: ===", error);
 			})
 			.subscribe();
 

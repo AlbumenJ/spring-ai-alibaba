@@ -79,13 +79,13 @@ public class McpConfigValidator {
 			throw new IOException("Server config is null for server: " + serverName);
 		}
 
-		// 根据连接类型验证必需字段
+		// Validate required fields based on connection type
 		if (serverConfig.getCommand() != null && !serverConfig.getCommand().trim().isEmpty()) {
-			// STUDIO类型：验证command
+			// STUDIO type: validate command
 			validateCommand(serverConfig.getCommand(), serverName);
 		}
 		else {
-			// SSE/STREAMING类型：验证URL
+			// SSE/STREAMING type: validate URL
 			validateUrl(serverConfig.getUrl(), serverName);
 		}
 
@@ -93,10 +93,10 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证命令配置
-	 * @param command 命令
-	 * @param serverName 服务器名称
-	 * @throws IOException 验证失败时抛出异常
+	 * Validate command configuration
+	 * @param command Command
+	 * @param serverName Server name
+	 * @throws IOException Thrown when validation fails
 	 */
 	public void validateCommand(String command, String serverName) throws IOException {
 		if (command == null || command.trim().isEmpty()) {

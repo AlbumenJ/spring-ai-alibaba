@@ -100,17 +100,18 @@ public class McpService implements IMcpService {
 			McpConfigType connectionType = serverConfig.getConnectionType();
 			logger.info("Using connection type for server '{}': {}", serverName, connectionType);
 
-			// 转换为JSON
+			// Convert to JSON
 			String serverConfigJson = serverConfig.toJson();
 
-			// 查找或创建实体
+			// Find or create entity
 			McpConfigEntity mcpConfigEntity = mcpConfigRepository.findByMcpServerName(serverName);
 			if (mcpConfigEntity == null) {
 				mcpConfigEntity = new McpConfigEntity();
 				mcpConfigEntity.setConnectionConfig(serverConfigJson);
 				mcpConfigEntity.setMcpServerName(serverName);
 				mcpConfigEntity.setConnectionType(connectionType);
-				// 设置status，如果serverConfig中有status则使用，否则使用默认值
+				// Set status, use from serverConfig if available, otherwise use default
+				// value
 				if (serverConfig.getStatus() != null) {
 					mcpConfigEntity.setStatus(serverConfig.getStatus());
 				}
@@ -121,7 +122,8 @@ public class McpService implements IMcpService {
 			else {
 				mcpConfigEntity.setConnectionConfig(serverConfigJson);
 				mcpConfigEntity.setConnectionType(connectionType);
-				// 更新status，如果serverConfig中有status则使用，否则保持原值
+				// Update status, use from serverConfig if available, otherwise keep
+				// original value
 				if (serverConfig.getStatus() != null) {
 					mcpConfigEntity.setStatus(serverConfig.getStatus());
 				}
@@ -133,7 +135,7 @@ public class McpService implements IMcpService {
 					connectionType);
 		}
 
-		// 清除缓存以重新加载服务
+		// Clear cache to reload services
 		cacheManager.invalidateAllCache();
 		return entityList;
 	}

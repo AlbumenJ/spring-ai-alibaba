@@ -105,12 +105,12 @@ public class McpController {
 				logger.error("MCP server not found with id: {}", requestVO.getId(), e);
 				return ResponseEntity.notFound().build();
 			}
-			// 检查是否是验证错误
-			if (e.getMessage().contains("MCP服务器配置验证失败")) {
+			// Check if it's a validation error
+			if (e.getMessage().contains("MCP server configuration validation failed")) {
 				logger.warn("Validation failed for MCP server '{}': {}", requestVO.getMcpServerName(), e.getMessage());
 				return ResponseEntity.badRequest().body(e.getMessage());
 			}
-			// 其他参数错误
+			// Other parameter errors
 			logger.error("Invalid argument for MCP server operation: {}", e.getMessage(), e);
 			return ResponseEntity.badRequest().body("Invalid argument: " + e.getMessage());
 		}
