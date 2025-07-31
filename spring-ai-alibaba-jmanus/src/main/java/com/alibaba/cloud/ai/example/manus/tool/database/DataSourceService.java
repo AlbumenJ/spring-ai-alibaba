@@ -38,14 +38,14 @@ public class DataSourceService {
 	private final Map<String, String> dataSourceTypeMap = new ConcurrentHashMap<>();
 
 	/**
-	 * 添加数据源
+	 * Add data source
 	 */
 	public void addDataSource(String name, String url, String username, String password, String driverClassName) {
 		addDataSource(name, url, username, password, driverClassName, null);
 	}
 
 	/**
-	 * 添加数据源（包含类型信息）
+	 * Add data source (with type information)
 	 */
 	public void addDataSource(String name, String url, String username, String password, String driverClassName,
 			String type) {

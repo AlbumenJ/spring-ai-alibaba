@@ -59,8 +59,8 @@ public class DatabaseUseTool extends AbstractBaseTool<DatabaseRequest> {
 			            "type": "object",
 			            "properties": {
 			                "action": { "type": "string", "const": "execute_sql" },
-			                "query": { "type": "string", "description": "要执行的SQL语句" },
-			                "datasourceName": { "type": "string", "description": "数据源名称，可选" }
+			                "query": { "type": "string", "description": "SQL statement to execute" },
+			                "datasourceName": { "type": "string", "description": "Data source name, optional" }
 			            },
 			            "required": ["action", "query"],
 			            "additionalProperties": false

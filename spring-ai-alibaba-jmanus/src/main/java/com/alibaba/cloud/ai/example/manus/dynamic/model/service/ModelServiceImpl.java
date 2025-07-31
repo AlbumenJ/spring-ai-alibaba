@@ -256,15 +256,15 @@ public class ModelServiceImpl implements ModelService {
 		log.debug("Setting request headers - Content-Type: application/json, Authorization: Bearer {}",
 				maskApiKey(apiKey));
 
-		// 构建请求URL
+		// Build request URL
 		String requestUrl = baseUrl + "/v1/models";
-		log.info("发送HTTP请求到: {}", requestUrl);
+		log.info("Sending HTTP request to: {}", requestUrl);
 
 		try {
 			long startTime = System.currentTimeMillis();
-			// 创建HttpEntity包装请求头
+			// Create HttpEntity to wrap request headers
 			HttpEntity<String> entity = new HttpEntity<>(headers);
-			// 发送GET请求，使用HttpEntity包含请求头
+			// Send GET request with HttpEntity containing headers
 			ResponseEntity<Map> response = restTemplate.exchange(requestUrl, HttpMethod.GET, entity, Map.class);
 			long endTime = System.currentTimeMillis();
 

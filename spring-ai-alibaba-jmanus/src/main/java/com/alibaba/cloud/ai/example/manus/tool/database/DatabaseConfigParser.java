@@ -39,17 +39,17 @@ public class DatabaseConfigParser {
 	}
 
 	/**
-	 * 发现所有数据源名称
+	 * Discover all data source names
 	 */
 	public Set<String> discoverDatasourceNames() {
 		Set<String> names = new HashSet<>();
 
 		try {
-			// 通过扫描所有配置键来发现数据源
+			// Discover data sources by scanning all configuration keys
 			Set<String> allKeys = getAllPropertyKeys();
 
 			for (String key : allKeys) {
-				// 匹配模式：database.tool.datasource.{datasourceName}.type
+				// Match pattern: database.tool.datasource.{datasourceName}.type
 				if (isDatasourceTypeProperty(key)) {
 					String datasourceName = extractDatasourceName(key);
 					if (datasourceName != null) {
