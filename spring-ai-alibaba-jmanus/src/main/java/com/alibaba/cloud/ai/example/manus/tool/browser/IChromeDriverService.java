@@ -20,18 +20,18 @@ import com.alibaba.cloud.ai.example.manus.tool.innerStorage.SmartContentSavingSe
 import com.alibaba.cloud.ai.example.manus.tool.filesystem.UnifiedDirectoryManager;
 
 /**
- * Chrome driver service interface，提供浏览器驱动管理功能
+ * Chrome driver service interface providing browser driver management functions
  */
 public interface IChromeDriverService {
 
 	/**
-	 * 获取共享目录
-	 * @return 共享目录路径
+	 * Get shared directory
+	 * @return Shared directory path
 	 */
 	String getSharedDir();
 
 	/**
-	 * 将所有驱动的cookies保存到全局共享目录
+	 * Save cookies from all drivers to global shared directory
 	 */
 	void saveCookiesToSharedDir();
 

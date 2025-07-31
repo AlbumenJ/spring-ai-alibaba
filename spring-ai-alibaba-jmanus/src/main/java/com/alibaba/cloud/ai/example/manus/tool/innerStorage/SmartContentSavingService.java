@@ -114,10 +114,11 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 		log.info("Content length {} exceeds threshold {}, triggering auto storage", content.length(), threshold);
 
 		try {
-			// 生成存储文件名
+			// Generate storage filename
 			String storageFileName = generateStorageFileName(planId);
 
-			// 确保计划目录存在 - 直接存储在 planId 目录下，不使用 agent 子目录
+			// Ensure plan directory exists - store directly in planId directory, not
+			// using agent subdirectory
 			Path planDir = directoryManager.getRootPlanDirectory(planId);
 			directoryManager.ensureDirectoryExists(planDir);
 
@@ -136,7 +137,8 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 		catch (IOException e) {
 			log.error("Failed to save content to storage for plan {}", planId, e);
 			// 如果保存失败，返回截断的内容
-			return new SmartProcessResult(null, content.substring(0, threshold) + "\n\n... (内容过长，已截断)");
+			return new SmartProcessResult(null,
+					content.substring(0, threshold) + "\n\n... (Content too long, truncated)");
 		}
 	}
 

@@ -174,19 +174,20 @@ public class MapReducePlanExecutor extends AbstractPlanExecutor {
 	 * Execute MapReduce node
 	 */
 	private BaseAgent executeMapReduceNode(MapReduceNode mrNode, ExecutionContext context, BaseAgent lastExecutor) {
-		logger.info("执行 MapReduce 节点，Data Prepared 步骤: {}, Map 步骤: {}, Reduce 步骤: {}, Post Process 步骤: {}",
+		logger.info(
+				"Executing MapReduce node, Data Prepared steps: {}, Map steps: {}, Reduce steps: {}, Post Process steps: {}",
 				mrNode.getDataPreparedStepCount(), mrNode.getMapStepCount(), mrNode.getReduceStepCount(),
 				mrNode.getPostProcessStepCount());
 
 		BaseAgent executor = lastExecutor;
 
-		// 1. 串行执行 Data Prepared 阶段
+		// 1. Serial execution of Data Prepared phase
 		if (CollectionUtil.isNotEmpty(mrNode.getDataPreparedSteps())) {
 			executor = executeDataPreparedPhase(mrNode.getDataPreparedSteps(), context, executor);
 		}
 
 		List<ExecutionStep> mapSteps = mrNode.getMapSteps();
-		// 2. 并行执行 Map 阶段
+		// 2. Parallel execution of Map phase
 		if (CollectionUtil.isNotEmpty(mapSteps)) {
 			// 获取 MapReduceTool 的 ToolCallBackContext
 			ToolCallBackContext toolCallBackContext = null;

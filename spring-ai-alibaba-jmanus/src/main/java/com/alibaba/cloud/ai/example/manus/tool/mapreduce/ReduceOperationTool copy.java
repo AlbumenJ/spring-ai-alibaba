@@ -38,7 +38,7 @@
 
 // private static final Logger log = LoggerFactory.getLogger(ReduceOperationTool.class);
 
-// // ==================== 配置常量 ====================
+// // ==================== Configuration Constants ====================
 
 // /**
 // * Supported operation type: get file lines from root plan
@@ -168,7 +168,7 @@
 // },
 // "start_line": {
 // "type": "integer",
-// "description": "起始行号，默认为1，从该行开始读取到文件末尾"
+// "description": "Starting line number, default is 1, read from this line to end of file"
 // }
 // },
 // "required": ["action"],
@@ -183,7 +183,7 @@
 // },
 // "content": {
 // "type": "string",
-// "description": "要追加的内容"
+// "description": "Content to append"
 // }
 // },
 // "required": ["action", "content"],

@@ -21,7 +21,8 @@ import java.nio.file.Path;
 import com.alibaba.cloud.ai.example.manus.config.ManusProperties;
 
 /**
- * Unified directory manager interface providing centralized directory management for all tools' filesystem operations
+ * Unified directory manager interface providing centralized directory management for all
+ * tools' filesystem operations
  */
 public interface IUnifiedDirectoryManager {
 
