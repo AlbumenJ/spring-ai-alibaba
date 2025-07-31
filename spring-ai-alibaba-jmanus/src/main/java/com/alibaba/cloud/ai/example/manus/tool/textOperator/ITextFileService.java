@@ -39,45 +39,45 @@ public interface ITextFileService {
 	Object getFileState(String planId);
 
 	/**
-	 * 关闭指定计划的文件
-	 * @param planId 计划ID
+	 * Close files for specified plan
+	 * @param planId Plan ID
 	 */
 	void closeFileForPlan(String planId);
 
 	/**
-	 * 检查是否支持的文件类型
-	 * @param filePath 文件路径
-	 * @return 是否支持
+	 * Check if file type is supported
+	 * @param filePath File path
+	 * @return Whether supported
 	 */
 	boolean isSupportedFileType(String filePath);
 
 	/**
-	 * 获取文件扩展名
-	 * @param filePath 文件路径
-	 * @return 文件扩展名
+	 * Get file extension
+	 * @param filePath File path
+	 * @return File extension
 	 */
 	String getFileExtension(String filePath);
 
 	/**
-	 * 验证并获取绝对路径
-	 * @param workingDirectoryPath 工作目录路径
-	 * @param filePath 文件路径
-	 * @throws IOException IO异常
+	 * Validate and get absolute path
+	 * @param workingDirectoryPath Working directory path
+	 * @param filePath File path
+	 * @throws IOException IO exception
 	 */
 	void validateAndGetAbsolutePath(String workingDirectoryPath, String filePath) throws IOException;
 
 	/**
-	 * 更新文件状态
-	 * @param planId 计划ID
-	 * @param filePath 文件路径
-	 * @param operationResult 操作结果
+	 * Update file status
+	 * @param planId Plan ID
+	 * @param filePath File path
+	 * @param operationResult Operation result
 	 */
 	void updateFileState(String planId, String filePath, String operationResult);
 
 	/**
-	 * 获取当前文件路径
-	 * @param planId 计划ID
-	 * @return 当前文件路径
+	 * Get current file path
+	 * @param planId Plan ID
+	 * @return Current file path
 	 */
 	String getCurrentFilePath(String planId);
 
@@ -88,9 +88,9 @@ public interface ITextFileService {
 	ManusProperties getManusProperties();
 
 	/**
-	 * 获取最后操作结果
-	 * @param planId 计划ID
-	 * @return 最后操作结果
+	 * Get last operation result
+	 * @param planId Plan ID
+	 * @return Last operation result
 	 */
 	String getLastOperationResult(String planId);
 

@@ -39,59 +39,59 @@ public interface IUnifiedDirectoryManager {
 	Path getWorkingDirectory();
 
 	/**
-	 * 获取根计划目录
-	 * @param rootPlanId 根计划ID
-	 * @return 根计划目录Path
+	 * Get root plan directory
+	 * @param rootPlanId Root plan ID
+	 * @return Root plan directory Path
 	 */
 	Path getRootPlanDirectory(String rootPlanId);
 
 	/**
-	 * 获取子任务目录
-	 * @param rootPlanId 根计划ID
-	 * @param subTaskId 子任务ID
-	 * @return 子任务目录Path
+	 * Get subtask directory
+	 * @param rootPlanId Root plan ID
+	 * @param subTaskId Subtask ID
+	 * @return Subtask directory Path
 	 */
 	Path getSubTaskDirectory(String rootPlanId, String subTaskId);
 
 	/**
-	 * 获取指定目录
-	 * @param targetPath 目标路径
-	 * @return 指定目录Path
-	 * @throws IOException IO异常
-	 * @throws SecurityException 安全异常
+	 * Get specified directory
+	 * @param targetPath Target path
+	 * @return Specified directory Path
+	 * @throws IOException IO exception
+	 * @throws SecurityException Security exception
 	 */
 	Path getSpecifiedDirectory(String targetPath) throws IOException, SecurityException;
 
 	/**
-	 * 确保目录存在
-	 * @param directory 目录
-	 * @throws IOException IO异常
+	 * Ensure directory exists
+	 * @param directory Directory
+	 * @throws IOException IO exception
 	 */
 	void ensureDirectoryExists(Path directory) throws IOException;
 
 	/**
-	 * 检查路径是否被允许
-	 * @param targetPath 目标路径
-	 * @return 是否允许
+	 * Check if path is allowed
+	 * @param targetPath Target path
+	 * @return Whether allowed
 	 */
 	boolean isPathAllowed(Path targetPath);
 
 	/**
-	 * 获取内部存储根目录
-	 * @return 内部存储根目录Path
+	 * Get internal storage root directory
+	 * @return Internal storage root directory Path
 	 */
 	Path getInnerStorageRoot();
 
 	/**
-	 * 从工作目录获取相对路径
-	 * @param absolutePath 绝对路径
-	 * @return 相对路径字符串
+	 * Get relative path from working directory
+	 * @param absolutePath Absolute path
+	 * @return Relative path string
 	 */
 	String getRelativePathFromWorkingDirectory(Path absolutePath);
 
 	/**
-	 * 获取Manus属性
-	 * @return Manus属性
+	 * Get Manus properties
+	 * @return Manus properties
 	 */
 	ManusProperties getManusProperties();
 

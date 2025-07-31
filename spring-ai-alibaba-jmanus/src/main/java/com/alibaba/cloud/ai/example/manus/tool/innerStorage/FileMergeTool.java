@@ -177,10 +177,10 @@ public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput
 			Path planDir = directoryManager.getRootPlanDirectory(rootPlanId);
 			Path targetDir = planDir.resolve(targetFolder);
 
-			// 确保目标文件夹存在
+			// Ensure target folder exists
 			Files.createDirectories(targetDir);
 
-			// 查找匹配的文件
+			// Find matching files
 			String actualFileName = null;
 			Path sourceFile = null;
 			List<Path> files = Files.list(planDir).filter(Files::isRegularFile).toList();

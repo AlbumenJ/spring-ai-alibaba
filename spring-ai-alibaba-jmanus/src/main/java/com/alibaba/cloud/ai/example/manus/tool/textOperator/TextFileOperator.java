@@ -166,15 +166,15 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			               },
 			               "file_path": {
 			                   "type": "string",
-			                   "description": "要读取的文件路径"
+			                   "description": "File path to read"
 			               },
 			               "start_line": {
 			                   "type": "integer",
-			                   "description": "起始行号（从1开始）"
+			                   "description": "Starting line number (starts from 1)"
 			               },
 			               "end_line": {
 			                   "type": "integer",
-			                   "description": "结束行号（包含该行）。注意：单次最多返回500行，可多次调用获取更多内容"
+			                   "description": "Ending line number (inclusive). Note: Maximum 500 lines per call, use multiple calls for more content"
 			               }
 			           },
 			           "required": ["action", "file_path", "start_line", "end_line"],
@@ -189,7 +189,7 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			               },
 			               "file_path": {
 			                   "type": "string",
-			                   "description": "要读取全部内容的文件路径。注意：如果文件过长，内容将存储在临时文件中并返回文件路径"
+			                   "description": "File path to read all content. Note: If file is too long, content will be stored in temporary file and return file path"
 			               }
 			           },
 			           "required": ["action", "file_path"],
@@ -204,11 +204,11 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			                },
 			                "file_path": {
 			                    "type": "string",
-			                    "description": "要追加内容的文件路径"
+			                    "description": "File path to append content to"
 			                },
 			                "content": {
 			                    "type": "string",
-			                    "description": "要追加的内容"
+			                    "description": "Content to append"
 			                }
 			            },
 			            "required": ["action", "file_path", "content"],
@@ -223,7 +223,7 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			                },
 			                "file_path": {
 			                    "type": "string",
-			                    "description": "要统计单词数的文件路径"
+			                    "description": "File path to count words"
 			                }
 			            },
 			            "required": ["action", "file_path"],

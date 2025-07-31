@@ -122,11 +122,11 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 			Path planDir = directoryManager.getRootPlanDirectory(planId);
 			directoryManager.ensureDirectoryExists(planDir);
 
-			// 保存详细内容到 InnerStorage - 直接存储在计划目录下
+			// Save detailed content to InnerStorage - store directly in plan directory
 			Path storagePath = planDir.resolve(storageFileName);
 			saveDetailedContentToStorage(storagePath, content, planId);
 
-			// 生成简化摘要
+			// Generate simplified summary
 			String summary = generateSmartSummary(content, storageFileName, callingMethod);
 
 			log.info("Content exceeds threshold ({} bytes), saved to storage file: {}", threshold, storageFileName);
@@ -136,25 +136,25 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 		}
 		catch (IOException e) {
 			log.error("Failed to save content to storage for plan {}", planId, e);
-			// 如果保存失败，返回截断的内容
+			// If save fails, return truncated content
 			return new SmartProcessResult(null,
 					content.substring(0, threshold) + "\n\n... (Content too long, truncated)");
 		}
 	}
 
 	/**
-	 * 生成存储文件名 - 格式：planId_时间戳_随机4位数.md
+	 * Generate storage filename - format: planId_timestamp_random4digits.md
 	 */
 	private String generateStorageFileName(String planId) {
 		String timestamp = java.time.LocalDateTime.now()
 			.format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-		// 生成4位随机数
+		// Generate 4-digit random number
 		int randomNum = (int) (Math.random() * 9000) + 1000; // 1000-9999
 		return String.format("%s_%s_%04d.md", planId, timestamp, randomNum);
 	}
 
 	/**
-	 * 保存详细内容到存储
+	 * Save detailed content to storage
 	 */
 	private void saveDetailedContentToStorage(Path storagePath, String content, String planId) throws IOException {
 		StringBuilder detailedContent = new StringBuilder();
@@ -165,28 +165,28 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 	}
 
 	/**
-	 * 生成智能摘要
+	 * Generate intelligent summary
 	 */
 	private String generateSmartSummary(String content, String storageFileName, String callingMethod) {
-		// 构建调用方法信息
+		// Build calling method information
 		String methodInfo = (callingMethod != null && !callingMethod.trim().isEmpty())
-				? "成功调用了" + callingMethod + "函数，\n\n" : "";
+				? "Successfully called " + callingMethod + " function,\n\n" : "";
 
 		return String.format("""
-				%s但函数返回的内容过长，所以自动存储到了文件里
+				%sBut the function returned content is too long, so it was automatically stored in a file
 
-				## 你可以自由的使用后续的两个操作来达成用户的期望（不需要按照顺序，而是按照用户期望）
+				## You can freely use the following two operations to meet user expectations (no need to follow order, but according to user expectations)
 
-				### 操作1 ： 使用 inner_storage_content_tool 工具获取具体内容
+				### Operation 1: Use inner_storage_content_tool to get specific content
 				```json
 				{
 				  "action": "get_content",
 				  "file_name": "%s",
-				  "query_key": "你要查询的关键词或问题，查询要具体，不要丢掉任何一个用户请求中的需求"
+				  "query_key": "Keywords or questions you want to query, be specific and don't miss any requirements from user requests"
 				}
 				```
 
-				### 操作2 ： 使用 file_merge_tool 工具将文件聚合（或者复制）到指定文件夹
+				### Operation 2: Use file_merge_tool to aggregate (or copy) files to specified folder
 				```json
 				{
 				  "action": "merge_file",
@@ -195,7 +195,7 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 				}
 				```
 
-				请根据具体需求选择合适的工具和参数进行后续操作。
+				Please choose appropriate tools and parameters for subsequent operations based on specific requirements.
 
 				""", methodInfo, storageFileName, storageFileName);
 	}

@@ -36,25 +36,25 @@ public interface IChromeDriverService {
 	void saveCookiesToSharedDir();
 
 	/**
-	 * 从全局共享目录加载cookies到所有驱动
+	 * Load cookies from global shared directory to all drivers
 	 */
 	void loadCookiesFromSharedDir();
 
 	/**
-	 * 获取指定计划ID的驱动包装器
-	 * @param planId 计划ID
-	 * @return 驱动包装器
+	 * Get driver wrapper for specified plan ID
+	 * @param planId Plan ID
+	 * @return Driver wrapper
 	 */
 	DriverWrapper getDriver(String planId);
 
 	/**
-	 * 关闭指定计划的驱动
-	 * @param planId 计划ID
+	 * Close driver for specified plan
+	 * @param planId Plan ID
 	 */
 	void closeDriverForPlan(String planId);
 
 	/**
-	 * 清理所有资源
+	 * Clean up all resources
 	 */
 	void cleanup();
 

@@ -174,7 +174,8 @@ public class DataSourceService {
 	 */
 	public void closeAllConnections() {
 		log.info("Closing all datasource connections");
-		// DriverManagerDataSource automatically manages connections, mainly for logging here
+		// DriverManagerDataSource automatically manages connections, mainly for logging
+		// here
 		// If need to force close connection pool, can add logic here
 	}
 

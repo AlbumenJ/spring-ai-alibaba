@@ -165,16 +165,16 @@ public class TextFileService implements ApplicationRunner, ITextFileService {
 			throw new IllegalArgumentException("filePath cannot be null or empty");
 		}
 
-		// 获取根计划目录
+		// Get root plan directory
 		Path rootPlanDir = unifiedDirectoryManager.getRootPlanDirectory(planId);
 
-		// 确保目录存在
+		// Ensure directory exists
 		unifiedDirectoryManager.ensureDirectoryExists(rootPlanDir);
 
-		// 解析文件路径
+		// Parse file path
 		Path absolutePath = rootPlanDir.resolve(filePath).normalize();
 
-		// 验证路径是否在允许的范围内
+		// Verify path is within allowed range
 		if (!unifiedDirectoryManager.isPathAllowed(absolutePath)) {
 			throw new IOException("Access denied: File path is outside allowed scope");
 		}
@@ -192,7 +192,7 @@ public class TextFileService implements ApplicationRunner, ITextFileService {
 	public Path validateFilePath(String planId, String filePath) throws IOException {
 		Path absolutePath = getAbsolutePath(planId, filePath);
 
-		// 检查文件大小（如果文件存在）
+		// Check file size (if file exists)
 		if (Files.exists(absolutePath) && Files.size(absolutePath) > 10 * 1024 * 1024) { // 10MB
 																							// 限制
 			throw new IOException("File is too large (>10MB). For safety reasons, please use a smaller file.");

@@ -19,7 +19,9 @@ package com.alibaba.cloud.ai.example.manus.tool.database;
  * Database tool request object for encapsulating database operation request parameters
  *
  * <p>
- * This object contains all parameters required for database operations, supporting multiple database operation types, including SQL execution, table information queries, index queries, etc.
+ * This object contains all parameters required for database operations, supporting
+ * multiple database operation types, including SQL execution, table information queries,
+ * index queries, etc.
  * </p>
  *
  * @author Spring AI Alibaba Team
@@ -47,7 +49,8 @@ public class DatabaseRequest {
 	 * SQL query statement
 	 *
 	 * <p>
-	 * Used when operation type is {@code execute_sql}. Contains the SQL query statement to execute.
+	 * Used when operation type is {@code execute_sql}. Contains the SQL query statement
+	 * to execute.
 	 * </p>
 	 */
 	private String query;
@@ -56,7 +59,8 @@ public class DatabaseRequest {
 	 * Text parameter
 	 *
 	 * <p>
-	 * Used to specify table names, comments or other text information. Used for filtering when operation type is {@code get_table_name}, {@code get_table_meta},
+	 * Used to specify table names, comments or other text information. Used for filtering
+	 * when operation type is {@code get_table_name}, {@code get_table_meta},
 	 * {@code get_table_index}.
 	 * </p>
 	 */
@@ -66,7 +70,9 @@ public class DatabaseRequest {
 	 * Data source name
 	 *
 	 * <p>
-	 * Specifies the data source name to use. If empty or not specified, the default data source will be used. Supports data source switching in multi-data source environments.
+	 * Specifies the data source name to use. If empty or not specified, the default data
+	 * source will be used. Supports data source switching in multi-data source
+	 * environments.
 	 * </p>
 	 */
 	private String datasourceName;
