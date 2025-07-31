@@ -24,7 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * MapReduce tool shared state manager 用于管理不同Agent实例之间的共享状态信息，确保MapReduce流程的一致性
+ * MapReduce tool shared state manager for managing shared state information between
+ * different Agent instances, ensuring MapReduce process consistency
  */
 @Component
 public class MapReduceSharedStateManager implements IMapReduceSharedStateManager {
@@ -32,19 +33,19 @@ public class MapReduceSharedStateManager implements IMapReduceSharedStateManager
 	private static final Logger log = LoggerFactory.getLogger(MapReduceSharedStateManager.class);
 
 	/**
-	 * 计划状态信息 Key: planId, Value: PlanState
+	 * Plan state information Key: planId, Value: PlanState
 	 */
 	private final Map<String, PlanState> planStates = new ConcurrentHashMap<>();
 
 	/**
-	 * 计划状态内部类 包含单个计划的所有共享状态信息
+	 * Plan state inner class containing all shared state information for a single plan
 	 */
 	public static class PlanState {
 
-		// Map任务状态管理
+		// Map task status management
 		private final Map<String, TaskStatus> mapTaskStatuses = new ConcurrentHashMap<>();
 
-		// 任务计数器，用于生成任务ID
+		// Task counter for generating task IDs
 		private final AtomicInteger taskCounter = new AtomicInteger(1);
 
 		// 分割结果列表

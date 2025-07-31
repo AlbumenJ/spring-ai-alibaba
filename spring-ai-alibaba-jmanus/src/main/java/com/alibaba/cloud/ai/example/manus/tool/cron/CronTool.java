@@ -39,11 +39,11 @@ public class CronTool extends AbstractBaseTool<CronTool.CronToolInput> {
 
 	public static class CronToolInput {
 
-		private String cronName; // 任务名称
+		private String cronName; // Task name
 
-		private String cronTime; // 定时时间
+		private String cronTime; // Scheduled time
 
-		private String planDesc; // 计划描述
+		private String planDesc; // Plan description
 
 		CronToolInput() {
 		}

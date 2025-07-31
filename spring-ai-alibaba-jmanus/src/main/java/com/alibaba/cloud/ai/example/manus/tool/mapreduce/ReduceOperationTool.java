@@ -39,7 +39,7 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 
 	private static final Logger log = LoggerFactory.getLogger(ReduceOperationTool.class);
 
-	// ==================== 配置常量 ====================
+	// ==================== Configuration Constants ====================
 
 	/**
 	 * Fixed file name for reduce operations
@@ -84,22 +84,22 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 				Reduce operation tool for MapReduce workflow file manipulation.
 				Aggregates and merges data from multiple Map tasks and generates final consolidated output.
 
-				**重要参数说明：**
-				- has_value: 布尔值，表示是否有有效数据需要写入
-				  - 如果没有找到任何有效数据，设置为 false
-				  - 如果有数据需要输出，设置为 true
-				- data: 当 has_value 为 true 时必须提供数据
+				**Important Parameter Description:**
+				- has_value: Boolean value indicating whether there is valid data to write
+				  - If no valid data is found, set to false
+				  - If there is data to output, set to true
+				- data: Must provide data when has_value is true
 
-				**IMPORTANT**: 操作完成后工具将自动终止。
-				请在单次调用中完成所有内容输出。
+				**IMPORTANT**: Tool will automatically terminate after operation completion.
+				Please complete all content output in a single call.
 				""";
 
 		if (terminateColumns != null && !terminateColumns.isEmpty()) {
 			String columnsFormat = String.join(", ", terminateColumns);
 			baseDescription += String.format("""
 
-					**数据格式要求（当 has_value=true 时）：**
-					您必须按照以下固定格式提供数据，每行数据包含：[%s]
+					**Data Format Requirements (when has_value=true):**
+					You must provide data in the following fixed format, each line containing: [%s]
 
 					示例格式：
 					[

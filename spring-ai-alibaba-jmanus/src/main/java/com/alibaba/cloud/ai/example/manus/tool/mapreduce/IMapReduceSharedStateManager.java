@@ -19,21 +19,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * MapReduce tool shared state manager interface，用于管理不同Agent实例之间的共享状态信息
+ * MapReduce tool shared state manager interface for managing shared state information
+ * between different Agent instances
  */
 public interface IMapReduceSharedStateManager {
 
 	/**
-	 * 获取或创建计划状态
-	 * @param planId 计划ID
-	 * @return 计划状态
+	 * Get or create plan state
+	 * @param planId Plan ID
+	 * @return Plan state
 	 */
 	MapReduceSharedStateManager.PlanState getOrCreatePlanState(String planId);
 
 	/**
-	 * 获取计划状态
-	 * @param planId 计划ID
-	 * @return 计划状态
+	 * Get plan state
+	 * @param planId Plan ID
+	 * @return Plan state
 	 */
 	MapReduceSharedStateManager.PlanState getPlanState(String planId);
 
