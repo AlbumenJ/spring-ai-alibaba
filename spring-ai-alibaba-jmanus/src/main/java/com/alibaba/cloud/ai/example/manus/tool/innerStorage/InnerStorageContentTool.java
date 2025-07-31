@@ -31,14 +31,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.api.OpenAiApi;
 
 /**
- * Internal storage content retrieval tool，专门用于智能内容提取和结构化输出 支持AI智能分析和数据提取功能
+ * Internal storage content retrieval tool specialized for intelligent content extraction
+ * and structured output, supporting AI intelligent analysis and data extraction functions
  */
 public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageContentTool.InnerStorageContentInput> {
 
 	private static final Logger log = LoggerFactory.getLogger(InnerStorageContentTool.class);
 
 	/**
-	 * 内部存储内容获取输入类
+	 * Internal storage content retrieval input class
 	 */
 	public static class InnerStorageContentInput {
 
@@ -138,12 +139,12 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 	private static final String TOOL_NAME = "inner_storage_content_tool";
 
 	private static final String TOOL_DESCRIPTION = """
-			内部存储内容获取工具，专门用于智能内容提取和结构化输出。
-			智能内容提取模式：根据文件名获取详细内容，**必须提供** query_key 和 columns 参数进行智能提取和结构化输出
+			Internal storage content retrieval tool specialized for intelligent content extraction and structured output.
+			Intelligent content extraction mode: Get detailed content based on file name, **must provide** query_key and columns parameters for intelligent extraction and structured output
 
-			支持两种操作模式：
-			1. get_content: 从单个文件获取内容（精确文件名匹配或相对路径）
-			2. get_folder_content: 从指定文件夹下的所有文件获取内容
+			Supports two operation modes:
+			1. get_content: Get content from single file (exact filename match or relative path)
+			2. get_folder_content: Get content from all files in specified folder
 			""";
 
 	private static final String PARAMETERS = """
@@ -155,15 +156,15 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 							"action": {
 								"type": "string",
 								"const": "get_content",
-								"description": "从单个文件获取内容"
+								"description": "Get content from single file"
 							},
 							"file_name": {
 								"type": "string",
-								"description": "文件名（带扩展名）或相对路径，支持精确匹配"
+								"description": "Filename (with extension) or relative path, supports exact matching"
 							},
 							"query_key": {
 								"type": "string",
-								"description": "相关问题或希望提取的内容关键词，必须提供"
+								"description": "Related questions or content keywords to extract, must be provided"
 							},
 							"columns": {
 								"type": "array",

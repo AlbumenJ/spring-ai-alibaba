@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * Internal file storage service，用于MapReduce流程中存储中间数据
+ * Internal file storage service for storing intermediate data in MapReduce processes
  */
 @Service
 public class SmartContentSavingService implements ISmartContentSavingService {
@@ -46,7 +46,7 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 	}
 
 	/**
-	 * 智能处理结果类
+	 * Smart processing result class
 	 */
 	public static class SmartProcessResult {
 
@@ -75,11 +75,12 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 	}
 
 	/**
-	 * 智能处理内容，如果内容过长则自动存储并返回摘要
-	 * @param planId 计划ID
-	 * @param content 内容
-	 * @param callingMethod 调用的方法名
-	 * @return 处理结果，包含文件名和摘要
+	 * Intelligently process content, automatically store and return summary if content is
+	 * too long
+	 * @param planId Plan ID
+	 * @param content Content
+	 * @param callingMethod Calling method name
+	 * @return Processing result containing filename and summary
 	 */
 	public SmartProcessResult processContent(String planId, String content, String callingMethod) {
 		if (planId == null || content == null) {

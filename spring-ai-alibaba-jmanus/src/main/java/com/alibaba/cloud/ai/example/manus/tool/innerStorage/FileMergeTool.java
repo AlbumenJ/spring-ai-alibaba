@@ -30,7 +30,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.openai.api.OpenAiApi;
 
 /**
- * File merge tool for merging single files into specified target folders, merging one file per call
+ * File merge tool for merging single files into specified target folders, merging one
+ * file per call
  */
 public class FileMergeTool extends AbstractBaseTool<FileMergeTool.FileMergeInput> {
 

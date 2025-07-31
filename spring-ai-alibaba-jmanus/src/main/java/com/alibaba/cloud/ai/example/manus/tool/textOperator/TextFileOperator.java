@@ -144,15 +144,15 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			                },
 			                "file_path": {
 			                    "type": "string",
-			                    "description": "要操作的文件路径"
+			                    "description": "File path to operate on"
 			                },
 			                "source_text": {
 			                    "type": "string",
-			                    "description": "要被替换的文本"
+			                    "description": "Text to be replaced"
 			                },
 			                "target_text": {
 			                    "type": "string",
-			                    "description": "替换后的文本"
+			                    "description": "Replacement text"
 			                }
 			            },
 			            "required": ["action", "file_path", "source_text", "target_text"],

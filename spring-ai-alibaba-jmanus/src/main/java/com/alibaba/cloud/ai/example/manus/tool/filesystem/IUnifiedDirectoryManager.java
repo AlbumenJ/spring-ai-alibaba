@@ -21,19 +21,19 @@ import java.nio.file.Path;
 import com.alibaba.cloud.ai.example.manus.config.ManusProperties;
 
 /**
- * Unified directory manager interface，为所有工具的文件系统操作提供集中的目录管理
+ * Unified directory manager interface providing centralized directory management for all tools' filesystem operations
  */
 public interface IUnifiedDirectoryManager {
 
 	/**
-	 * 获取工作目录路径
-	 * @return 工作目录路径字符串
+	 * Get working directory path
+	 * @return Working directory path string
 	 */
 	String getWorkingDirectoryPath();
 
 	/**
-	 * 获取工作目录
-	 * @return 工作目录Path对象
+	 * Get working directory
+	 * @return Working directory Path object
 	 */
 	Path getWorkingDirectory();
 

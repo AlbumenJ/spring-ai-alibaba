@@ -109,13 +109,13 @@ public class TextFileService implements ApplicationRunner, ITextFileService {
 	}
 
 	public void validateAndGetAbsolutePath(String workingDirectoryPath, String filePath) throws IOException {
-		// 使用 UnifiedDirectoryManager 进行路径验证和获取
+		// Use UnifiedDirectoryManager for path validation and retrieval
 		try {
 			Path resolvedPath = unifiedDirectoryManager.getSpecifiedDirectory(filePath);
 
-			// 检查文件大小（如果文件存在）
+			// Check file size (if file exists)
 			if (Files.exists(resolvedPath) && Files.size(resolvedPath) > 10 * 1024 * 1024) { // 10MB
-																								// 限制
+																								// limit
 				throw new IOException("File is too large (>10MB). For safety reasons, please use a smaller file.");
 			}
 		}
@@ -151,11 +151,11 @@ public class TextFileService implements ApplicationRunner, ITextFileService {
 	}
 
 	/**
-	 * 使用 UnifiedDirectoryManager 获取绝对路径
-	 * @param planId 计划ID
-	 * @param filePath 相对文件路径
-	 * @return 绝对路径
-	 * @throws IOException 如果路径无效
+	 * Use UnifiedDirectoryManager to get absolute path
+	 * @param planId Plan ID
+	 * @param filePath Relative file path
+	 * @return Absolute path
+	 * @throws IOException If path is invalid
 	 */
 	public Path getAbsolutePath(String planId, String filePath) throws IOException {
 		if (planId == null || planId.trim().isEmpty()) {

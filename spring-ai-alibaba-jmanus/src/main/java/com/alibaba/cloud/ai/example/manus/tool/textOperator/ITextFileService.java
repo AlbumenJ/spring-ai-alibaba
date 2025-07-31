@@ -21,20 +21,20 @@ import com.alibaba.cloud.ai.example.manus.config.ManusProperties;
 import com.alibaba.cloud.ai.example.manus.tool.innerStorage.SmartContentSavingService;
 
 /**
- * Text file service interface，提供文件操作管理功能
+ * Text file service interface providing file operation management functions
  */
 public interface ITextFileService {
 
 	/**
-	 * 获取内部存储服务
-	 * @return 内部存储服务
+	 * Get internal storage service
+	 * @return Internal storage service
 	 */
 	SmartContentSavingService getInnerStorageService();
 
 	/**
-	 * 获取指定计划的文件状态
-	 * @param planId 计划ID
-	 * @return 文件状态
+	 * Get file status for specified plan
+	 * @param planId Plan ID
+	 * @return File status
 	 */
 	Object getFileState(String planId);
 
