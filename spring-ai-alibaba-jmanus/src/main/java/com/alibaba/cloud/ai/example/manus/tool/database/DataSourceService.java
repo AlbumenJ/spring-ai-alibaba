@@ -67,7 +67,7 @@ public class DataSourceService {
 	}
 
 	/**
-	 * 获取默认数据源连接（使用第一个可用的数据源）
+	 * Get default data source connection (use first available data source)
 	 */
 	public Connection getConnection() throws SQLException {
 		java.util.Set<String> names = getDataSourceNames();
@@ -80,7 +80,7 @@ public class DataSourceService {
 	}
 
 	/**
-	 * 通过名称获取连接
+	 * Get connection by name
 	 */
 	public Connection getConnection(String datasourceName) throws SQLException {
 		DataSource dataSource = getDataSource(datasourceName);
@@ -91,7 +91,7 @@ public class DataSourceService {
 	}
 
 	/**
-	 * 获取默认数据源
+	 * Get default data source
 	 */
 	public DataSource getDataSource() {
 		java.util.Set<String> names = getDataSourceNames();
@@ -104,7 +104,7 @@ public class DataSourceService {
 	}
 
 	/**
-	 * 通过名称获取数据源
+	 * Get data source by name
 	 */
 	public DataSource getDataSource(String datasourceName) {
 		DataSource dataSource = dataSourceMap.get(datasourceName);
@@ -115,42 +115,42 @@ public class DataSourceService {
 	}
 
 	/**
-	 * 获取所有数据源名称
+	 * Get all data source names
 	 */
 	public java.util.Set<String> getDataSourceNames() {
 		return dataSourceMap.keySet();
 	}
 
 	/**
-	 * 检查数据源是否存在
+	 * Check if data source exists
 	 */
 	public boolean hasDataSource(String datasourceName) {
 		return dataSourceMap.containsKey(datasourceName);
 	}
 
 	/**
-	 * 获取数据源数量
+	 * Get data source count
 	 */
 	public int getDataSourceCount() {
 		return dataSourceMap.size();
 	}
 
 	/**
-	 * 获取数据源类型
+	 * Get data source type
 	 */
 	public String getDataSourceType(String datasourceName) {
 		return dataSourceTypeMap.get(datasourceName);
 	}
 
 	/**
-	 * 获取所有数据源类型映射
+	 * Get all data source type mappings
 	 */
 	public Map<String, String> getDataSourceTypeMap() {
 		return new ConcurrentHashMap<>(dataSourceTypeMap);
 	}
 
 	/**
-	 * 获取默认数据源类型（使用第一个可用的数据源）
+	 * Get default data source type (use first available data source)
 	 */
 	public String getDataSourceType() {
 		java.util.Set<String> names = getDataSourceNames();

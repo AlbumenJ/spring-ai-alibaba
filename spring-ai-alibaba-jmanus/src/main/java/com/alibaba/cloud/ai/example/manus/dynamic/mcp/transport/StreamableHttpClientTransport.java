@@ -159,17 +159,17 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 
 	@Override
 	public Mono<Void> sendMessage(McpSchema.JSONRPCMessage message) {
-		logger.info("=== 开始发送消息 ===");
-		logger.info("=== 消息类型: {} ===", message.getClass().getSimpleName());
-		logger.info("=== 消息内容: {} ===", message);
+		logger.info("=== Starting to send message ===");
+		logger.info("=== Message type: {} ===", message.getClass().getSimpleName());
+		logger.info("=== Message content: {} ===", message);
 
 		if (!connected.get()) {
-			logger.warn("=== 未连接，消息将不会发送 ===");
+			logger.warn("=== Not connected, message will not be sent ===");
 			return Mono.empty();
 		}
 
 		try {
-			// 反射兼容所有JSON-RPC消息类型
+			// Reflection compatibility for all JSON-RPC message types
 			Map<String, Object> jsonRpc = new HashMap<>();
 			jsonRpc.put("jsonrpc", "2.0");
 			final String[] messageIdHolder = { null };

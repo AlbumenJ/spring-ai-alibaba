@@ -119,27 +119,27 @@ public class DynamicCronTaskScheduler {
 
 		PlanningCoordinator planningFlow = planningFactory.createPlanningCoordinator(planId);
 
-		// 异步执行任务
+		// Execute task asynchronously
 		CompletableFuture.supplyAsync(() -> {
 			try {
 				return planningFlow.executePlan(context);
 			}
 			catch (Exception e) {
-				log.error("计划执行失败: {} - {}", cronEntity.getCronName(), e.getMessage());
-				throw new RuntimeException("计划执行失败: " + e.getMessage(), e);
+				log.error("Plan execution failed: {} - {}", cronEntity.getCronName(), e.getMessage());
+				throw new RuntimeException("Plan execution failed: " + e.getMessage(), e);
 			}
 		});
 	}
 
 	/**
-	 * 执行计划模板
-	 * @param planTemplateId 计划模板ID
+	 * Execute plan template
+	 * @param planTemplateId Plan template ID
 	 */
 	private void executePlanTemplate(String planTemplateId) {
 		try {
-			log.info("使用PlanTemplateController执行计划模板: {}", planTemplateId);
+			log.info("Using PlanTemplateController to execute plan template: {}", planTemplateId);
 
-			// 调用PlanTemplateController的公共方法executePlanByTemplateId
+			// Call PlanTemplateController's public method executePlanByTemplateId
 			ResponseEntity<Map<String, Object>> response = planTemplateService
 				.executePlanByTemplateIdInternal(planTemplateId, null);
 

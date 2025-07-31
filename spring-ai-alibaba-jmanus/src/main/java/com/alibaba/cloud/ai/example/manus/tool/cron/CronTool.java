@@ -86,11 +86,11 @@ public class CronTool extends AbstractBaseTool<CronTool.CronToolInput> {
 				"properties": {
 					"cronName": {
 						"type": "string",
-						"description": "定时任务名称"
+						"description": "Scheduled task name"
 					},
 					"cronTime": {
 						"type": "string",
-						"description": "cron格式的任务定时执行的时间(六位)，例如：0 0 0/2 * * ?"
+						"description": "Cron format task scheduled execution time (6 digits), example: 0 0 0/2 * * ?"
 					},
 					"planDesc": {
 						"type": "string",
