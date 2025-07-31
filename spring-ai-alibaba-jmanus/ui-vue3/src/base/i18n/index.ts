@@ -53,3 +53,35 @@ export const changeLanguage = async (locale: string) => {
   // Only switch frontend language, do not reset backend prompt language
   console.log(`Successfully switched frontend language to: ${locale}`)
 }
+
+/**
+ * Change language during initialization and reset all agents
+ * This function is used during the initial setup process
+ */
+export const changeLanguageWithAgentReset = async (locale: string) => {
+  // First change the frontend language
+  await changeLanguage(locale)
+
+  try {
+    // Initialize agents with the new language (used during initial setup)
+    const response = await fetch('/api/agent-management/initialize', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ language: locale }),
+    })
+
+    if (response.ok) {
+      const result = await response.json()
+      console.log(`Successfully initialized agents with language: ${locale}`, result)
+    } else {
+      const error = await response.json()
+      console.error(`Failed to initialize agents with language: ${locale}`, error)
+      throw new Error(error.error || 'Failed to initialize agents')
+    }
+  } catch (error) {
+    console.error('Error initializing agents during language change:', error)
+    throw error
+  }
+}

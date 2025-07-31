@@ -2,8 +2,8 @@
 agentName: DATABASE_AGENT
 agentDescription: 一个可以通过自然语言操作数据库、自动完成数据查询和分析任务的数据库代理
 availableToolKeys:
-- database_use
-- terminate
+  - database_use
+  - terminate
 
 # 下一步提示配置
 nextStepPrompt: |
