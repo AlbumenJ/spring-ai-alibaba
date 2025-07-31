@@ -40,7 +40,7 @@ public class McpServerRequestVO {
 	private String mcpServerName;
 
 	/**
-	 * 连接类型：STUDIO, SSE, STREAMING
+	 * Connection type: STUDIO, SSE, STREAMING
 	 */
 	@JsonProperty("connectionType")
 	private String connectionType;

@@ -44,7 +44,7 @@ public class McpConfigVO {
 
 	private final ObjectMapper objectMapper;
 
-	// 新增字段化属性
+	// New field-based properties
 	private String command;
 
 	private String url;
@@ -78,12 +78,12 @@ public class McpConfigVO {
 		this.toolNames = new ArrayList<>(); // Initialize as empty list, may need to get
 											// from other places in actual use
 
-		// 解析connectionConfig到字段化属性
+		// Parse connectionConfig to field-based properties
 		parseConnectionConfig();
 	}
 
 	/**
-	 * 解析connectionConfig JSON到字段化属性
+	 * Parse connectionConfig JSON to field-based properties
 	 */
 	private void parseConnectionConfig() {
 		if (connectionConfig == null || connectionConfig.trim().isEmpty()) {

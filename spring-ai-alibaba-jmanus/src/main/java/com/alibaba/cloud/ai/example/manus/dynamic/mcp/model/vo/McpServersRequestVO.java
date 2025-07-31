@@ -20,7 +20,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Batch MCP server import request VO (JSON method) for batch importing MCP server configurations
+ * Batch MCP server import request VO (JSON method) for batch importing MCP server
+ * configurations
  */
 public class McpServersRequestVO {
 
@@ -38,8 +39,8 @@ public class McpServersRequestVO {
 	}
 
 	/**
-	 * Complete JSON configuration format: {"mcpServers": {"server-name": {"command": "...", "args": [...],
-	 * "env": {...}}}}
+	 * Complete JSON configuration format: {"mcpServers": {"server-name": {"command":
+	 * "...", "args": [...], "env": {...}}}}
 	 */
 	@JsonProperty("configJson")
 	private String configJson;
@@ -79,18 +80,18 @@ public class McpServersRequestVO {
 		try {
 			JsonNode jsonNode = objectMapper.readTree(configJson);
 
-			// 检查是否包含mcpServers字段
+			// Check if contains mcpServers field
 			if (!jsonNode.has("mcpServers")) {
 				return false;
 			}
 
-			// 检查mcpServers是否为对象
+			// Check if mcpServers is an object
 			JsonNode mcpServersNode = jsonNode.get("mcpServers");
 			if (!mcpServersNode.isObject()) {
 				return false;
 			}
 
-			// 检查是否至少有一个服务器配置
+			// Check if has at least one server configuration
 			if (mcpServersNode.size() == 0) {
 				return false;
 			}

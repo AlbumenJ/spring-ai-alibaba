@@ -121,9 +121,9 @@ public class McpServerConfig {
 	}
 
 	/**
-	 * 判断URL是否为SSE连接
-	 * @param url 服务器URL
-	 * @return 是否为SSE URL
+	 * Determine if URL is SSE connection
+	 * @param url Server URL
+	 * @return Whether it's SSE URL
 	 */
 	private boolean isSSEUrl(String url) {
 		if (url == null || url.isEmpty()) {
@@ -134,13 +134,13 @@ public class McpServerConfig {
 			java.net.URL parsedUrl = new java.net.URL(url);
 			String path = parsedUrl.getPath();
 
-			// 检查路径是否包含sse
+			// Check if path contains sse
 			boolean pathContainsSse = path != null && path.toLowerCase().contains("sse");
 
 			return pathContainsSse;
 		}
 		catch (java.net.MalformedURLException e) {
-			// 如果URL格式无效，返回false
+			// Return false if URL format is invalid
 			return false;
 		}
 	}
