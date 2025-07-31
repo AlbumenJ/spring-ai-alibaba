@@ -59,105 +59,105 @@ public interface PlanInterface {
 	void setCurrentPlanId(String currentPlanId);
 
 	/**
-	 * 获取计划类型。 Get the plan type.
-	 * @return 计划类型 / The plan type
+	 * Get the plan type.
+	 * @return The plan type
 	 */
 	String getPlanType();
 
 	/**
-	 * 设置计划类型。 Set the plan type.
-	 * @param planType 计划类型 / The plan type
+	 * Set the plan type.
+	 * @param planType The plan type
 	 */
 	void setPlanType(String planType);
 
 	/**
-	 * 获取计划标题。 Get the plan title.
-	 * @return 计划标题 / The plan title
+	 * Get the plan title.
+	 * @return The plan title
 	 */
 	String getTitle();
 
 	/**
-	 * 设置计划标题。 Set the plan title.
-	 * @param title 计划标题 / The plan title
+	 * Set the plan title.
+	 * @param title The plan title
 	 */
 	void setTitle(String title);
 
 	/**
-	 * 获取规划思考过程。 Get the planning thinking process.
-	 * @return 规划思考过程 / The planning thinking process
+	 * Get the planning thinking process.
+	 * @return The planning thinking process
 	 */
 	String getPlanningThinking();
 
 	/**
-	 * 设置规划思考过程。 Set the planning thinking process.
-	 * @param planningThinking 规划思考过程 / The planning thinking process
+	 * Set the planning thinking process.
+	 * @param planningThinking The planning thinking process
 	 */
 	void setPlanningThinking(String planningThinking);
 
 	/**
-	 * 获取执行参数。 Get the execution parameters.
-	 * @return 执行参数 / The execution parameters
+	 * Get the execution parameters.
+	 * @return The execution parameters
 	 */
 	String getExecutionParams();
 
 	/**
-	 * 设置执行参数。 Set the execution parameters.
-	 * @param executionParams 执行参数 / The execution parameters
+	 * Set the execution parameters.
+	 * @param executionParams The execution parameters
 	 */
 	void setExecutionParams(String executionParams);
 
 	/**
-	 * 获取所有执行步骤的扁平列表。 Get the flat list of all execution steps.
-	 * @return 所有执行步骤 / All execution steps
+	 * Get the flat list of all execution steps.
+	 * @return All execution steps
 	 */
 	List<ExecutionStep> getAllSteps();
 
 	/**
-	 * 获取总步骤数量。 Get the total number of steps.
-	 * @return 总步骤数 / The total number of steps
+	 * Get the total number of steps.
+	 * @return The total number of steps
 	 */
 	int getTotalStepCount();
 
 	/**
-	 * 获取用户请求。 Get the user request.
-	 * @return 用户请求 / The user request
+	 * Get the user request.
+	 * @return The user request
 	 */
 	public String getUserRequest();
 
 	/**
-	 * 设置用户请求。 Set the user request.
-	 * @param userRequest 用户请求 / The user request
+	 * Set the user request.
+	 * @param userRequest The user request
 	 */
 	void setUserRequest(String userRequest);
 
 	/**
-	 * 添加执行步骤。 Add an execution step.
-	 * @param step 执行步骤 / The execution step
+	 * Add an execution step.
+	 * @param step The execution step
 	 */
 	void addStep(ExecutionStep step);
 
 	/**
-	 * 移除执行步骤。 Remove an execution step.
-	 * @param step 执行步骤 / The execution step
+	 * Remove an execution step.
+	 * @param step The execution step
 	 */
 	void removeStep(ExecutionStep step);
 
 	/**
-	 * 检查计划是否为空。 Check if the plan is empty.
-	 * @return 如果计划为空则返回true / true if the plan is empty
+	 * Check if the plan is empty.
+	 * @return true if the plan is empty
 	 */
 	boolean isEmpty();
 
 	/**
-	 * 清空计划内容。 Clear the plan content.
+	 * Clear the plan content.
 	 */
 	void clear();
 
 	/**
-	 * 获取计划执行状态的字符串格式。 Get the string format of the plan execution state.
-	 * @param onlyCompletedAndFirstInProgress 当为true时，只输出所有已完成的步骤和第一个进行中的步骤 / If true,
-	 * only output all completed steps and the first in-progress step
-	 * @return 计划状态字符串 / The plan execution state string
+	 * Get the string format of the plan execution state.
+	 * @param onlyCompletedAndFirstInProgress If true, only output all completed steps and
+	 * the first in-progress step
+	 * @return The plan execution state string
 	 */
 	String getPlanExecutionStateStringFormat(boolean onlyCompletedAndFirstInProgress);
 
@@ -166,19 +166,20 @@ public interface PlanInterface {
 	public String getPlanId();
 
 	/**
-	 * 是否为直接反馈模式 当为true时，跳过复杂的计划执行，直接使用LLM给出响应
-	 * @return 如果是直接反馈模式则返回true
+	 * Whether it's direct feedback mode. When true, skip complex plan execution and use
+	 * LLM to give response directly
+	 * @return Return true if it's direct feedback mode
 	 */
 	boolean isDirectResponse();
 
 	/**
-	 * 设置是否为直接反馈模式
-	 * @param directResponse 直接反馈模式标志
+	 * Set whether it's direct feedback mode
+	 * @param directResponse Direct feedback mode flag
 	 */
 	void setDirectResponse(boolean directResponse);
 
 	/**
-	 * 更新所有步骤的索引，从0开始递增。 Update the indices of all steps, starting from 0.
+	 * Update the indices of all steps, starting from 0.
 	 */
 	default void updateStepIndices() {
 		List<ExecutionStep> allSteps = getAllSteps();

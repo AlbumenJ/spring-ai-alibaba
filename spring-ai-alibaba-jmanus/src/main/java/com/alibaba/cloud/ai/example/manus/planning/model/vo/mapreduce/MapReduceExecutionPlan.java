@@ -98,16 +98,16 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 添加MapReduce执行节点
-	 * @param node MapReduce执行节点
+	 * Add MapReduce execution node
+	 * @param node MapReduce execution node
 	 */
 	public void addMapReduceNode(MapReduceNode node) {
 		steps.add(node);
 	}
 
 	/**
-	 * 获取节点数量
-	 * @return 节点总数
+	 * Get node count
+	 * @return Total node count
 	 */
 	@JsonIgnore
 	public int getNodeCount() {
@@ -115,9 +115,9 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 根据索引获取节点
-	 * @param index 节点索引
-	 * @return 节点对象，如果索引无效则返回null
+	 * Get node by index
+	 * @param index Node index
+	 * @return Node object, return null if index is invalid
 	 */
 	public ExecutionNode getNode(int index) {
 		if (index >= 0 && index < steps.size()) {
@@ -127,17 +127,18 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 获取所有执行步骤（展平所有节点中的步骤） 按照执行顺序返回：数据准备 → Map → Reduce
-	 * @return 所有执行步骤的列表
+	 * Get all execution steps (flatten steps from all nodes). Return in execution order:
+	 * Data Preparation → Map → Reduce
+	 * @return List of all execution steps
 	 */
 	@Override
 	@JsonIgnore
 	public List<ExecutionStep> getAllSteps() {
-		// 预估总步骤数以优化性能
+		// Estimate total step count to optimize performance
 
 		List<ExecutionStep> allSteps = new ArrayList<>();
 
-		// 使用接口方法直接获取每个节点的所有步骤
+		// Use interface method to directly get all steps from each node
 		for (ExecutionNode node : steps) {
 			List<ExecutionStep> nodeSteps = node.getAllSteps();
 			if (nodeSteps != null && !nodeSteps.isEmpty()) {
@@ -149,8 +150,8 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 获取总步骤数量
-	 * @return 总步骤数
+	 * Get total step count
+	 * @return Total step count
 	 */
 	@Override
 	@JsonIgnore
@@ -159,8 +160,8 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 获取顺序节点列表
-	 * @return 顺序节点列表
+	 * Get sequential node list
+	 * @return Sequential node list
 	 */
 	@JsonIgnore
 	public List<SequentialNode> getSequentialNodes() {
@@ -174,8 +175,8 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	}
 
 	/**
-	 * 获取MapReduce节点列表
-	 * @return MapReduce节点列表
+	 * Get MapReduce node list
+	 * @return MapReduce node list
 	 */
 	@JsonIgnore
 	public List<MapReduceNode> getMapReduceNodes() {
@@ -196,7 +197,7 @@ public class MapReduceExecutionPlan extends AbstractExecutionPlan {
 	@Override
 	public String getPlanExecutionStateStringFormat(boolean onlyCompletedAndFirstInProgress) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("=== MapReduce执行计划 ===\n");
+		sb.append("=== MapReduce Execution Plan ===\n");
 		sb.append("计划ID: ").append(currentPlanId).append("\n");
 		sb.append("root计划ID: ").append(rootPlanId).append("\n");
 		sb.append("标题: ").append(title).append("\n");

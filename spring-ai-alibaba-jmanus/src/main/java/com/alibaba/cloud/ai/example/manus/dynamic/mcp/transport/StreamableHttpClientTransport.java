@@ -265,7 +265,7 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			logger.info("=== Response status: {} ===", clientResponse.statusCode());
 			logger.info("=== Response headers: {} ===", clientResponse.headers().asHttpHeaders());
 
-			// 从响应头中提取Session ID
+			// Extract Session ID from response headers
 			extractSessionIdFromHeaders(clientResponse.headers().asHttpHeaders());
 
 			if (clientResponse.statusCode().is2xxSuccessful()) {
@@ -287,103 +287,104 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			}
 		}).timeout(Duration.ofSeconds(30)).doOnError(error -> {
 			logger.error("=== HTTP request failed ===");
-			logger.error("=== 错误类型: {} ===", error.getClass().getSimpleName());
-			logger.error("=== 错误消息: {} ===", error.getMessage());
+			logger.error("=== Error type: {} ===", error.getClass().getSimpleName());
+			logger.error("=== Error message: {} ===", error.getMessage());
 
 			if (error instanceof org.springframework.web.reactive.function.client.WebClientResponseException) {
 				org.springframework.web.reactive.function.client.WebClientResponseException wcre = (org.springframework.web.reactive.function.client.WebClientResponseException) error;
-				logger.error("=== HTTP状态码: {} ===", wcre.getStatusCode());
-				logger.error("=== HTTP状态文本: {} ===", wcre.getStatusText());
-				logger.error("=== 响应头: {} ===", wcre.getHeaders());
-				logger.error("=== 响应体: {} ===", wcre.getResponseBodyAsString());
+				logger.error("=== HTTP status code: {} ===", wcre.getStatusCode());
+				logger.error("=== HTTP status text: {} ===", wcre.getStatusText());
+				logger.error("=== Response headers: {} ===", wcre.getHeaders());
+				logger.error("=== Response body: {} ===", wcre.getResponseBodyAsString());
 			}
 		});
 	}
 
 	private void handleIncomingMessage(String responseJson) {
 		try {
-			logger.info("=== 开始处理输入消息 ===");
-			logger.info("=== 原始响应内容: {} ===", responseJson);
-			logger.info("=== 原始响应长度: {} 字节 ===", responseJson != null ? responseJson.getBytes().length : 0);
+			logger.info("=== Starting to process input message ===");
+			logger.info("=== Raw response content: {} ===", responseJson);
+			logger.info("=== Raw response length: {} bytes ===",
+					responseJson != null ? responseJson.getBytes().length : 0);
 
-			// 自动检测格式并解析
+			// Auto-detect format and parse
 			String jsonContent = parseResponseFormat(responseJson);
 			if (jsonContent == null) {
-				logger.error("=== 无法解析响应格式，原始内容: {} ===", responseJson);
+				logger.error("=== Unable to parse response format, raw content: {} ===", responseJson);
 				return;
 			}
 
-			logger.info("=== 解析后的JSON内容: {} ===", jsonContent);
-			logger.info("=== 解析后的JSON长度: {} 字节 ===", jsonContent.getBytes().length);
+			logger.info("=== Parsed JSON content: {} ===", jsonContent);
+			logger.info("=== Parsed JSON length: {} bytes ===", jsonContent.getBytes().length);
 
-			// 解析响应
+			// Parse response
 			Map<String, Object> data = objectMapper.readValue(jsonContent, Map.class);
 			String responseId = (String) data.get("id");
 			String method = (String) data.get("method");
 			String jsonrpc = (String) data.get("jsonrpc");
 
-			logger.info("=== 解析的响应字段 ===");
+			logger.info("=== Parsed response fields ===");
 			logger.info("=== jsonrpc: {} ===", jsonrpc);
 			logger.info("=== method: {} ===", method);
 			logger.info("=== id: {} ===", responseId);
-			logger.info("=== 完整解析数据: {} ===", data);
+			logger.info("=== Complete parsed data: {} ===", data);
 
-			// 使用官方推荐的反序列化方法
+			// Use officially recommended deserialization method
 			McpSchema.JSONRPCMessage messageObj = null;
 			try {
 				messageObj = McpSchema.deserializeJsonRpcMessage(objectMapper, jsonContent);
-				logger.info("=== 成功反序列化为 JSONRPCMessage ===");
+				logger.info("=== Successfully deserialized to JSONRPCMessage ===");
 			}
 			catch (Exception e) {
-				logger.warn("=== 反序列化为 JSONRPCMessage 失败: {} ===", e.getMessage());
-				logger.warn("=== 反序列化失败的JSON内容: {} ===", jsonContent);
+				logger.warn("=== Failed to deserialize to JSONRPCMessage: {} ===", e.getMessage());
+				logger.warn("=== JSON content that failed deserialization: {} ===", jsonContent);
 			}
 
 			if (responseId != null && pendingRequests.containsKey(responseId)) {
 				// 这是对某个请求的响应
-				logger.info("=== 找到请求 {} 的响应等待器 ===", responseId);
+				logger.info("=== Found response waiter for request {} ===", responseId);
 				Sinks.One<String> responseSink = pendingRequests.remove(responseId);
 				responseSink.tryEmitValue(jsonContent);
-				logger.info("=== 收到请求 {} 的响应: {} ===", responseId, jsonContent);
+				logger.info("=== Received response for request {}: {} ===", responseId, jsonContent);
 
 				if (requestHandler != null && messageObj != null) {
-					logger.info("=== 通过 requestHandler 处理响应（类型安全模式） ===");
+					logger.info("=== Processing response through requestHandler (type-safe mode) ===");
 					try {
 						requestHandler.apply(Mono.just(messageObj))
-							.subscribe(
-									result -> logger.info("=== requestHandler 处理完成: {} ===", result), error -> logger
-										.error("=== requestHandler 处理出错: {} ===", String.valueOf(error), error),
-									() -> logger.info("=== requestHandler 处理流完成 ==="));
+							.subscribe(result -> logger.info("=== requestHandler processing completed: {} ===", result),
+									error -> logger.error("=== requestHandler processing error: {} ===",
+											String.valueOf(error), error),
+									() -> logger.info("=== requestHandler processing stream completed ==="));
 					}
 					catch (Exception e) {
-						logger.error("=== requestHandler 调用失败: {} ===", e.getMessage(), e);
+						logger.error("=== requestHandler call failed: {} ===", e.getMessage(), e);
 					}
 				}
 				else if (requestHandler != null) {
-					logger.warn("=== 反序列化为 JSONRPCMessage 失败，跳过 requestHandler 处理 ===");
+					logger.warn("=== Failed to deserialize to JSONRPCMessage, skipping requestHandler processing ===");
 				}
 			}
 			else {
-				logger.info("=== 这是服务端主动消息或未知响应: {} ===", jsonContent);
-				logger.info("=== 当前等待中的请求ID: {} ===", pendingRequests.keySet());
+				logger.info("=== This is server-initiated message or unknown response: {} ===", jsonContent);
+				logger.info("=== Currently pending request IDs: {} ===", pendingRequests.keySet());
 				// 对于服务端主动消息，也通过 requestHandler 处理
 				if (requestHandler != null && messageObj != null) {
 					try {
 						requestHandler.apply(Mono.just(messageObj)).subscribe();
 					}
 					catch (Exception e) {
-						logger.error("=== 处理服务端消息失败: {} ===", e.getMessage(), e);
+						logger.error("=== Failed to process server message: {} ===", e.getMessage(), e);
 					}
 				}
 				else if (requestHandler != null) {
-					logger.warn("=== 反序列化为 JSONRPCMessage 失败，跳过 requestHandler 处理 ===");
+					logger.warn("=== Failed to deserialize to JSONRPCMessage, skipping requestHandler processing ===");
 				}
 			}
 
-			logger.info("=== 输入消息处理完成 ===");
+			logger.info("=== Input message processing completed ===");
 		}
 		catch (Exception e) {
-			logger.error("=== 处理输入消息失败: {} ===", e.getMessage(), e);
+			logger.error("=== Failed to process input message: {} ===", e.getMessage(), e);
 			logger.error("=== 失败的原始响应: {} ===", responseJson);
 		}
 	}

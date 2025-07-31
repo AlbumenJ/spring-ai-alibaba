@@ -81,17 +81,17 @@ public interface IMapReduceSharedStateManager {
 	void recordMapTaskStatus(String planId, String taskId, MapReduceSharedStateManager.TaskStatus taskStatus);
 
 	/**
-	 * 获取Map任务状态
-	 * @param planId 计划ID
-	 * @param taskId 任务ID
-	 * @return 任务状态
+	 * Get Map task status
+	 * @param planId Plan ID
+	 * @param taskId Task ID
+	 * @return Task status
 	 */
 	MapReduceSharedStateManager.TaskStatus getMapTaskStatus(String planId, String taskId);
 
 	/**
-	 * 获取所有Map任务状态
-	 * @param planId 计划ID
-	 * @return 所有任务状态
+	 * Get all Map task statuses
+	 * @param planId Plan ID
+	 * @return All task statuses
 	 */
 	Map<String, MapReduceSharedStateManager.TaskStatus> getAllMapTaskStatuses(String planId);
 

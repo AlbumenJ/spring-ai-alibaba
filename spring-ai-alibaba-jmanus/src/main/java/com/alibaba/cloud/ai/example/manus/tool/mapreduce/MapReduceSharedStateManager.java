@@ -95,7 +95,7 @@ public class MapReduceSharedStateManager implements IMapReduceSharedStateManager
 	}
 
 	/**
-	 * 任务状态类
+	 * Task status class
 	 */
 	public static class TaskStatus {
 
@@ -120,17 +120,17 @@ public class MapReduceSharedStateManager implements IMapReduceSharedStateManager
 	}
 
 	/**
-	 * 获取或创建计划状态
-	 * @param planId 计划ID
-	 * @return 计划状态
+	 * Get or create plan state
+	 * @param planId Plan ID
+	 * @return Plan state
 	 */
 	public PlanState getOrCreatePlanState(String planId) {
 		if (planId == null || planId.trim().isEmpty()) {
-			throw new IllegalArgumentException("planId不能为空");
+			throw new IllegalArgumentException("planId cannot be empty");
 		}
 
 		return planStates.computeIfAbsent(planId, id -> {
-			log.info("为计划 {} 创建新的共享状态", id);
+			log.info("Creating new shared state for plan {}", id);
 			return new PlanState();
 		});
 	}

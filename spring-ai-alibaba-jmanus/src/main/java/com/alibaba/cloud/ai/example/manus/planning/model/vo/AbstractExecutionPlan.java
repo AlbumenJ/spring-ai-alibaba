@@ -129,49 +129,50 @@ public abstract class AbstractExecutionPlan implements PlanInterface {
 	// Abstract methods - must be implemented by subclasses
 
 	/**
-	 * 获取所有执行步骤的扁平列表
-	 * @return 所有执行步骤
+	 * Get flat list of all execution steps
+	 * @return All execution steps
 	 */
 	@Override
 	public abstract List<ExecutionStep> getAllSteps();
 
 	/**
-	 * 获取总步骤数量
-	 * @return 总步骤数
+	 * Get total step count
+	 * @return Total step count
 	 */
 	@Override
 	public abstract int getTotalStepCount();
 
 	/**
-	 * 添加执行步骤
-	 * @param step 执行步骤
+	 * Add execution step
+	 * @param step Execution step
 	 */
 	@Override
 	public abstract void addStep(ExecutionStep step);
 
 	/**
-	 * 移除执行步骤
-	 * @param step 执行步骤
+	 * Remove execution step
+	 * @param step Execution step
 	 */
 	@Override
 	public abstract void removeStep(ExecutionStep step);
 
 	/**
-	 * 检查计划是否为空
-	 * @return 如果计划为空则返回true
+	 * Check if plan is empty
+	 * @return Return true if plan is empty
 	 */
 	@Override
 	public abstract boolean isEmpty();
 
 	/**
-	 * 获取计划执行状态的字符串格式
-	 * @param onlyCompletedAndFirstInProgress 当为true时，只输出所有已完成的步骤和第一个进行中的步骤
-	 * @return 计划状态字符串
+	 * Get string format of plan execution status
+	 * @param onlyCompletedAndFirstInProgress When true, only output all completed steps
+	 * and first in-progress step
+	 * @return Plan status string
 	 */
 	@Override
 	public abstract String getPlanExecutionStateStringFormat(boolean onlyCompletedAndFirstInProgress);
 
-	// 通用实现方法
+	// Common implementation methods
 
 	@Override
 	public void clear() {
@@ -181,23 +182,23 @@ public abstract class AbstractExecutionPlan implements PlanInterface {
 	}
 
 	/**
-	 * 获取用户请求
-	 * @return 用户请求字符串
+	 * Get user request
+	 * @return User request string
 	 */
 	public String getUserRequest() {
 		return userRequest;
 	}
 
 	/**
-	 * 设置用户请求
-	 * @param userRequest 用户请求字符串
+	 * Set user request
+	 * @param userRequest User request string
 	 */
 	public void setUserRequest(String userRequest) {
 		this.userRequest = userRequest;
 	}
 
 	/**
-	 * 是否为直接反馈模式
+	 * Whether it's direct feedback mode
 	 */
 	protected boolean directResponse = false;
 
@@ -212,7 +213,8 @@ public abstract class AbstractExecutionPlan implements PlanInterface {
 	}
 
 	/**
-	 * 清空步骤的抽象方法 子类需要实现具体的步骤清空逻辑
+	 * Abstract method to clear steps. Subclasses need to implement specific step clearing
+	 * logic
 	 */
 	protected abstract void clearSteps();
 
