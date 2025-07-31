@@ -48,16 +48,16 @@ public class MapReduceSharedStateManager implements IMapReduceSharedStateManager
 		// Task counter for generating task IDs
 		private final AtomicInteger taskCounter = new AtomicInteger(1);
 
-		// 分割结果列表
+		// Split results list
 		private final List<String> splitResults = Collections.synchronizedList(new ArrayList<>());
 
-		// 最后操作结果
+		// Last operation result
 		private volatile String lastOperationResult = "";
 
-		// 最后处理的文件
+		// Last processed file
 		private volatile String lastProcessedFile = "";
 
-		// 创建时间戳
+		// Creation timestamp
 		private final long createTime = System.currentTimeMillis();
 
 		public Map<String, TaskStatus> getMapTaskStatuses() {

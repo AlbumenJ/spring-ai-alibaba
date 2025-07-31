@@ -135,8 +135,8 @@ public class MapOutputTool extends AbstractBaseTool<MapOutputTool.MapOutputInput
 					  ["%s Example2", "%s Example2"]
 					]
 					""", columnsFormat, terminateColumns.get(0),
-					terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据", terminateColumns.get(0),
-					terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据");
+					terminateColumns.size() > 1 ? terminateColumns.get(1) : "data", terminateColumns.get(0),
+					terminateColumns.size() > 1 ? terminateColumns.get(1) : "data");
 		}
 
 		return baseDescription;
@@ -144,14 +144,15 @@ public class MapOutputTool extends AbstractBaseTool<MapOutputTool.MapOutputInput
 
 	/**
 	 * Generate parameters JSON for MapOutputTool with predefined columns format
-	 * @param terminateColumns the columns specification (e.g., "url,说明")
+	 * @param terminateColumns the columns specification (e.g., "url,description")
 	 * @return JSON string for parameters schema
 	 */
 	private static String generateParametersJson(List<String> terminateColumns) {
 		// Generate columns description from terminateColumns
-		String columnsDesc = "数据行列表";
+		String columnsDesc = "data row list";
 		if (terminateColumns != null && !terminateColumns.isEmpty()) {
-			columnsDesc = "数据行列表，每行按照以下格式：[" + String.join(", ", terminateColumns) + "]";
+			columnsDesc = "data row list, each row in the following format: [" + String.join(", ", terminateColumns)
+					+ "]";
 		}
 
 		return """
@@ -160,11 +161,11 @@ public class MapOutputTool extends AbstractBaseTool<MapOutputTool.MapOutputInput
 				    "properties": {
 				        "task_id": {
 				            "type": "string",
-				            "description": "任务ID标识符，用于标识当前正在处理的Map任务"
+				            "description": "Task ID identifier for identifying the currently processing Map task"
 				        },
 				        "has_value": {
 				            "type": "boolean",
-				            "description": "是否有有效数据。如果没有找到任何有效数据设置为false，有数据时设置为true"
+				            "description": "Whether there is valid data. Set to false if no valid data is found, set to true when there is data"
 				        },
 				        "data": {
 				            "type": "array",
@@ -172,18 +173,19 @@ public class MapOutputTool extends AbstractBaseTool<MapOutputTool.MapOutputInput
 				                "type": "array",
 				                "items": {"type": "string"}
 				            },
-				            "description": "%s（仅当has_value为true时需要提供）"
+				            "description": "%s (only required when has_value is true)"
 				        }
 				    },
 				    "required": ["task_id", "has_value"],
 				    "additionalProperties": false
 				}
-				""".formatted(columnsDesc);
+				"""
+			.formatted(columnsDesc);
 	}
 
 	private UnifiedDirectoryManager unifiedDirectoryManager;
 
-	// 共享状态管理器，用于管理多个Agent实例间的共享状态
+	// Shared state manager for managing shared state between multiple Agent instances
 	private MapReduceSharedStateManager sharedStateManager;
 
 	// Class-level terminate columns configuration - takes precedence over input
@@ -216,7 +218,7 @@ public class MapOutputTool extends AbstractBaseTool<MapOutputTool.MapOutputInput
 	}
 
 	/**
-	 * 设置共享状态管理器
+	 * Set shared state manager
 	 */
 	public void setSharedStateManager(MapReduceSharedStateManager sharedStateManager) {
 		this.sharedStateManager = sharedStateManager;

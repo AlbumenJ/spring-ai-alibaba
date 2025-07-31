@@ -201,24 +201,24 @@ public class DynamicCronTaskScheduler {
 			return false;
 		}
 		catch (Exception e) {
-			log.error("移除任务失败: {} - {}", taskId, e.getMessage());
+			log.error("Failed to remove task: {} - {}", taskId, e.getMessage());
 			return false;
 		}
 	}
 
 	/**
-	 * 根据任务ID立即执行任务
+	 * Execute task immediately by task ID
 	 */
 	public void executeTaskById(Long taskId) {
 		CronEntity cronEntity = cronRepository.findById(taskId)
 			.orElseThrow(() -> new IllegalArgumentException("Cron task not found: " + taskId));
 
-		log.info("手动执行定时任务: {} - {}", cronEntity.getCronName(), cronEntity.getPlanDesc());
+		log.info("Manually executing scheduled task: {} - {}", cronEntity.getCronName(), cronEntity.getPlanDesc());
 		executeTask(cronEntity);
 	}
 
 	/**
-	 * 获取当前运行的任务ID集合
+	 * Get set of currently running task IDs
 	 */
 	public Set<Long> getRunningTaskIds() {
 		return new HashSet<>(scheduledTasks.keySet());

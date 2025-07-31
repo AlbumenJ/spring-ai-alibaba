@@ -172,32 +172,34 @@ public class SmartContentSavingService implements ISmartContentSavingService {
 		String methodInfo = (callingMethod != null && !callingMethod.trim().isEmpty())
 				? "Successfully called " + callingMethod + " function,\n\n" : "";
 
-		return String.format("""
-				%sBut the function returned content is too long, so it was automatically stored in a file
+		return String.format(
+				"""
+						%sBut the function returned content is too long, so it was automatically stored in a file
 
-				## You can freely use the following two operations to meet user expectations (no need to follow order, but according to user expectations)
+						## You can freely use the following two operations to meet user expectations (no need to follow order, but according to user expectations)
 
-				### Operation 1: Use inner_storage_content_tool to get specific content
-				```json
-				{
-				  "action": "get_content",
-				  "file_name": "%s",
-				  "query_key": "Keywords or questions you want to query, be specific and don't miss any requirements from user requests"
-				}
-				```
+						### Operation 1: Use inner_storage_content_tool to get specific content
+						```json
+						{
+						  "action": "get_content",
+						  "file_name": "%s",
+						  "query_key": "Keywords or questions you want to query, be specific and don't miss any requirements from user requests"
+						}
+						```
 
-				### Operation 2: Use file_merge_tool to aggregate (or copy) files to specified folder
-				```json
-				{
-				  "action": "merge_file",
-				  "file_name": "%s",
-				  "target_folder": "merged_data"
-				}
-				```
+						### Operation 2: Use file_merge_tool to aggregate (or copy) files to specified folder
+						```json
+						{
+						  "action": "merge_file",
+						  "file_name": "%s",
+						  "target_folder": "merged_data"
+						}
+						```
 
-				Please choose appropriate tools and parameters for subsequent operations based on specific requirements.
+						Please choose appropriate tools and parameters for subsequent operations based on specific requirements.
 
-				""", methodInfo, storageFileName, storageFileName);
+						""",
+				methodInfo, storageFileName, storageFileName);
 	}
 
 	/**

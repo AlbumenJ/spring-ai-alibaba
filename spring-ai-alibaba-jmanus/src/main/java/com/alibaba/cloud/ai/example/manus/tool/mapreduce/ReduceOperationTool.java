@@ -107,8 +107,8 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 					  ["%s示例2", "%s示例2"]
 					]
 					""", columnsFormat, terminateColumns.get(0),
-					terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据", terminateColumns.get(0),
-					terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据");
+					terminateColumns.size() > 1 ? terminateColumns.get(1) : "data", terminateColumns.get(0),
+					terminateColumns.size() > 1 ? terminateColumns.get(1) : "data");
 		}
 
 		return baseDescription;
@@ -116,14 +116,15 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 
 	/**
 	 * Generate parameters JSON for ReduceOperationTool with predefined columns format
-	 * @param terminateColumns the columns specification (e.g., "url,说明")
+	 * @param terminateColumns the columns specification (e.g., "url,description")
 	 * @return JSON string for parameters schema
 	 */
 	private static String generateParametersJson(List<String> terminateColumns) {
 		// Generate columns description from terminateColumns
-		String columnsDesc = "数据行列表";
+		String columnsDesc = "data row list";
 		if (terminateColumns != null && !terminateColumns.isEmpty()) {
-			columnsDesc = "数据行列表，每行按照以下格式：[" + String.join(", ", terminateColumns) + "]";
+			columnsDesc = "data row list, each row in the following format: [" + String.join(", ", terminateColumns)
+					+ "]";
 		}
 
 		return """
@@ -132,7 +133,7 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 				    "properties": {
 				        "has_value": {
 				            "type": "boolean",
-				            "description": "是否有有效数据需要写入。如果没有找到任何有效数据设置为false，有数据时设置为true"
+				            "description": "Whether there is valid data to write. Set to false if no valid data is found, set to true when there is data"
 				        },
 				        "data": {
 				            "type": "array",
@@ -140,30 +141,31 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 				                "type": "array",
 				                "items": {"type": "string"}
 				            },
-				            "description": "%s（仅当has_value为true时需要提供）"
+				            "description": "%s (only required when has_value is true)"
 				        }
 				    },
 				    "required": ["has_value"],
 				    "additionalProperties": false
 				}
-				""".formatted(columnsDesc);
+				"""
+			.formatted(columnsDesc);
 	}
 
 	private UnifiedDirectoryManager unifiedDirectoryManager;
 
-	// 共享状态管理器，用于管理多个Agent实例间的共享状态
+	// Shared state manager for managing shared state between multiple Agent instances
 	private MapReduceSharedStateManager sharedStateManager;
 
 	// Class-level terminate columns configuration - takes precedence over input
 	// parameters
 	private final List<String> terminateColumns;
 
-	// ==================== TerminableTool 相关字段 ====================
+	// ==================== TerminableTool Related Fields ====================
 
-	// 线程安全锁，用于保护append操作和终止状态
+	// Thread-safe lock to protect append operations and termination state
 	private final ReentrantLock operationLock = new ReentrantLock();
 
-	// 终止状态相关字段
+	// Termination state related fields
 	private volatile boolean isTerminated = false;
 
 	private String lastTerminationMessage = "";
@@ -180,7 +182,7 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 	}
 
 	/**
-	 * 设置共享状态管理器
+	 * Set shared state manager
 	 */
 	public void setSharedStateManager(MapReduceSharedStateManager sharedStateManager) {
 		this.sharedStateManager = sharedStateManager;
@@ -308,10 +310,10 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 						**要求的数据结构：**
 						每行数据必须包含：[%s]
 
-						示例格式：
+						Example format:
 						[
-						  ["%s示例1", "%s示例1"],
-						  ["%s示例2", "%s示例2"]
+						  ["%s Example1", "%s Example1"],
+						  ["%s Example2", "%s Example2"]
 						]
 						""", expectedColumnCount, i + 1, row.size(), String.join(", ", terminateColumns),
 						terminateColumns.get(0), terminateColumns.size() > 1 ? terminateColumns.get(1) : "数据",

@@ -39,44 +39,44 @@ public interface IMapReduceSharedStateManager {
 	MapReduceSharedStateManager.PlanState getPlanState(String planId);
 
 	/**
-	 * 清理计划状态
-	 * @param planId 计划ID
+	 * Clean up plan state
+	 * @param planId Plan ID
 	 */
 	void cleanupPlanState(String planId);
 
 	/**
-	 * 获取下一个任务ID
-	 * @param planId 计划ID
-	 * @return 下一个任务ID
+	 * Get next task ID
+	 * @param planId Plan ID
+	 * @return Next task ID
 	 */
 	String getNextTaskId(String planId);
 
 	/**
-	 * 添加分割结果
-	 * @param planId 计划ID
-	 * @param taskDirectory 任务目录
+	 * Add split result
+	 * @param planId Plan ID
+	 * @param taskDirectory Task directory
 	 */
 	void addSplitResult(String planId, String taskDirectory);
 
 	/**
-	 * 获取分割结果
-	 * @param planId 计划ID
-	 * @return 分割结果列表
+	 * Get split results
+	 * @param planId Plan ID
+	 * @return Split results list
 	 */
 	List<String> getSplitResults(String planId);
 
 	/**
-	 * 设置分割结果
-	 * @param planId 计划ID
-	 * @param splitResults 分割结果列表
+	 * Set split results
+	 * @param planId Plan ID
+	 * @param splitResults Split results list
 	 */
 	void setSplitResults(String planId, List<String> splitResults);
 
 	/**
-	 * 记录Map任务状态
-	 * @param planId 计划ID
-	 * @param taskId 任务ID
-	 * @param taskStatus 任务状态
+	 * Record Map task status
+	 * @param planId Plan ID
+	 * @param taskId Task ID
+	 * @param taskStatus Task status
 	 */
 	void recordMapTaskStatus(String planId, String taskId, MapReduceSharedStateManager.TaskStatus taskStatus);
 

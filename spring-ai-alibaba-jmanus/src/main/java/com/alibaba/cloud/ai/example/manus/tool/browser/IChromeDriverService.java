@@ -59,14 +59,14 @@ public interface IChromeDriverService {
 	void cleanup();
 
 	/**
-	 * 设置Manus属性
-	 * @param manusProperties Manus属性
+	 * Set Manus properties
+	 * @param manusProperties Manus properties
 	 */
 	void setManusProperties(IManusProperties manusProperties);
 
 	/**
-	 * 获取Manus属性
-	 * @return Manus属性
+	 * Get Manus properties
+	 * @return Manus properties
 	 */
 	IManusProperties getManusProperties();
 

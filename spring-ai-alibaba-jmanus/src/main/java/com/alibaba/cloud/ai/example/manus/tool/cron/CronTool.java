@@ -94,7 +94,7 @@ public class CronTool extends AbstractBaseTool<CronTool.CronToolInput> {
 					},
 					"planDesc": {
 						"type": "string",
-						"description": "要执行的任务内容，不能包含时间相关信息"
+						"description": "Task content to execute, cannot contain time-related information"
 					}
 				},
 				"required": ["cronTime","originTime","planDesc"]
@@ -104,7 +104,7 @@ public class CronTool extends AbstractBaseTool<CronTool.CronToolInput> {
 	private final String name = "cron_tool";
 
 	private final String description = """
-			    定时任务工具，能存储定时任务到db中。
+			    Scheduled task tool that can store scheduled tasks to database.
 			""";
 
 	public OpenAiApi.FunctionTool getToolDefinition() {
@@ -118,18 +118,19 @@ public class CronTool extends AbstractBaseTool<CronTool.CronToolInput> {
 		try {
 			log.info("cron input:{}", objectMapper.writeValueAsString(input));
 
-			// 创建CronConfig对象
+			// Create CronConfig object
 			CronConfig cronConfig = new CronConfig();
 			cronConfig.setCronName(input.getCronName());
 			cronConfig.setCronTime(input.getCronTime());
 			cronConfig.setPlanDesc(input.getPlanDesc());
 			cronConfig.setStatus(0);
 
-			// 保存到数据库
+			// Save to database
 			CronConfig savedConfig = cronService.createCronTask(cronConfig);
 
-			String result = String.format("OK 写入定时任务成功，任务ID: %d, 描述: %s, 定时时间: %s", savedConfig.getId(),
-					savedConfig.getPlanDesc(), savedConfig.getCronTime());
+			String result = String.format(
+					"OK Scheduled task created successfully, Task ID: %d, Description: %s, Schedule time: %s",
+					savedConfig.getId(), savedConfig.getPlanDesc(), savedConfig.getCronTime());
 			return new ToolExecuteResult(objectMapper.writeValueAsString(result));
 		}
 		catch (Exception e) {

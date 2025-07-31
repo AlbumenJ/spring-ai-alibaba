@@ -267,17 +267,20 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 	}
 
 	/**
-	 * Get stored content by filename, supports AI intelligent extraction and structured output
+	 * Get stored content by filename, supports AI intelligent extraction and structured
+	 * output
 	 */
 	private ToolExecuteResult getStoredContent(String fileName, String queryKey, List<String> columns) {
 		if (fileName == null || fileName.trim().isEmpty()) {
 			return new ToolExecuteResult("Error: file_name parameter is required");
 		}
 		if (queryKey == null || queryKey.trim().isEmpty()) {
-			return new ToolExecuteResult("Error: query_key parameter is required to specify content keywords to extract");
+			return new ToolExecuteResult(
+					"Error: query_key parameter is required to specify content keywords to extract");
 		}
 		if (columns == null || columns.isEmpty()) {
-			return new ToolExecuteResult("Error: columns parameter is required to specify structured column names for return results");
+			return new ToolExecuteResult(
+					"Error: columns parameter is required to specify structured column names for return results");
 		}
 		try {
 			Path planDir = directoryManager.getRootPlanDirectory(rootPlanId);
