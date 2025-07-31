@@ -510,7 +510,7 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 			int actualEndLine = Math.min(endLine, lines.size());
 
 			StringBuilder result = new StringBuilder();
-			result.append(String.format("文件: %s (第%d-%d行，共%d行)\n", filePath, startLine, actualEndLine, lines.size()));
+			result.append(String.format("File: %s (Lines %d-%d, Total %d lines)\n", filePath, startLine, actualEndLine, lines.size()));
 			result.append("=".repeat(50)).append("\n");
 
 			for (int i = startLine - 1; i < actualEndLine; i++) {
@@ -519,11 +519,11 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 
 			// If file has more content, prompt user
 			if (actualEndLine < lines.size()) {
-				result.append("\n提示：文件还有更多内容（第")
+				result.append("\nNote: File has more content (lines ")
 					.append(actualEndLine + 1)
 					.append("-")
 					.append(lines.size())
-					.append("行），可继续调用get_text获取。");
+					.append("), you can continue calling get_text to retrieve.");
 			}
 
 			textFileService.updateFileState(planId, filePath, "Success: Retrieved text lines");

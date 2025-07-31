@@ -395,208 +395,208 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 	 * @return Parsed JSON content, return null if parsing fails
 	 */
 	private String parseResponseFormat(String rawResponse) {
-		logger.info("=== 开始解析响应格式 ===");
-		logger.info("=== 原始响应: {} ===", rawResponse);
+		logger.info("=== Starting response format parsing ===");
+		logger.info("=== Raw response: {} ===", rawResponse);
 
 		if (rawResponse == null || rawResponse.trim().isEmpty()) {
-			logger.warn("=== 原始响应为空或null ===");
+			logger.warn("=== Raw response is empty or null ===");
 			return null;
 		}
 
 		String trimmedResponse = rawResponse.trim();
-		logger.info("=== 去除首尾空格后的响应: {} ===", trimmedResponse);
-		logger.info("=== 响应长度: {} 字符 ===", trimmedResponse.length());
+		logger.info("=== Response after trimming: {} ===", trimmedResponse);
+		logger.info("=== Response length: {} characters ===", trimmedResponse.length());
 
-		// 检测是否为SSE格式
+		// Detect if it's SSE format
 		boolean isSse = isSseFormat(trimmedResponse);
-		logger.info("=== 格式检测结果: {} ===", isSse ? "SSE格式" : "JSON格式");
+		logger.info("=== Format detection result: {} ===", isSse ? "SSE format" : "JSON format");
 
 		if (isSse) {
-			logger.info("=== 检测到SSE格式，开始解析 ===");
+			logger.info("=== Detected SSE format, starting parsing ===");
 			String result = parseSseFormat(trimmedResponse);
-			logger.info("=== SSE解析结果: {} ===", result);
+			logger.info("=== SSE parsing result: {} ===", result);
 			return result;
 		}
 		else {
-			logger.info("=== 检测到JSON格式，直接使用 ===");
+			logger.info("=== Detected JSON format, using directly ===");
 			String result = parseJsonFormat(trimmedResponse);
-			logger.info("=== JSON解析结果: {} ===", result);
+			logger.info("=== JSON parsing result: {} ===", result);
 			return result;
 		}
 	}
 
 	/**
-	 * 检测是否为SSE格式
-	 * @param response 响应内容
+	 * Detect if response is in SSE format
+	 * @param response Response content
 	 * @return true if SSE format, false otherwise
 	 */
 	private boolean isSseFormat(String response) {
-		logger.debug("=== 开始检测SSE格式 ===");
-		logger.debug("=== 检测内容: {} ===", response);
+		logger.debug("=== Starting SSE format detection ===");
+		logger.debug("=== Detection content: {} ===", response);
 
-		// 标准化换行符，处理\r\n和\n的情况
+		// Normalize line breaks, handle \r\n and \n cases
 		String normalizedResponse = response.replace("\r\n", "\n");
 
-		// SSE格式特征：包含event:和data:字段，或者以event:开头
+		// SSE format characteristics: contains event: and data: fields, or starts with event:
 		boolean startsWithEvent = normalizedResponse.startsWith("event:");
 		boolean containsEvent = normalizedResponse.contains("event:");
 		boolean containsData = normalizedResponse.contains("data:");
 
-		logger.debug("=== SSE格式检测结果 ===");
-		logger.debug("=== 以event:开头: {} ===", startsWithEvent);
-		logger.debug("=== 包含event:: {} ===", containsEvent);
-		logger.debug("=== 包含data:: {} ===", containsData);
+		logger.debug("=== SSE format detection results ===");
+		logger.debug("=== Starts with event:: {} ===", startsWithEvent);
+		logger.debug("=== Contains event:: {} ===", containsEvent);
+		logger.debug("=== Contains data:: {} ===", containsData);
 
 		boolean isSse = startsWithEvent || (containsEvent && containsData);
-		logger.debug("=== 最终SSE格式判断: {} ===", isSse);
+		logger.debug("=== Final SSE format determination: {} ===", isSse);
 
 		return isSse;
 	}
 
 	/**
-	 * 解析SSE格式
-	 * @param sseResponse SSE格式的响应
-	 * @return 提取的JSON内容
+	 * Parse SSE format
+	 * @param sseResponse SSE format response
+	 * @return Extracted JSON content
 	 */
 	private String parseSseFormat(String sseResponse) {
-		logger.info("=== 开始解析SSE格式 ===");
-		logger.info("=== SSE原始内容: {} ===", sseResponse);
+		logger.info("=== Starting SSE format parsing ===");
+		logger.info("=== SSE raw content: {} ===", sseResponse);
 
 		try {
-			// 标准化换行符，处理\r\n和\n的情况
+			// Normalize line breaks, handle \r\n and \n cases
 			String normalizedResponse = sseResponse.replace("\r\n", "\n");
 
-			// 按行分割
+			// Split by lines
 			String[] lines = normalizedResponse.split("\n");
-			logger.info("=== SSE行数: {} ===", lines.length);
+			logger.info("=== SSE line count: {} ===", lines.length);
 
 			StringBuilder jsonContent = new StringBuilder();
 			boolean inDataSection = false;
 
 			for (int i = 0; i < lines.length; i++) {
 				String line = lines[i].trim();
-				logger.debug("=== 处理第{}行: {} ===", i + 1, line);
+				logger.debug("=== Processing line {}: {} ===", i + 1, line);
 
 				if (line.isEmpty()) {
-					logger.debug("=== 跳过空行 ===");
+					logger.debug("=== Skipping empty line ===");
 					continue;
 				}
 
 				if (line.startsWith("data:")) {
-					// 提取data:后面的内容
+					// Extract content after data:
 					String data = line.substring(5).trim();
-					logger.info("=== 找到data字段: {} ===", data);
+					logger.info("=== Found data field: {} ===", data);
 					if (!data.isEmpty()) {
 						jsonContent.append(data);
 						inDataSection = true;
-						logger.info("=== 已添加到JSON内容 ===");
+						logger.info("=== Added to JSON content ===");
 					}
 				}
 				else if (inDataSection && !line.startsWith("event:") && !line.startsWith("id:")
 						&& !line.startsWith("retry:")) {
-					// 如果已经在data部分，且不是SSE控制字段，则可能是多行JSON的一部分
-					logger.info("=== 添加多行JSON内容: {} ===", line);
+					// If already in data section and not SSE control field, might be part of multi-line JSON
+					logger.info("=== Adding multi-line JSON content: {} ===", line);
 					jsonContent.append(line);
 				}
 				else {
-					logger.debug("=== 跳过SSE控制字段: {} ===", line);
+					logger.debug("=== Skipping SSE control field: {} ===", line);
 				}
 			}
 
 			String result = jsonContent.toString().trim();
-			logger.info("=== SSE解析完成，结果: {} ===", result);
+			logger.info("=== SSE parsing completed, result: {} ===", result);
 
 			if (result.isEmpty()) {
-				logger.warn("=== SSE格式解析失败，未找到data内容 ===");
+				logger.warn("=== SSE format parsing failed, no data content found ===");
 				return null;
 			}
 
-			logger.info("=== SSE格式解析成功 ===");
+			logger.info("=== SSE format parsing successful ===");
 			return result;
 
 		}
 		catch (Exception e) {
-			logger.error("=== SSE格式解析异常: {} ===", e.getMessage(), e);
-			logger.error("=== 解析失败的SSE内容: {} ===", sseResponse);
+			logger.error("=== SSE format parsing exception: {} ===", e.getMessage(), e);
+			logger.error("=== Failed SSE content: {} ===", sseResponse);
 			return null;
 		}
 	}
 
 	/**
-	 * 解析JSON格式（直接返回，或进行基本验证）
-	 * @param jsonResponse JSON格式的响应
-	 * @return JSON内容
+	 * Parse JSON format (return directly or perform basic validation)
+	 * @param jsonResponse JSON format response
+	 * @return JSON content
 	 */
 	private String parseJsonFormat(String jsonResponse) {
-		logger.info("=== 开始解析JSON格式 ===");
-		logger.info("=== JSON原始内容: {} ===", jsonResponse);
+		logger.info("=== Starting JSON format parsing ===");
+		logger.info("=== JSON raw content: {} ===", jsonResponse);
 
 		try {
-			// 检查是否包含SSE格式的前缀，如果是则先尝试解析SSE格式
+			// Check if contains SSE format prefix, if so try parsing SSE format first
 			if (jsonResponse.contains("event:") || jsonResponse.contains("data:")) {
-				logger.warn("=== 检测到SSE格式前缀，但被误判为JSON格式，尝试解析SSE ===");
+				logger.warn("=== Detected SSE format prefix but misidentified as JSON format, trying SSE parsing ===");
 				String sseResult = parseSseFormat(jsonResponse);
 				if (sseResult != null) {
-					logger.info("=== SSE解析成功，返回结果: {} ===", sseResult);
+					logger.info("=== SSE parsing successful, returning result: {} ===", sseResult);
 					return sseResult;
 				}
 				else {
-					logger.error("=== SSE解析失败，原始内容可能格式错误 ===");
+					logger.error("=== SSE parsing failed, raw content may have format error ===");
 					return null;
 				}
 			}
-			// 尝试解析JSON以验证格式
+			// Try parsing JSON to validate format
 			Object parsed = objectMapper.readValue(jsonResponse, Object.class);
-			logger.info("=== JSON格式验证成功，解析结果类型: {} ===", parsed.getClass().getSimpleName());
+			logger.info("=== JSON format validation successful, parsed result type: {} ===", parsed.getClass().getSimpleName());
 			return jsonResponse;
 		}
 		catch (Exception e) {
-			logger.error("=== JSON格式验证失败: {} ===", e.getMessage(), e);
-			logger.error("=== 验证失败的JSON内容: {} ===", jsonResponse);
+			logger.error("=== JSON format validation failed: {} ===", e.getMessage(), e);
+			logger.error("=== Failed JSON content: {} ===", jsonResponse);
 			return null;
 		}
 	}
 
 	/**
-	 * 创建响应消息实例
+	 * Create response message instance
 	 */
 	private McpSchema.JSONRPCMessage createResponseMessage(Map<String, Object> data) {
 		try {
-			logger.info("=== 尝试创建响应消息实例 ===");
+			logger.info("=== Attempting to create response message instance ===");
 
-			// 转换为JSON字符串
+			// Convert to JSON string
 			String json = objectMapper.writeValueAsString(data);
-			logger.info("=== 转换为JSON字符串: {} ===", json);
+			logger.info("=== Converted to JSON string: {} ===", json);
 
-			// 尝试使用 unmarshalFrom 方法
+			// Try using readValue method
 			try {
 				McpSchema.JSONRPCMessage message = objectMapper.readValue(json, McpSchema.JSONRPCMessage.class);
-				logger.info("=== 通过 readValue 创建成功 ===");
+				logger.info("=== Successfully created via readValue ===");
 				return message;
 			}
 			catch (Exception e) {
-				logger.warn("=== readValue 失败: {} ===", e.getMessage());
+				logger.warn("=== readValue failed: {} ===", e.getMessage());
 			}
 
-			// 尝试使用 unmarshalFrom 方法
+			// Try using unmarshalFrom method
 			try {
 				TypeReference<McpSchema.JSONRPCMessage> typeRef = new TypeReference<McpSchema.JSONRPCMessage>() {
 				};
 				McpSchema.JSONRPCMessage message = unmarshalFrom(data, typeRef);
-				logger.info("=== 通过 unmarshalFrom 创建成功 ===");
+				logger.info("=== Successfully created via unmarshalFrom ===");
 				return message;
 			}
 			catch (Exception e) {
-				logger.warn("=== unmarshalFrom 失败: {} ===", e.getMessage());
+				logger.warn("=== unmarshalFrom failed: {} ===", e.getMessage());
 			}
 
-			logger.warn("=== 所有创建方法都失败，返回 null ===");
+			logger.warn("=== All creation methods failed, returning null ===");
 			return null;
 		}
 		catch (Exception e) {
 			logger.error("Failed to unmarshal data", e);
-			logger.warn("=== unmarshalFrom 失败: {} ===", e.getMessage());
-			logger.warn("=== 所有创建方法都失败，返回 null ===");
+			logger.warn("=== unmarshalFrom failed: {} ===", e.getMessage());
+			logger.warn("=== All creation methods failed, returning null ===");
 			return null;
 		}
 	}
@@ -628,14 +628,14 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 	}
 
 	/**
-	 * 从响应头中提取Session ID
-	 * @param headers HTTP响应头
+	 * Extract Session ID from response headers
+	 * @param headers HTTP response headers
 	 */
 	private void extractSessionIdFromHeaders(org.springframework.http.HttpHeaders headers) {
-		logger.info("=== 开始从响应头提取Session ID ===");
-		logger.info("=== 响应头: {} ===", headers);
+		logger.info("=== Starting Session ID extraction from response headers ===");
+		logger.info("=== Response headers: {} ===", headers);
 
-		// 尝试从不同的头字段中获取Session ID
+		// Try to get Session ID from different header fields
 		String newSessionId = headers.getFirst("mcp-session-id");
 		if (newSessionId == null) {
 			newSessionId = headers.getFirst("MCP-Session-ID");
@@ -650,30 +650,30 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 		if (newSessionId != null && !newSessionId.trim().isEmpty()) {
 			synchronized (sessionIdLock) {
 				this.sessionId = newSessionId.trim();
-				logger.info("=== 成功提取Session ID: {} ===", this.sessionId);
+				logger.info("=== Successfully extracted Session ID: {} ===", this.sessionId);
 			}
 		}
 		else {
-			logger.warn("=== 响应头中未找到Session ID ===");
+			logger.warn("=== Session ID not found in response headers ===");
 		}
 	}
 
 	/**
-	 * 获取当前Session ID
-	 * @return 当前Session ID，如果未设置则返回null
+	 * Get current Session ID
+	 * @return Current Session ID, returns null if not set
 	 */
 	public String getSessionId() {
 		return sessionId;
 	}
 
 	/**
-	 * 设置Session ID
-	 * @param sessionId 要设置的Session ID
+	 * Set Session ID
+	 * @param sessionId Session ID to set
 	 */
 	public void setSessionId(String sessionId) {
 		synchronized (sessionIdLock) {
 			this.sessionId = sessionId;
-			logger.info("=== 手动设置Session ID: {} ===", this.sessionId);
+			logger.info("=== Manually set Session ID: {} ===", this.sessionId);
 		}
 	}
 

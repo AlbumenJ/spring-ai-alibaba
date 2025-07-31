@@ -515,14 +515,14 @@ public class ReduceOperationTool extends AbstractBaseTool<ReduceOperationTool.Re
 	}
 
 	/**
-	 * 获取最后的终止消息
+	 * Get last termination message
 	 */
 	public String getLastTerminationMessage() {
 		return lastTerminationMessage;
 	}
 
 	/**
-	 * 获取终止时间戳
+	 * Get termination timestamp
 	 */
 	public String getTerminationTimestamp() {
 		return terminationTimestamp;
