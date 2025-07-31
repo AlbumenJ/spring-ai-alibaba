@@ -305,13 +305,15 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 			}
 
 			if (targetFile == null) {
-				return new ToolExecuteResult("未找到文件 '" + fileName + "'。请提供精确的文件名或相对路径。");
+				return new ToolExecuteResult(
+						"File '" + fileName + "' not found. Please provide exact filename or relative path.");
 			}
 
 			String fileContent = Files.readString(targetFile);
 			String actualFileName = planDir.relativize(targetFile).toString();
 
-			log.info("委托给 SummaryWorkflow 处理文件内容提取：文件={}, 查询关键词={}", actualFileName, queryKey);
+			log.info("Delegating to SummaryWorkflow for file content extraction: file={}, query keywords={}",
+					actualFileName, queryKey);
 			Long thinkActRecordId = getCurrentThinkActRecordId();
 			String terminateColumnsString = String.join(",", columns);
 			String result = summaryWorkflow
@@ -321,57 +323,61 @@ public class InnerStorageContentTool extends AbstractBaseTool<InnerStorageConten
 			return new ToolExecuteResult(result);
 		}
 		catch (IOException e) {
-			log.error("获取存储内容失败", e);
-			return new ToolExecuteResult("获取内容失败: " + e.getMessage());
+			log.error("Failed to get storage content", e);
+			return new ToolExecuteResult("Failed to get content: " + e.getMessage());
 		}
 		catch (Exception e) {
-			log.error("SummaryWorkflow 执行失败", e);
-			return new ToolExecuteResult("内容处理失败: " + e.getMessage());
+			log.error("SummaryWorkflow execution failed", e);
+			return new ToolExecuteResult("Content processing failed: " + e.getMessage());
 		}
 	}
 
 	/**
-	 * 从指定文件夹下的所有文件中获取信息
+	 * Get information from all files in specified folder
 	 */
 	private ToolExecuteResult getFolderContent(String folderName, String queryKey, List<String> columns) {
 		if (folderName == null || folderName.trim().isEmpty()) {
-			return new ToolExecuteResult("错误：folder_name参数是必需的");
+			return new ToolExecuteResult("Error: folder_name parameter is required");
 		}
 		if (queryKey == null || queryKey.trim().isEmpty()) {
-			return new ToolExecuteResult("错误：query_key参数是必需的，用于指定要提取的内容关键词");
+			return new ToolExecuteResult(
+					"Error: query_key parameter is required to specify content keywords to extract");
 		}
 		if (columns == null || columns.isEmpty()) {
-			return new ToolExecuteResult("错误：columns参数是必需的，用于指定返回结果的结构化列名");
+			return new ToolExecuteResult(
+					"Error: columns parameter is required to specify structured column names for return results");
 		}
 		try {
 			Path planDir = directoryManager.getRootPlanDirectory(rootPlanId);
 			Path targetFolder = planDir.resolve(folderName);
 
 			if (!Files.exists(targetFolder)) {
-				return new ToolExecuteResult("文件夹 '" + folderName + "' 不存在。");
+				return new ToolExecuteResult("Folder '" + folderName + "' does not exist.");
 			}
 
 			if (!Files.isDirectory(targetFolder)) {
-				return new ToolExecuteResult("'" + folderName + "' 不是一个文件夹。");
+				return new ToolExecuteResult("'" + folderName + "' is not a folder.");
 			}
 
-			// 获取文件夹下的所有文件
+			// Get all files in the folder
 			List<Path> files = Files.list(targetFolder).filter(Files::isRegularFile).toList();
 
 			if (files.isEmpty()) {
-				return new ToolExecuteResult("文件夹 '" + folderName + "' 中没有文件。");
+				return new ToolExecuteResult("No files in folder '" + folderName + "'.");
 			}
 
-			// 合并所有文件内容
+			// Combine all file contents
 			StringBuilder combinedContent = new StringBuilder();
 			for (Path file : files) {
 				String relativePath = planDir.relativize(file).toString();
-				combinedContent.append("=== 文件: ").append(relativePath).append(" ===\n");
+				combinedContent.append("=== File: ").append(relativePath).append(" ===\n");
 				combinedContent.append(Files.readString(file));
 				combinedContent.append("\n\n");
 			}
 
-			log.info("委托给 SummaryWorkflow 处理文件夹内容提取：文件夹={}, 文件数量={}, 查询关键词={}", folderName, files.size(), queryKey);
+			log.info(
+					"Delegating to SummaryWorkflow for folder content extraction: folder={}, file count={}, query keywords={}",
+					folderName, files.size(), queryKey);
 
 			Long thinkActRecordId = getCurrentThinkActRecordId();
 			String terminateColumnsString = String.join(",", columns);

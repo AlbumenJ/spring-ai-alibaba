@@ -236,28 +236,28 @@ public class TextFileOperator extends AbstractBaseTool<TextFileOperator.TextFile
 	private static final String TOOL_NAME = "text_file_operator";
 
 	private final String TOOL_DESCRIPTION = """
-			对文本文件（包括 md、html、css、java 等）执行各种操作。
-			支持的操作：
-			- replace: 替换文件中的特定文本，需要提供 source_text 和 target_text 参数
-			- get_text: 获取文件指定行号范围的内容，需要提供 start_line 和 end_line 参数
-			  限制：单次最多返回500行内容，如需更多内容请多次调用
-			- get_all_text: 获取文件的全部内容
-			  注意：如果文件内容过长，将自动存储到临时文件中并返回文件路径
-			- append: 向文件追加内容，需要提供 content 参数
-			- count_words: 统计当前文件中的单词数量
+			Perform various operations on text files (including md, html, css, java, etc.).
+			Supported operations:
+			- replace: Replace specific text in file, requires source_text and target_text parameters
+			- get_text: Get content from specified line range in file, requires start_line and end_line parameters
+			  Limitation: Maximum 500 lines per call, use multiple calls for more content
+			- get_all_text: Get all content from file
+			  Note: If file content is too long, it will be automatically stored in temporary file and return file path
+			- append: Append content to file, requires content parameter
+			- count_words: Count words in current file
 
-			支持的文件类型包括：
-			- 文本文件 (.txt)
-			- Markdown 文件 (.md, .markdown)
-			- 网页文件 (.html, .css, .scss, .sass, .less)
-			- 编程文件 (.java, .py, .js, .ts, .jsx, .tsx)
-			- 配置文件 (.xml, .json, .yaml, .yml, .properties)
-			- 脚本文件 (.sh, .bat, .cmd)
-			- 日志文件 (.log)
-			- 以及更多基于文本的文件类型
+			Supported file types include:
+			- Text files (.txt)
+			- Markdown files (.md, .markdown)
+			- Web files (.html, .css, .scss, .sass, .less)
+			- Programming files (.java, .py, .js, .ts, .jsx, .tsx)
+			- Configuration files (.xml, .json, .yaml, .yml, .properties)
+			- Script files (.sh, .bat, .cmd)
+			- Log files (.log)
+			- And more text-based file types
 
-			注意：文件操作会自动处理文件的打开和保存，用户无需手动执行这些操作。
-			每个操作都有严格的参数要求，确保操作的准确性和安全性。
+			Note: File operations automatically handle file opening and saving, users do not need to manually perform these operations.
+			Each operation has strict parameter requirements to ensure accuracy and security of operations.
 			""";
 
 	public OpenAiApi.FunctionTool getToolDefinition() {

@@ -82,8 +82,8 @@ public interface ITextFileService {
 	String getCurrentFilePath(String planId);
 
 	/**
-	 * 获取Manus属性
-	 * @return Manus属性
+	 * Get Manus properties
+	 * @return Manus properties
 	 */
 	ManusProperties getManusProperties();
 
@@ -95,7 +95,7 @@ public interface ITextFileService {
 	String getLastOperationResult(String planId);
 
 	/**
-	 * 清理资源
+	 * Clean up resources
 	 */
 	void cleanup();
 

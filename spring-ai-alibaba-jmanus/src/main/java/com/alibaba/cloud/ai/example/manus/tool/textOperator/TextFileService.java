@@ -183,18 +183,18 @@ public class TextFileService implements ApplicationRunner, ITextFileService {
 	}
 
 	/**
-	 * 验证文件路径并返回绝对路径
-	 * @param planId 计划ID
-	 * @param filePath 文件路径
-	 * @return 验证后的绝对路径
-	 * @throws IOException 如果验证失败
+	 * Validate file path and return absolute path
+	 * @param planId Plan ID
+	 * @param filePath File path
+	 * @return Validated absolute path
+	 * @throws IOException If validation fails
 	 */
 	public Path validateFilePath(String planId, String filePath) throws IOException {
 		Path absolutePath = getAbsolutePath(planId, filePath);
 
 		// Check file size (if file exists)
 		if (Files.exists(absolutePath) && Files.size(absolutePath) > 10 * 1024 * 1024) { // 10MB
-																							// 限制
+																							// Restrictions
 			throw new IOException("File is too large (>10MB). For safety reasons, please use a smaller file.");
 		}
 
@@ -202,25 +202,25 @@ public class TextFileService implements ApplicationRunner, ITextFileService {
 	}
 
 	/**
-	 * 获取工作目录相对路径
-	 * @param absolutePath 绝对路径
-	 * @return 相对路径
+	 * Get working directory relative path
+	 * @param absolutePath Absolute path
+	 * @return Relative path
 	 */
 	public String getRelativePath(Path absolutePath) {
 		return unifiedDirectoryManager.getRelativePathFromWorkingDirectory(absolutePath);
 	}
 
 	/**
-	 * 清理指定计划的目录和文件状态
-	 * @param planId 计划ID
+	 * Clean up directory and file status for specified plan
+	 * @param planId Plan ID
 	 */
 	public void cleanupPlanDirectory(String planId) {
 		synchronized (getFileLock(planId)) {
 			try {
-				// 清理文件状态
+				// Clean up file status
 				fileStates.remove(planId);
 
-				// 如果需要，也可以清理目录（谨慎使用）
+				// If needed, can also clean up directory (use with caution)
 				// unifiedDirectoryManager.cleanupRootPlanDirectory(planId);
 
 				log.info("Cleaned up resources for plan: {}", planId);

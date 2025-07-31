@@ -212,8 +212,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 删除MCP服务器（通过ID）
-	 * @param id 服务器ID
+	 * Delete MCP server (by ID)
+	 * @param id Server ID
 	 */
 	@Override
 	public void removeMcpServer(long id) {
@@ -221,8 +221,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 删除MCP服务器（通过名称）
-	 * @param mcpServerName 服务器名称
+	 * Delete MCP server (by name)
+	 * @param mcpServerName Server name
 	 */
 	@Override
 	public void removeMcpServer(String mcpServerName) {
@@ -230,8 +230,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 删除MCP服务器（通用方法）
-	 * @param identifier 服务器ID（Long）或服务器名称（String）
+	 * Delete MCP server (generic method)
+	 * @param identifier Server ID (Long) or server name (String)
 	 */
 	private void removeMcpServer(Object identifier) {
 		McpConfigEntity mcpConfig = null;
@@ -258,8 +258,8 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 获取所有MCP服务器配置
-	 * @return MCP配置实体列表
+	 * Get all MCP server configurations
+	 * @return MCP configuration entity list
 	 */
 	@Override
 	public List<McpConfigEntity> getMcpServers() {
@@ -335,7 +335,7 @@ public class McpService implements IMcpService {
 			entity.setStatus(status);
 			mcpConfigRepository.save(entity);
 
-			// 清除缓存以重新加载服务
+			// Clear cache to reload services
 			cacheManager.invalidateAllCache();
 
 			logger.info("MCP server {} {} successfully", entity.getMcpServerName(), status);

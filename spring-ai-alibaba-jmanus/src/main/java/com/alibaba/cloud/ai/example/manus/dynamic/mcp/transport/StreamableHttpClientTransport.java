@@ -227,23 +227,23 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			return result;
 		}
 		catch (Exception e) {
-			logger.error("=== 发送消息失败 ===", e);
-			logger.error("=== 失败的消息内容: {} ===", message);
+			logger.error("=== Failed to send message ===", e);
+			logger.error("=== Failed message content: {} ===", message);
 			return Mono.error(e);
 		}
 	}
 
 	private Mono<String> sendHttpRequest(String jsonMessage) {
-		logger.info("=== 发送HTTP请求开始 ===");
-		logger.info("=== 请求URL: {} ===", fullUrl);
-		logger.info("=== 请求方法: POST ===");
-		logger.info("=== 当前Session ID: {} ===", sessionId);
+		logger.info("=== Starting HTTP request ===");
+		logger.info("=== Request URL: {} ===", fullUrl);
+		logger.info("=== Request method: POST ===");
+		logger.info("=== Current Session ID: {} ===", sessionId);
 
-		// 构建请求头
+		// Build request headers
 		String acceptHeader = "application/json, text/event-stream";
-		logger.info("=== 请求头: Content-Type=application/json, Accept={} ===", acceptHeader);
-		logger.info("=== 请求体: {} ===", jsonMessage);
-		logger.info("=== 请求体长度: {} 字节 ===", jsonMessage.getBytes().length);
+		logger.info("=== Request headers: Content-Type=application/json, Accept={} ===", acceptHeader);
+		logger.info("=== Request body: {} ===", jsonMessage);
+		logger.info("=== Request body length: {} bytes ===", jsonMessage.getBytes().length);
 
 		// 构建WebClient请求
 		WebClient.RequestBodySpec requestSpec = webClient.post()

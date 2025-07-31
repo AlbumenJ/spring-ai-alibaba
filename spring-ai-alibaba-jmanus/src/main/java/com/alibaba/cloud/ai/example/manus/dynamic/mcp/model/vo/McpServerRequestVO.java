@@ -144,58 +144,58 @@ public class McpServerRequestVO {
 	}
 
 	/**
-	 * 验证请求数据是否有效
-	 * @return true表示有效，false表示无效
+	 * Validate if request data is valid
+	 * @return true if valid, false if invalid
 	 */
 	public boolean isValid() {
 		return validateWithDetails().isEmpty();
 	}
 
 	/**
-	 * 验证请求数据并返回详细错误信息
-	 * @return 错误信息列表，空列表表示验证通过
+	 * Validate request data and return detailed error information
+	 * @return Error message list, empty list means validation passed
 	 */
 	public List<String> validateWithDetails() {
 		List<String> errors = new ArrayList<>();
 
-		// 基本字段验证
+		// Basic field validation
 		if (mcpServerName == null || mcpServerName.trim().isEmpty()) {
-			errors.add("MCP名称不能为空");
+			errors.add("MCP name cannot be empty");
 		}
 
 		if (connectionType == null || connectionType.trim().isEmpty()) {
-			errors.add("连接类型不能为空");
+			errors.add("Connection type cannot be empty");
 		}
 
-		// 根据连接类型验证必需字段
+		// Validate required fields based on connection type
 		if (connectionType != null) {
 			String connectionTypeUpper = connectionType.toUpperCase();
 			switch (connectionTypeUpper) {
 				case "STUDIO":
 					if (command == null || command.trim().isEmpty()) {
-						errors.add("STUDIO类型必须提供命令(command)");
+						errors.add("STUDIO type must provide command");
 					}
 					break;
 				case "SSE":
 					if (url == null || url.trim().isEmpty()) {
-						errors.add("SSE类型必须提供URL");
+						errors.add("SSE type must provide URL");
 					}
 					else if (!isValidUrlFormat(url)) {
-						errors.add("SSE类型的URL格式无效: " + url);
+						errors.add("SSE type URL format is invalid: " + url);
 					}
 					else if (!isSSEUrl(url)) {
-						errors.add("SSE类型的URL路径必须包含'sse'，当前URL: " + url);
+						errors.add("SSE type URL path must contain 'sse', current URL: " + url);
 					}
 					break;
 				case "STREAMING":
 					if (url == null || url.trim().isEmpty()) {
-						errors.add("STREAMING类型必须提供URL");
+						errors.add("STREAMING type must provide URL");
 					}
 					else if (!isValidUrlFormat(url)) {
-						errors.add("STREAMING类型的URL格式无效: " + url);
+						errors.add("STREAMING type URL format is invalid: " + url);
 					}
 					else if (isSSEUrl(url)) {
-						errors.add("STREAMING类型的URL路径不能包含'sse'，当前URL: " + url);
+						errors.add("STREAMING type URL path cannot contain 'sse', current URL: " + url);
 					}
 					break;
 				default:

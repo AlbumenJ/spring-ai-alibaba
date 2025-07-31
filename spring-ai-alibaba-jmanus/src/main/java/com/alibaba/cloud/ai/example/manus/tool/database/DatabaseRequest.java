@@ -78,64 +78,64 @@ public class DatabaseRequest {
 	private String datasourceName;
 
 	/**
-	 * 获取数据库操作类型
-	 * @return 操作类型字符串，如 "execute_sql"、"get_table_name" 等
+	 * Get database operation type
+	 * @return Operation type string, such as "execute_sql", "get_table_name", etc.
 	 */
 	public String getAction() {
 		return action;
 	}
 
 	/**
-	 * 设置数据库操作类型
-	 * @param action 操作类型字符串，不能为null
+	 * Set database operation type
+	 * @param action Operation type string, cannot be null
 	 */
 	public void setAction(String action) {
 		this.action = action;
 	}
 
 	/**
-	 * 获取SQL查询语句
-	 * @return SQL查询语句，可能为null
+	 * Get SQL query statement
+	 * @return SQL query statement, may be null
 	 */
 	public String getQuery() {
 		return query;
 	}
 
 	/**
-	 * 设置SQL查询语句
-	 * @param query SQL查询语句，当操作类型为 "execute_sql" 时使用
+	 * Set SQL query statement
+	 * @param query SQL query statement, used when operation type is "execute_sql"
 	 */
 	public void setQuery(String query) {
 		this.query = query;
 	}
 
 	/**
-	 * 获取文本参数
-	 * @return 文本参数，用于表名过滤等，可能为null
+	 * Get text parameter
+	 * @return Text parameter for table name filtering etc., may be null
 	 */
 	public String getText() {
 		return text;
 	}
 
 	/**
-	 * 设置文本参数
-	 * @param text 文本参数，用于指定表名、注释或其他过滤条件
+	 * Set text parameter
+	 * @param text Text parameter for specifying table names, comments or other filter conditions
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
 	/**
-	 * 获取数据源名称
-	 * @return 数据源名称，如果为null或空则使用默认数据源
+	 * Get data source name
+	 * @return Data source name, if null or empty then use default data source
 	 */
 	public String getDatasourceName() {
 		return datasourceName;
 	}
 
 	/**
-	 * 设置数据源名称
-	 * @param datasourceName 数据源名称，用于指定要使用的数据源
+	 * Set data source name
+	 * @param datasourceName Data source name, used to specify the data source to use
 	 */
 	public void setDatasourceName(String datasourceName) {
 		this.datasourceName = datasourceName;
