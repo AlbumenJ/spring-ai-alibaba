@@ -22,17 +22,17 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * 单个MCP服务器操作请求VO（表单方式） 用于新增和更新单个MCP服务器配置
+ * Single MCP server operation request VO (form method) for adding and updating single MCP server configuration
  */
 public class McpServerRequestVO {
 
 	/**
-	 * 服务器ID，用于区分新增/更新操作 null表示新增，非null表示更新
+	 * Server ID for distinguishing add/update operations. null means add, non-null means update
 	 */
 	private Long id;
 
 	/**
-	 * MCP服务器名称
+	 * MCP server name
 	 */
 	@JsonProperty("mcpServerName")
 	private String mcpServerName;
