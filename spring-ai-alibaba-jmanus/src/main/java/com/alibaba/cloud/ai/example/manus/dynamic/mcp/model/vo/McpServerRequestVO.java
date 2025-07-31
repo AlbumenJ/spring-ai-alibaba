@@ -22,12 +22,14 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Single MCP server operation request VO (form method) for adding and updating single MCP server configuration
+ * Single MCP server operation request VO (form method) for adding and updating single MCP
+ * server configuration
  */
 public class McpServerRequestVO {
 
 	/**
-	 * Server ID for distinguishing add/update operations. null means add, non-null means update
+	 * Server ID for distinguishing add/update operations. null means add, non-null means
+	 * update
 	 */
 	private Long id;
 

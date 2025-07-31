@@ -141,17 +141,17 @@ public class McpService implements IMcpService {
 	}
 
 	/**
-	 * 保存单个MCP服务器配置
-	 * @param requestVO MCP服务器表单请求
-	 * @return 配置实体
-	 * @throws IOException IO异常
+	 * Save single MCP server configuration
+	 * @param requestVO MCP server form request
+	 * @return Configuration entity
+	 * @throws IOException IO exception
 	 */
 	@Override
 	public McpConfigEntity saveMcpServer(McpServerRequestVO requestVO) throws IOException {
-		// 验证请求数据
+		// Validate request data
 		List<String> validationErrors = requestVO.validateWithDetails();
 		if (!validationErrors.isEmpty()) {
-			String errorMessage = "MCP服务器配置验证失败: " + String.join("; ", validationErrors);
+			String errorMessage = "MCP server configuration validation failed: " + String.join("; ", validationErrors);
 			throw new IllegalArgumentException(errorMessage);
 		}
 

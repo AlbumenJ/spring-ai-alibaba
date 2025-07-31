@@ -89,9 +89,9 @@ public class McpTransportBuilder {
 	/**
 	 * Build SSE transport
 	 * @param serverConfig Server configuration
-	 * @param serverName 服务器名称
-	 * @return SSE传输
-	 * @throws IOException 构建失败时抛出异常
+	 * @param serverName Server name
+	 * @return SSE transport
+	 * @throws IOException Thrown when build fails
 	 */
 	private McpClientTransport buildSseTransport(McpServerConfig serverConfig, String serverName) throws IOException {
 		String url = serverConfig.getUrl().trim();
@@ -104,12 +104,12 @@ public class McpTransportBuilder {
 		String path = parsedUrl.getPath();
 		String sseEndpoint = path;
 
-		// 移除前导斜杠
+		// Remove leading slash
 		if (sseEndpoint.startsWith("/")) {
 			sseEndpoint = sseEndpoint.substring(1);
 		}
 
-		// 如果为空则设为null
+		// Set to null if empty
 		if (sseEndpoint.isEmpty()) {
 			sseEndpoint = null;
 		}
@@ -128,11 +128,11 @@ public class McpTransportBuilder {
 	}
 
 	/**
-	 * 构建STUDIO传输
-	 * @param serverConfig 服务器配置
-	 * @param serverName 服务器名称
-	 * @return STUDIO传输
-	 * @throws IOException 构建失败时抛出异常
+	 * Build STUDIO transport
+	 * @param serverConfig Server configuration
+	 * @param serverName Server name
+	 * @return STUDIO transport
+	 * @throws IOException Thrown when build fails
 	 */
 	private McpClientTransport buildStudioTransport(McpServerConfig serverConfig, String serverName)
 			throws IOException {

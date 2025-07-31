@@ -105,10 +105,10 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证URL配置
+	 * Validate URL configuration
 	 * @param url URL
-	 * @param serverName 服务器名称
-	 * @throws IOException 验证失败时抛出异常
+	 * @param serverName Server name
+	 * @throws IOException Thrown when validation fails
 	 */
 	public void validateUrl(String url, String serverName) throws IOException {
 		if (url == null || url.trim().isEmpty()) {
@@ -124,10 +124,10 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 验证SSE URL格式
+	 * Validate SSE URL format
 	 * @param url URL
-	 * @param serverName 服务器名称
-	 * @throws IOException 验证失败时抛出异常
+	 * @param serverName Server name
+	 * @throws IOException Thrown when validation fails
 	 */
 	public void validateSseUrl(String url, String serverName) throws IOException {
 		validateUrl(url, serverName);
@@ -136,7 +136,7 @@ public class McpConfigValidator {
 			URL parsedUrl = new URL(url.trim());
 			String path = parsedUrl.getPath();
 
-			// 检查路径是否包含sse
+			// Check if path contains sse
 			boolean pathContainsSse = path != null && path.toLowerCase().contains("sse");
 
 			if (!pathContainsSse) {
@@ -150,9 +150,9 @@ public class McpConfigValidator {
 	}
 
 	/**
-	 * 检查配置是否启用
-	 * @param mcpConfigEntity MCP配置实体
-	 * @return true如果启用，false如果禁用
+	 * Check if configuration is enabled
+	 * @param mcpConfigEntity MCP configuration entity
+	 * @return true if enabled, false if disabled
 	 */
 	public boolean isEnabled(McpConfigEntity mcpConfigEntity) {
 		return mcpConfigEntity.getStatus() != null && mcpConfigEntity.getStatus() == McpConfigStatus.ENABLE;

@@ -138,22 +138,22 @@ public class StreamableHttpClientTransport implements McpClientTransport {
 			})
 			.subscribe();
 
-		logger.info("=== 启动输入消息处理循环 ===");
-		// 启动输入消息处理循环
+		logger.info("=== Starting input message processing loop ===");
+		// Start input message processing loop
 		incomingMessages.asFlux()
-			.doOnNext(message -> logger.info("=== 从输入流获取消息: {} ===", message))
+			.doOnNext(message -> logger.info("=== Message received from input stream: {} ===", message))
 			.doOnNext(this::handleIncomingMessage)
 			.doOnError(error -> {
-				logger.error("=== 输入流处理出错 ===");
-				logger.error("=== 错误类型: {} ===", error.getClass().getSimpleName());
-				logger.error("=== 错误消息: {} ===", error.getMessage());
-				logger.error("=== 错误堆栈: ===", error);
+				logger.error("=== Input stream processing error ===");
+				logger.error("=== Error type: {} ===", error.getClass().getSimpleName());
+				logger.error("=== Error message: {} ===", error.getMessage());
+				logger.error("=== Error stack trace: ===", error);
 			})
 			.subscribe();
 
 		connected.set(true);
-		logger.info("=== StreamableHttpClientTransport 连接成功 ===");
-		logger.info("=== 连接状态已设置为: {} ===", connected.get());
+		logger.info("=== StreamableHttpClientTransport connection successful ===");
+		logger.info("=== Connection status set to: {} ===", connected.get());
 		return Mono.empty();
 	}
 

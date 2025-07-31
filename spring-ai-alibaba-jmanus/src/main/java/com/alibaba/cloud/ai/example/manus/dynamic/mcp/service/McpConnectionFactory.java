@@ -88,11 +88,11 @@ public class McpConnectionFactory {
 	}
 
 	/**
-	 * 解析服务器配置
-	 * @param connectionConfig 连接配置JSON
-	 * @param serverName 服务器名称
-	 * @return 服务器配置对象
-	 * @throws IOException 解析失败时抛出异常
+	 * Parse server configuration
+	 * @param connectionConfig Connection configuration JSON
+	 * @param serverName Server name
+	 * @return Server configuration object
+	 * @throws IOException Thrown when parsing fails
 	 */
 	private McpServerConfig parseServerConfig(String connectionConfig, String serverName) throws IOException {
 		try (JsonParser jsonParser = objectMapper.createParser(connectionConfig)) {
@@ -105,11 +105,11 @@ public class McpConnectionFactory {
 	}
 
 	/**
-	 * 配置MCP传输
-	 * @param mcpServerName MCP服务器名称
-	 * @param transport MCP客户端传输
-	 * @return MCP服务实体
-	 * @throws IOException 配置失败时抛出异常
+	 * Configure MCP transport
+	 * @param mcpServerName MCP server name
+	 * @param transport MCP client transport
+	 * @return MCP service entity
+	 * @throws IOException Thrown when configuration fails
 	 */
 	private McpServiceEntity configureMcpTransport(String mcpServerName, McpClientTransport transport)
 			throws IOException {
@@ -121,7 +121,7 @@ public class McpConnectionFactory {
 			.clientInfo(new McpSchema.Implementation(mcpServerName, "1.0.0"))
 			.build();
 
-		// 重试机制
+		// Retry mechanism
 		int maxRetries = mcpProperties.getMaxRetries();
 		Exception lastException = null;
 
@@ -149,7 +149,7 @@ public class McpConnectionFactory {
 
 				if (attempt < maxRetries) {
 					try {
-						// 递增等待时间
+						// Incremental wait time
 						Thread.sleep(1000L * mcpProperties.getRetryWaitMultiplier() * attempt);
 					}
 					catch (InterruptedException ie) {

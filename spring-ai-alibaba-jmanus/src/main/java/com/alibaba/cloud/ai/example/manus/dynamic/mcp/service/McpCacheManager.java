@@ -146,9 +146,9 @@ public class McpCacheManager {
 	}
 
 	/**
-	 * 获取MCP服务实体列表
-	 * @param planId 计划ID
-	 * @return MCP服务实体列表
+	 * Get MCP service entity list
+	 * @param planId Plan ID
+	 * @return MCP service entity list
 	 */
 	public List<McpServiceEntity> getServiceEntities(String planId) {
 		try {
@@ -161,8 +161,8 @@ public class McpCacheManager {
 	}
 
 	/**
-	 * 清除缓存
-	 * @param planId 计划ID
+	 * Clear cache
+	 * @param planId Plan ID
 	 */
 	public void invalidateCache(String planId) {
 		toolCallbackMapCache.invalidate(planId != null ? planId : "DEFAULT");
@@ -170,7 +170,7 @@ public class McpCacheManager {
 	}
 
 	/**
-	 * 清除所有缓存
+	 * Clear all cache
 	 */
 	public void invalidateAllCache() {
 		toolCallbackMapCache.invalidateAll();

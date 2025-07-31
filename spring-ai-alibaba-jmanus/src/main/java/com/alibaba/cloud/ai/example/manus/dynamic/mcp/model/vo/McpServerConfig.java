@@ -101,7 +101,8 @@ public class McpServerConfig {
 	}
 
 	/**
-	 * Get connection type. Logic: 1. If has command field → STUDIO 2. If URL suffix is sse → SSE 3. Other cases → STREAMING
+	 * Get connection type. Logic: 1. If has command field → STUDIO 2. If URL suffix is
+	 * sse → SSE 3. Other cases → STREAMING
 	 * @return Connection type
 	 */
 	public McpConfigType getConnectionType() {

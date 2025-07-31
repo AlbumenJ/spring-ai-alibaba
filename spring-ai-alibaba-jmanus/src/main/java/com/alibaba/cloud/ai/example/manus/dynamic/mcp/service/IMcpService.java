@@ -47,19 +47,19 @@ public interface IMcpService {
 
 	/**
 	 * Delete MCP server
-	 * @param id MCP服务器ID
+	 * @param id MCP server ID
 	 */
 	void removeMcpServer(long id);
 
 	/**
-	 * 删除MCP服务器
-	 * @param mcpServerName MCP服务器名称
+	 * Delete MCP server
+	 * @param mcpServerName MCP server name
 	 */
 	void removeMcpServer(String mcpServerName);
 
 	/**
-	 * 获取所有MCP服务器配置
-	 * @return MCP配置实体列表
+	 * Get all MCP server configurations
+	 * @return MCP configuration entity list
 	 */
 	List<McpConfigEntity> getMcpServers();
 
