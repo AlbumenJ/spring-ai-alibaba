@@ -200,7 +200,7 @@ export class PlanExecutionManager {
 
     if (planId) {
       this.state.activePlanId = planId
-      this.initiatePlanExecutionSequence(query ?? '执行计划', planId)
+      this.initiatePlanExecutionSequence(query ?? 'Execute Plan', planId)
     } else {
       console.error('[PlanExecutionManager] Invalid plan execution request: missing planId')
     }
